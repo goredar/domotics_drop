@@ -39,7 +39,9 @@ loop do
   Thread.start(command_server.accept) do |client|
     client.puts 'GDS '+GConfig::PROTOCOL_VERSION
     loop do
-      puts client_strinng = client.gets.chop
+      break if !client_strinng = client.gets.chop
+      client_request = client_strinng.split
+      puts client_request[0]
     end
   end
 end
