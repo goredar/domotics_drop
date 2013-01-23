@@ -38,8 +38,7 @@ class DuinoDigital
     @name
   end
 
-  rescue ArgumentError => e
-    $stderr.puts e.message
-    nil
-  end
+rescue ArgumentError => e
+  $stderr.puts e.message
+  nil
 end
