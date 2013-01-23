@@ -1,0 +1,17 @@
+.span9
+  %h4 #{@title}
+  = render 'shared/notice'
+  %table{:class => "table table-bordered table-hover"}
+    %thead
+      %tr
+        %th #{t('.name')}
+        %th #{t('.class_name')}
+        %th #{t('.options')}
+        %th #{t('.description')}
+    %tbody
+    - type_index.each do |type|
+      %tr
+        %td= link_to "#{type.name}", id: type, action: :edit
+        %td= type.class_name
+        %td= type.options
+        %td= type.description

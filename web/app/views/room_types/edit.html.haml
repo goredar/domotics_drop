@@ -1,0 +1,4 @@
+- @title = t('c.editing')
+- @actions = [{label: t('c.back'), path: room_types_path}]
+= render(partial: 'shared/type_form', object: @room_type)
+= render(partial: 'shared/type_form_buttons', object: @room_type)

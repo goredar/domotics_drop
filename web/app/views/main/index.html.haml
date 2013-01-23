@@ -1,0 +1,7 @@
+- @actions = [{label: t('action_bar.server_refresh'), path: server_refresh_path, options: {remote: true}},
+  {label: t('action_bar.server_clear'), path: server_clear_path, options: {remote: true}}]
+= render 'shared/notice'
+.span7
+.span2
+  #terminal_info
+    = render 'term_output'

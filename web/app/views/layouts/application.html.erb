@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%= render 'layouts/header' %>
+</head>
+<body>
+  <%= render 'layouts/nav_bar' %>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <%= render 'layouts/action_bar' %>
+      <%= yield %>
+    </div>
+  </div>
+  <%= render 'layouts/footer' %>
+  <%= render 'layouts/java' %>
+</body>
+</html>

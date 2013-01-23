@@ -1,0 +1,8 @@
+- if form_error.errors.any?
+  .alert.alert-error
+    %button{:type => "button", :class => "close", :'data-dismiss' => "alert"} ×
+    %h4
+      #{t('c.errored')} #{form_error.errors.count}
+    %ul
+      - form_error.errors.full_messages.each do |msg|
+        %li= msg

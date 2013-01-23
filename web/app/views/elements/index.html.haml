@@ -1,0 +1,22 @@
+- @actions = [{label: t('action_bar.new_elem'), path: new_element_path}]
+.span9
+  %h4 #{t('.title')}
+  = render 'shared/notice'
+  %table{:class => "table table-bordered table-hover"}
+    %thead
+      %tr
+        %th #{t('helpers.label.element.name')}
+        %th #{t('helpers.label.element.element_type')}
+        %th #{t('helpers.label.element.room')}
+        %th #{t('helpers.label.element.device')}
+        %th #{t('helpers.label.element.options')}
+        %th #{t('helpers.label.element.description')}
+    %tbody
+    - @elements.each do |element|
+      %tr
+        %td= link_to "#{element.name}", edit_element_path(element)
+        %td= element.element_type.name
+        %td= element.room.name
+        %td= element.device.name
+        %td= element.options
+        %td= element.description

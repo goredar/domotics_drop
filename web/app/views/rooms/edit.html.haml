@@ -1,0 +1,6 @@
+- @actions = [{label: t('c.back'), path: rooms_path}]
+.span6
+  .well
+    %h4 #{t('c.editing')}
+    = render 'form'
+= render(partial: 'shared/type_form_buttons', object: @room)

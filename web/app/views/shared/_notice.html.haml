@@ -1,0 +1,10 @@
+- if flash[:notice]
+  .alert.alert-success
+    %button{:type => "button", :class => "close", :'data-dismiss' => "alert"} ×
+    %h4 #{t('c.success')}
+    = flash[:notice]
+- elsif flash[:alert]
+  .alert.alert-error
+    %button{:type => "button", :class => "close", :'data-dismiss' => "alert"} ×
+    %h4 #{t('c.error')}
+    = flash[:alert]
