@@ -7,11 +7,11 @@ class DuinoLedStrip < DuinoPWM
     # 0-255 - Internal level
     @bright_level = BrightLevel.new
   end
-  
+
   def brightness
     @bright_level
   end
-  
+
   def brightness=(value)
     raise ArgumentError, 'Error! Invalid value type' unless value.kind_of? Integer
     @bright_level = BrightLevel.new(value)
@@ -25,36 +25,45 @@ class DuinoLedStrip < DuinoPWM
   def brightness_percent=(value)
     self.brightness = value*255/100
   end
-  
+
   def dim(level = nil)
     if level
       self.brightness_percent = level
     else
-      self.brightness -= 256/8
+      self.brightness -= 256/16
     end
   end
-  
+
   def bright(level = nil)
     if level
       self.brightness_percent = level
     else
-      self.brightness += 256/8
+      self.brightness += 256/16
     end
   end
-  
+
   def on
     @board.set_pwm @pin, @bright_level.to_i
   end
-  
+
   def off
     @board.set_low @pin
   end
-  
-  def fade_in(sec = 8)
-    
+
+  def fade_in(sec = 4)
+    self.brightness_percent = 0
+    16.times do
+      bright
+      sleep(sec/16)
+    end
   end
-  
-  def fade_out(sec = 8)
+
+  def fade_out(sec = 4)
+    self.brightness_percent = 100
+    16.times do
+      dim
+      sleep(sec/16)
+    end
   end
 end
 
