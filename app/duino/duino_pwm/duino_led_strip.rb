@@ -1,7 +1,7 @@
 #!/usr/bin/ruby -w
 # coding: utf-8
 
-class DuinoLedStrip(board, room, args_hash)
-  def initialize()
+class DuinoLedStrip
+  def initialize(board, room, args_hash)
   end
 end
