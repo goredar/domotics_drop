@@ -50,11 +50,11 @@ class DuinoLedStrip < DuinoPWM
     @board.set_low @pin
   end
   
-  def fade_in(sec = 10)
+  def fade_in(sec = 8)
     
   end
   
-  def fade_out(sec = 10)
+  def fade_out(sec = 8)
   end
 end
 
