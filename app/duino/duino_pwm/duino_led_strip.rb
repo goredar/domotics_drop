@@ -23,7 +23,7 @@ class DuinoLedStrip < DuinoPWM
   end
   # 0-100%
   def brightness_percent=(value)
-    brightness = value*255/100
+    brightness=value*255/100
   end
   
   def dim(level = nil)
