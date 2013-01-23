@@ -25,6 +25,8 @@ class DuinoLedStrip < DuinoPWM
     self.brightness = value*255/100
   end
 
+  alias_method :level, :brightness_percent=
+  
   def dim(level = nil)
     if level
       self.brightness_percent = level

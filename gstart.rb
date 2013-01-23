@@ -32,18 +32,21 @@ end
 open(GConfig::CONF_BASE+'elements.conf') do |f|
   Marshal.load(f.read).each { |x| eval %Q{#{x[:class]}.new :#{x[:device]}, :#{x[:room]}, #{x[:options]}}}
 end
+
 # Proceed external commands
 command_server = TCPServer.open(50002)
 loop do
   Thread.start(command_server.accept) do |client|
+    client.puts 'GDS '+GConfig::PROTOCOL_VERSION
     loop do
       command = client.gets.chop
       break if !command
-      break if command == 'quit'
+      break if command == 'QUIT'
       command = command.split
       case command[0]
       when 'pinstate'
-        DuinoBoard[:mega_1].event_handler event: :pinstate, pin: command[1].to_i, state: command[2].to_i
+        puts command
+        #DuinoBoard[:mega_1].event_handler event: :pinstate, pin: command[1].to_i, state: command[2].to_i
       else
         nil
       end
