@@ -1,6 +1,0 @@
-
-# Analog pin
-class DuinoADC < DuinoProxy
-end
-class DuinoPWM < DuinoProxy
-end 
