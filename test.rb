@@ -11,4 +11,4 @@ TCPSocket.open('goredar.dyndns.org', 50002) do |socet|
     sleep 0.1
   end
   socet.puts("QUIT")
-end
+end     
