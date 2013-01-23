@@ -9,7 +9,6 @@ class DuinoDoorSensor < DuinoDigital
     @board.set_input_pullup @pin
     @board.set_watch @pin, DuinoSerial::WATCHON
   end
-  #
   def pinstate_to_state(pin_state)
     pin_state == 0 ? :close : :open
   end

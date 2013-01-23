@@ -86,18 +86,18 @@ class DuinoSerial
     # Reset the board
     reset
   end
-  # ---0---
+  
+  # ---0--- SETPINMODE 
   def set_mode(pin, mode)
-    check_pin(pin)
-    raise ArgumentError, 'Error! Invalid mode.' unless MODES.include? mode
-    raise ArgumentError, 'Error! Can not set output mode for watching pin.' if (mode == OUTPUT and @watch_list[pin] == WATCHON)
+    check_pin(pin); check_pin_watch(pin); raise ArgumentError, 'Error! Invalid mode.' unless MODES.include? mode
     warn 'Warning! already set mode.' if @pin_mode[pin] == mode
     @pin_mode[pin] = mode if send_command(SETPINMODE, pin, mode)
   end
   def set_input_pullup(pin)
     set_mode(pin, INPUTPULLUP)
   end
-  # ---1---
+  
+  # ---1--- GETDIGITAL
   def get_digital(pin)
     check_pin(pin)
     if @pin_mode[pin] == OUTPUT
@@ -106,11 +106,10 @@ class DuinoSerial
       send_command(GETDIGITAL, pin)
     end
   end
-  # ---2---
+  
+  # ---2--- SETDIGITAL
   def set_digital(pin, state)
-    check_pin(pin)
-    raise ArgumentError, 'Error! Invalid state.' unless STATES.include? state
-    raise ArgumentError, 'Error! Can not write to watched pin.' if @watch_list[pin] == WATCHON
+    check_pin(pin); check_pin_watch(pin); raise ArgumentError, 'Error! Invalid state.' unless STATES.include? state
     warn "Warning! already set state" if @pin_state[pin] == state
     set_mode(pin, OUTPUT) unless @pin_mode[pin] == OUTPUT
     @pin_state[pin] = state if send_command(SETDIGITAL, pin, state)
@@ -123,17 +122,30 @@ class DuinoSerial
   end
   def toggle(pin)
     set_digital(pin, @pin_state[pin] == HIGH ? LOW : HIGH)
-    @pin_state[pin]
   end
+  
+  # ---3---
+  def get_adc(pin)
+    check_pin(pin); raise ArgumentError, 'Error! Not ADC pin.' unless @adc_pins.include? pin
+    send_command(GETADC, pin)
+  end
+  
+  # ---4---
+  def set_pwm(pin, value)
+    check_pin(pin); check_pin_watch(pin); raise ArgumentError, 'Error! Not PWM or DAC pin.' unless @pwm_pins.include? pin
+    raise ArgumentError, 'Error! Invalid PWM value' unless value.is_a(Integer) and value>=0 and value<=255
+    send_command(SETPWM, pin, value)
+  end
+  
   # ---5---
   def get_watch(pin)
     check_pin(pin)
     send_command(GETWATCH, pin)
   end
+  
   # ---6---
   def set_watch(pin, watch)
-    check_pin(pin)
-    raise ArgumentError, 'Error! Invalid watch mode.' unless W_STATES.include? watch
+    check_pin(pin); raise ArgumentError, 'Error! Invalid watch mode.' unless W_STATES.include? watch
     warn 'Warning! already set watch mode' if @watch_list[pin] == watch
     set_mode(pin, INPUT) if @pin_mode[pin] == OUTPUT
     @watch_list[pin] = watch if send_command(SETWATCH, pin, watch)
@@ -200,9 +212,12 @@ class DuinoSerial
       raise DuinoSerialError, 'Error! Bad reply from board.'
     end
   end
-  # Check if pin in valid range
+  # Checks
   def check_pin(pin)
-    raise ArgumentError, 'Error! Invalid pin number.' unless (0...@number_of_pins).include?(pin)
+    raise ArgumentError, 'Error! Invalid pin number.' unless pin.is_a(Integer) and pin>=0 and pin<@number_of_pins
+  end
+  def check_pin_watch(pin)
+    raise ArgumentError, 'Error! Cant access watched pin.' if @watch_list[pin] == WATCHON
   end
   
 rescue ArgumentError => e

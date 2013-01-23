@@ -21,7 +21,6 @@ class DuinoBoard < DuinoSerial
   end
   # Override default handler
   def event_handler(hash)
-#    Thread.new do
     case hash[:event]
     # Tell element to change state
     when :pinstate
@@ -31,7 +30,6 @@ class DuinoBoard < DuinoSerial
     else
       nil
     end
-#    end
   end
 
   def self.[](symbol)
