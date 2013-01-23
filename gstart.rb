@@ -39,17 +39,7 @@ loop do
   Thread.start(command_server.accept) do |client|
     client.puts 'GDS '+GConfig::PROTOCOL_VERSION
     loop do
-      command = client.gets.chop
-      puts command
-      break if !command
-      break if command == 'QUIT'
-      command = command.split
-      case command[0]
-      when 'pinstate'
-        #DuinoBoard[:mega_1].event_handler event: :pinstate, pin: command[1].to_i, state: command[2].to_i
-      else
-        nil
-      end
+      puts client_strinng = client.gets.chop
     end
   end
 end
