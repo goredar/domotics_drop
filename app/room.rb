@@ -20,10 +20,10 @@ class Room
   end
   # Register element
   def add_element(element, name)
-    # !!! avoid dup name
+    name = name.to_sym unless name.is_a? Symbol
     @elements[name] = element
     # Add method with the same name as elements symbol
-    instance_eval %Q{def #{name.to_s}; @elements[:#{name}]; end;}
+    instance_eval %Q{def #{name}; @elements[:#{name}]; end;}
   end
   # Return element object
   def [](symbol)
