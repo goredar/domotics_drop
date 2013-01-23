@@ -3,7 +3,7 @@
 
 # Digital pin
 class DuinoDigital
-  def initialize(board, room, args_hash)
+  def initialize(board, room, args_hash = {})
     # Save parents
     @board, @pin, @room, @name = DuinoBoard[board], args_hash[:pin], Room[room], args_hash[:name]
     raise ArgumentError, 'Error! Pin not specified' unless @pin
