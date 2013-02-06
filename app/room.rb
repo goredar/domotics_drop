@@ -5,8 +5,9 @@ module Domotics
   class Room
     @@rooms = {}
 
-    def initialize(symbol, args_hash)
-      @@rooms[symbol] = self
+    def initialize(args_hash = {})
+      name = args_hash[:name]
+      @@rooms[name] = self
       # Hash of elements
       @elements = {}
       # New queue thread
