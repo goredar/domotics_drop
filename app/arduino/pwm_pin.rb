@@ -3,7 +3,7 @@
 
 class DuinoPWM
   def initialize(board, pin_number)
-    @@board, @pin = DuinoBoard[board], pin_number
+    @board, @pin = DuinoBoard[board], pin_number
   end
   
 rescue ArgumentError => e

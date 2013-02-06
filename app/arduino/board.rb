@@ -25,6 +25,7 @@ module Arduino
       case hash[:event]
       # Tell element to change state
       when :pinstate
+        @pins[hash[:pin]].on_state_changed hash[:state]
       when :boardreset
         nil
       else
