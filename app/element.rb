@@ -4,7 +4,6 @@
 module Domotics
   class Element
     def initialize(args_hash = {})
-      super
       @room = args_hash[Room[:room]]
       @room.register_element self, args_hash[:name]
       @state = :off
