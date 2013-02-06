@@ -4,7 +4,7 @@
 module Domotics
   class Element
     def initialize(args_hash = {})
-      @room = args_hash[Room[:room]]
+      @room = Room[args_hash[:room]]
       @room.register_element self, args_hash[:name]
       @state = :off
     end
