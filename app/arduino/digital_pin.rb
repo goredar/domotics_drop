@@ -9,18 +9,18 @@ module Arduino
       @board, @pin = DuinoBoard[args_hash[:board]], args_hash[:pin]
       @board.register_pin self, @pin
     end
-    
-    def state!
+    def hardware_state
       to_logical @board.get_digital @pin
     end
-    def set_state(value)
+    def state=(value)
       @board.set_digital @pin, to_digital value
     end
-    
+    #  Override in children for needed action
     def on_state_changed(pin_state)
+      # Dummy
       p pin_state
     end
-    
+    #  Override in children if other states
     def to_logical(value)
       value == ArduinoSerial::LOW ? :off : :on
     end
@@ -34,6 +34,7 @@ module Arduino
         ArduinoSerial::HIGH
       end
     end
+    
   rescue ArgumentError => e
     $stderr.puts e.message
     nil

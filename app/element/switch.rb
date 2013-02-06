@@ -13,21 +13,21 @@ module Domotics
       @lag = nil
     end
     def on(timer = nil)
-      @state = :on if @board.set_high @pin
+      state = :on
       lag(:off, timer)
     end
     def delay_on(timer)
       lag(:on, timer)
     end
     def off(timer = nil)
-      @state = :off if @board.set_low @pin
+      state = :off
       lag(:on, timer)
     end
     def delay_off(timer)
       lag(:off, timer)
     end
     def switch(timer = nil)
-      @state = pinstate_to_state(@board.toggle(@pin))
+      state = state == :off ? :on : :off
       lag(:switch, timer)
     end
     def delay_switch(timer)

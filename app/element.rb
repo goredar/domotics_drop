@@ -4,13 +4,19 @@
 module Domotics
   class Element
     def initialize(args_hash = {})
+      super
       @room = args_hash[Room[:room]]
       @room.register_element self, args_hash[:name]
       @state = :off
-      super
     end
     def state
       @state
+    end
+    def state=(value)
+      # Set hardware state
+      super to_digital(value)
+      # And save it
+      @state = value
     end
     def on_state_changed(pin_state)
       @state = to_logical pin_state
