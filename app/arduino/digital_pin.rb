@@ -6,7 +6,7 @@ module Arduino
   module DigitalPin
     def initialize(args_hash = {})
       super
-      @board = ArduinoBoard[args_hash[:board]]
+      @board = ArduinoBoard[args_hash[:device]]
       @pin = args_hash[:pin]
       @board.register_pin self, @pin
     end
