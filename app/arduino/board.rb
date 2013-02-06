@@ -7,7 +7,6 @@ module Arduino
     @@boards = {}
 
     def initialize(args_hash = {})
-      p args_hash
       # Array of pins objects
       @pins = []
       @@boards[args_hash[:name]] = self

@@ -7,8 +7,8 @@ module Domotics
     def on_event(element)
       case element.state
       when :move
-        light.on if door.close?
-      when :nomove
+        lights.on if door.close?
+      when :no_move
         nil
       when :open
         lights.on 30

@@ -10,22 +10,24 @@ module Arduino
       @pin = args_hash[:pin]
       @board.register_pin self, @pin
     end
-    def hardware_state
-      to_logical @board.get_digital @pin
+    def state!
+      to_hls @board.get_digital(@pin)
     end
     def state=(value)
-      @board.set_digital @pin, to_digital(value)
+      @board.set_digital @pin, to_lls(value)
     end
     #  Override in children for needed action
     def on_state_changed(pin_state)
       # Dummy
       p pin_state
     end
-    #  Override in children if other states
-    def to_logical(value)
-      value == ArduinoSerial::LOW ? :off : :on
+    # Override in children if other states
+    # Convert to High Level State
+    def to_hls(value)
+      value == ArduinoSerial::HIGH ? :on : :off
     end
-    def to_digital(value)
+    # Convert to Low Level State
+    def to_lls(value)
       case value
       when ArduinoSerial::LOW, ArduinoSerial::HIGH
         value

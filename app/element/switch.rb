@@ -5,11 +5,8 @@
 module Domotics
   class Switch < Element
     include Arduino::DigitalPin
-    ACTION_LIST = [:on, :off, :switch]
     MINIMUM_LAG = 2
     def initialize(args_hash = {})
-      p self.class.ancestors
-      p args_hash
       super
       # Identifier of lag thread
       @lag = nil
@@ -38,8 +35,6 @@ module Domotics
     def lag(action = nil, timer = nil)
       # Kill previous action -> out of date
       @lag.kill if @lag
-      # Check args
-      raise ArgumentError unless ACTION_LIST.include? action
       raise ArgumentError unless (timer.is_a?(Integer) and timer >= MINIMUM_LAG)
       # Delayed action
       @lag = Thread.new do
