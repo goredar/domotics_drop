@@ -3,11 +3,12 @@
 
 module Domotics
   class RGBLedStrip
-    def initialize(board, room, args_hash = {})
-      @r_strip = DuinoLedStrip.new(board, room, {name: (name+'_r').to_sym, pin: args_hash[:r_pin]})
-      @g_strip = DuinoLedStrip.new(board, room, {name: (name+'_g').to_sym, pin: args_hash[:g_pin]})
-      @b_strip = DuinoLedStrip.new(board, room, {name: (name+'_b').to_sym, pin: args_hash[:b_pin]})
-      Room[room].add_element self, args_hash[:name]
+    def initialize(args_hash = {})
+      %w(r g b).each do |x|
+        instance_eval %Q{ @#{x}_strip = Dimmer.new { device: args_hash[:device], room: args_hash[:room],
+        name: (args_hash[:device]+'_#{x}_strip').to_sym, pin: args_hash[:#{x}_pin] } }
+      end
+      Room[args_hash[:room]].register_element self, args_hash[:name]
     end
     def red
       @r_strip
@@ -23,9 +24,5 @@ module Domotics
       @g_strip.brightness = g
       @b_strip.brightness = b
     end
-    
-  rescue ArgumentError => e
-    $stderr.puts e.message
-    nil
   end
 end

@@ -5,7 +5,7 @@
 module Domotics
   class Switch < Element
     include Arduino::DigitalPin
-    MINIMUM_LAG = 2
+    MINIMUM_LAG = 1
     def initialize(args_hash = {})
       super
       # Identifier of lag thread
