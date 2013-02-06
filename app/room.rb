@@ -6,6 +6,7 @@ module Domotics
     @@rooms = {}
 
     def initialize(args_hash = {})
+      p args_hash
       name = args_hash[:name]
       @@rooms[name] = self
       # Hash of elements

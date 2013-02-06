@@ -9,6 +9,7 @@ module Domotics
     MINIMUM_LAG = 2
     def initialize(args_hash = {})
       p self.class.ancestors
+      p args_hash
       super
       # Identifier of lag thread
       @lag = nil
