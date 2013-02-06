@@ -54,6 +54,7 @@ loop do
       else
         client.puts 'UNKNOWN'
         break
+      end
     end
   end
 end
