@@ -2,7 +2,7 @@
 # coding: utf-8
 
 module Arduino
-  class PWMPin < DigitalPin
-    
+  module PWMPin
+    include DigitalPin
   end
 end
