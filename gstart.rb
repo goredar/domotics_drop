@@ -30,9 +30,9 @@ for file in %w(devices.conf rooms.conf elements.conf) do
 end
 
 5.times do
-  wc.lights.on
+  Room[:wc].lights.on
   sleep 1
-  wc.lights.off
+  Room[:wc].lights.off
   sleep 1
 end
 
