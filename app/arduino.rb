@@ -205,7 +205,7 @@ module Arduino
     end
     # Checks
     def check_pin(pin)
-      raise ArgumentError, 'Error! Invalid pin number.' unless pin.is_a(Integer) and pin>=0 and pin<@number_of_pins
+      raise ArgumentError, 'Error! Invalid pin number.' unless pin.is_a?(Integer) and pin>=0 and pin<@number_of_pins
     end
     def check_pin_watch(pin)
       raise ArgumentError, 'Error! Cant access watched pin.' if @watch_list[pin] == WATCHON
