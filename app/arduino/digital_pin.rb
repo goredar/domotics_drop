@@ -12,7 +12,6 @@ module Arduino
       pinstate_to_state(@board.get_digital(@pin))
     end
     def state=(state)
-      case state
     end
     # Watch alarm from board
     def pinstate_changed(pin_state)
