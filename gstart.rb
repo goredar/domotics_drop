@@ -34,14 +34,26 @@ open(GConfig::CONF_BASE+'elements.conf') do |f|
 end
 
 # Proceed external commands
-command_server = TCPServer.open(50002)
+command_server = TCPServer.open(GConfig::SERVER_PORT)
 loop do
   Thread.start(command_server.accept) do |client|
     client.puts 'GDS '+GConfig::PROTOCOL_VERSION
     loop do
-      break if !client_strinng = client.gets.chop
-      client_request = client_strinng.split
-      puts client_request[0]
+      break if !client_string = client.gets.chop
+      client_request = client_string.split
+      case client_request[0]
+      when 'GET'
+        client.puts 'OK'
+      when 'SET'
+        client.puts 'OK'
+      when 'SCRIPT'
+        client.puts 'OK'
+      when 'QUIT'
+        client.puts 'BYE'
+        break
+      else
+        client.puts 'UNKNOWN'
+        break
     end
   end
 end

@@ -1,13 +1,15 @@
 #!/usr/bin/ruby -w
 # coding: utf-8
 
-# Direct switch
-class DuinoSwitch < DuinoDigital
+# Simple switch
+class SimpleSwitch
   ACTION_LIST = [:on, :off, :switch]
   MINIMUM_LAG = 2
-  def initialize(*args)
-    super
+  def initialize(args_hash = {})
+    # Identifier of lag thread
     @lag = nil
+    # Hardware handler
+    @hardware = nil
   end
   def on(timer = nil)
     @state = :on if @board.set_high @pin

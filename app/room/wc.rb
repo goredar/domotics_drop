@@ -3,7 +3,7 @@
 
 # Water Closet
 class WC < Room
-  def analize(element)
+  def on_event(element)
     case element.state
     when :move
       light.on if door.close?
