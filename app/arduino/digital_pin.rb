@@ -3,38 +3,35 @@
 
 # Digital pin
 module Arduino
-  class DigitalPin
-    def initialize(board, pin_number, bind_element = nil)
-      @board, @pin, @bind_element = DuinoBoard[board], pin_number, bind_element
+  module DigitalPin
+    def initialize(args_hash = {})
+      super
+      @board, @pin = DuinoBoard[args_hash[:board]], args_hash[:pin]
       @board.register_pin self, @pin
     end
-    def state
-      convert_state @board.get_digital @pin
+    
+    def state!
+      to_logical @board.get_digital @pin
     end
-    def state=(value)
-      @board.set_digital @pin, convert_state value
+    def set_state(value)
+      @board.set_digital @pin, to_digital value
     end
+    
     def on_state_changed(pin_state)
-      @bind_element.on_event event: :state_changed, value: convert_state pin_state if !@bind_element
-    end
-    def bind_element(element)
-      @bind_element = element
+      p pin_state
     end
     
-    private
-    
-    def convert_state(value)
+    def to_logical(value)
+      value == ArduinoSerial::LOW ? :off : :on
+    end
+    def to_digital(value)
       case value
-      when ArduinoSerial::LOW
-        :off
+      when ArduinoSerial::LOW, ArduinoSerial::HIGH
+        value
       when :off
         ArduinoSerial::LOW
-      when ArduinoSerial::HIGH
-        :on
       when :on
         ArduinoSerial::HIGH
-      else
-        raise ArgumentError 'Invalid state to convert'
       end
     end
   rescue ArgumentError => e

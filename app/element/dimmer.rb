@@ -2,7 +2,7 @@
 # coding: utf-8
 
 module Domotics
-  class DuinoLedStrip < DuinoPWM
+  class DuinoLedStrip < Element
     def initialize(*args)
       super
       # 0-255 - Internal level

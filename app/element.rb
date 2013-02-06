@@ -3,26 +3,18 @@
 
 module Domotics
   class Element
-    def initialize(device, room, args_hash = {})
-      @parent = Room[room]
-      @parent.register_element self, args_hash[:name]
+    def initialize(args_hash = {})
+      @room = args_hash[Room[:room]]
+      @room.register_element self, args_hash[:name]
       @state = :off
-      @hardware = nil
+      super
     end
     def state
       @state
     end
-    def on_event(event_hash = {})
-      case event_hash[:event]
-      when :state_changed
-        @state = convert_state value
-        @room.event_push self.dup
-      else
-        nil
-      end
-    end
-    def convert_state(value)
-      value
+    def on_state_changed(pin_state)
+      @state = to_logical pin_state
+      @room.push_event self.dup
     end
   end
 end

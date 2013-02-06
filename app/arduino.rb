@@ -77,7 +77,7 @@ module Arduino
           when 3
             event_handler :event => EVENTS[message[0]], :pin => message[1].to_i, :state => message[2].to_i
           when 2
-            @reply.push(message.collect!{ |m| m.to_i })
+            @reply.push(message.collect{ |m| m.to_i })
           else
             raise ArduinoSerialError
           end

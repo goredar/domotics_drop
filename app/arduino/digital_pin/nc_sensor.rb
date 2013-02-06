@@ -3,8 +3,8 @@
 
 module Arduino
   # Normal_close sensor
-  class NCSensor < DigitalPin
-    def initialize(*args)
+  module NCSensor < DigitalPin
+    def initialize(args_hash = {})
       super
       @board.set_input_pullup @pin
       @board.set_watch @pin, DuinoSerial::WATCHON

@@ -6,7 +6,7 @@ module Arduino
   class ArduinoBoard < ArduinoSerial
     @@boards = {}
 
-    def initialize(board_name = :board007, args_hash)
+    def initialize(args_hash = {})
       # Array of pins objects
       @pins = []
       @@boards[board_name] = self

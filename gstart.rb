@@ -22,15 +22,11 @@ Thread.class_eval do
   end
 end
 
-# Create devices and rooms
-for file in %w(devices.conf rooms.conf) do
+# Create devices, rooms and elements
+for file in %w(devices.conf rooms.conf elements.conf) do
   open(GConfig::CONF_BASE+file) do |f|
-    Marshal.load(f.read).each { |name, conf| eval %Q{#{conf[:class]}.new :#{name}, #{conf[:options]}}}
+    Marshal.load(f.read).each { |x| eval %Q{#{x[:klass]}.new #{x[:options]}}}
   end
-end
-# and elements
-open(GConfig::CONF_BASE+'elements.conf') do |f|
-  Marshal.load(f.read).each { |x| eval %Q{#{x[:class]}.new :#{x[:device]}, :#{x[:room]}, #{x[:options]}}}
 end
 
 # Proceed external commands
@@ -51,6 +47,10 @@ loop do
       when 'QUIT'
         client.puts 'BYE'
         break
+      when 'TEST'
+        client.puts 'OK'
+      when 'DEBUG'
+        client.puts 'OK'
       else
         client.puts 'UNKNOWN'
         break

@@ -3,14 +3,14 @@
 
 # Simple switch
 module Domotics
-  class Switch
+  class Switch < Element
+    include Arduino::DigitalPin
     ACTION_LIST = [:on, :off, :switch]
     MINIMUM_LAG = 2
     def initialize(args_hash = {})
+      super
       # Identifier of lag thread
       @lag = nil
-      # Hardware handler
-      
     end
     def on(timer = nil)
       @state = :on if @board.set_high @pin

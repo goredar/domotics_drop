@@ -3,8 +3,8 @@
 
 module Arduino
   # Normal_open sensor
-  class NOSensor < DigitalPin
-    def initialize(*args)
+  module NOSensor < DigitalPin
+    def initialize(args_hash = {})
       super
       @board.set_watch @pin, DuinoSerial::WATCHON
     end

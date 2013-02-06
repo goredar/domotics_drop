@@ -13,8 +13,8 @@ class ElementsController < ApplicationController
           rescue Exception => e
             opt = Hash.new
           end
-          opt.merge! name: x.name.to_sym
-          { class: x.element_type.class_name.to_sym, room: x.room.name.to_sym, device: x.device.name.to_sym, options: opt }
+          opt.merge! name: x.name.to_sym , room: x.room.name.to_sym, device: x.device.name.to_sym
+          { klass: x.element_type.class_name.to_sym, options: opt }
         end
         send_data Marshal.dump(data)
       end
