@@ -29,6 +29,13 @@ for file in %w(devices.conf rooms.conf elements.conf) do
   end
 end
 
+5.times do
+  wc.lights.on
+  sleep 1
+  wc.lights.off
+  sleep 1
+end
+
 # Proceed external commands
 command_server = TCPServer.open(GConfig::SERVER_PORT)
 loop do
