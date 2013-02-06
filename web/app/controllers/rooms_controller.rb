@@ -8,16 +8,16 @@ class RoomsController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @rooms }
       format.conf do
-        data = @rooms.each do |x|
+        data = @rooms.collect do |x|
           begin
             opt = eval("{#{x.room_type.options}}").merge(eval("{#{x.options}}"))
           rescue Exception => e
             opt = Hash.new
           end
-          opt.merge! name: x.name.to_sym]
+          opt.merge! name: x.name.to_sym
           { klass: x.room_type.class_name.to_sym, options: opt }
         end
-        send_data Marshal.dump(data)
+        send_data Marshal.dump data
       end
     end
   end

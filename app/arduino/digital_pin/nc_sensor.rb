@@ -3,7 +3,8 @@
 
 module Arduino
   # Normal_close sensor
-  module NCSensor < DigitalPin
+  module NCSensor
+    include  DigitalPin
     def initialize(args_hash = {})
       super
       @board.set_input_pullup @pin

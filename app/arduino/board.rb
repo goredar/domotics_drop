@@ -9,8 +9,8 @@ module Arduino
     def initialize(args_hash = {})
       # Array of pins objects
       @pins = []
-      @@boards[board_name] = self
-      super(args_hash)
+      @@boards[args_hash[:name]] = self
+      super
     end
     # Register pin for watch events
     def register_pin(pin_object, number)

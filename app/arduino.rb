@@ -43,14 +43,12 @@ module Arduino
       case b_type
       when :nano
         port_str = args_hash[:port] || "/dev/ttyUSB0"
-        @hard_reset = true
         @number_of_pins = 22
         # todo: address of last 2 pins on nano???
         @adc_pins = Array.new(8) { |index| 14+index }
         @pwm_pins = [2,5,6,9,10,11]
       when :mega
         port_str = args_hash[:port] || "/dev/ttyACM0"
-        @hard_reset = false
         @number_of_pins = 70
         @adc_pins = Array.new(16) { |index| 54+index }
         @pwm_pins = Array.new(12) { |index| 2+index } + [44,45,46]
@@ -182,13 +180,11 @@ module Arduino
     def reset
       $stderr.print("#{Time.new.strftime("%F %T: ")}Initializing...")
       # Pin states and mods
-      @pin_mode = Array.new(@high_pin+1, INPUT)
-      @watch_list = Array.new(@high_pin+1, WATCHOFF)
+      @pin_mode = Array.new(@number_of_pins, INPUT)
+      @watch_list = Array.new(@number_of_pins, WATCHOFF)
       # Hard reset board
-      if @hard_reset
-        @board.dtr = 0
-        sleep(2)
-      end
+      @board.dtr = 0
+      sleep(2)
       $stderr.puts("OK!")
       $stderr.print("#{Time.new.strftime("%F %T: ")}Reset to defaults...")
       if send_command(DEFAULTS)

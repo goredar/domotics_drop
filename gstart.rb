@@ -25,7 +25,7 @@ end
 # Create devices, rooms and elements
 for file in %w(devices.conf rooms.conf elements.conf) do
   open(GConfig::CONF_BASE+file) do |f|
-    Marshal.load(f.read).each { |x| eval %Q{#{x[:klass]}.new #{x[:options]}}}
+    Marshal.load(f.read).each { |x| eval %Q{ #{x[:klass]}.new(#{x[:options]}) } }
   end
 end
 
