@@ -14,7 +14,7 @@ module Arduino
       to_logical @board.get_digital @pin
     end
     def set_state(value)
-      @board.set_digital @pin, to_digital value
+      @board.set_digital @pin, to_digital(value)
     end
     
     def on_state_changed(pin_state)

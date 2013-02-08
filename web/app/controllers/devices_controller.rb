@@ -8,7 +8,7 @@
       format.html # index.html.erb
       format.json { render json: @devices }
       format.conf do
-        data = @devices.each do |x|
+        data = @devices.collect do |x|
           begin
             opt = eval("{#{x.device_type.options}}").merge(eval("{#{x.options}}"))
           rescue Exception => e

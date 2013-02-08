@@ -8,7 +8,7 @@ class RoomsController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @rooms }
       format.conf do
-        data = @rooms.each do |x|
+        data = @rooms.collect do |x|
           begin
             opt = eval("{#{x.room_type.options}}").merge(eval("{#{x.options}}"))
           rescue Exception => e
