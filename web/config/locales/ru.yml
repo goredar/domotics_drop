@@ -58,7 +58,7 @@ ru:
     configure: 'Настройка'
     htpc: 'Медиа центр'
     main: 'Главная'
-    title: "Goredar's Domotics -> Настройка"
+    title: "Goredar's Domotics"
     torrent: 'Трансмиссия'
   room_types:
     index:
