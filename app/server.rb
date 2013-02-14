@@ -3,7 +3,6 @@
 
 require 'open-uri'
 require 'socket'
-require 'gserver'
 
 module Domotics
   # Configuration
@@ -11,8 +10,8 @@ module Domotics
   SERVER_PORT = 50002
   PROTOCOL_VERSION = '1'
   
-  class DomServer < GServer
-    def initialize(port=SERVER_PORT, host = '0.0.0.0', *args)
+  class DomServer
+    def initialize
       show_exception_in_threads
       # Create devices, rooms and elements
       for file in %w(devices.conf rooms.conf elements.conf) do
@@ -20,7 +19,6 @@ module Domotics
           Marshal.load(f.read).each { |x| eval %Q{ #{x[:klass]}.new(#{x[:options]}) } }
         end
       end
-      super(port, host, *args)
     end
     def show_exception_in_threads
       Thread.class_eval do
@@ -37,9 +35,35 @@ module Domotics
         end
       end
     end
-    def serve(io)
-      p io
-      io.puts 'GDS '+Domotics::PROTOCOL_VERSION
+    def start
+      server = TCPServer.new SERVER_PORT
+      loop do
+        Thread.start(server.accept) do |client|
+          io.puts 'GDS '+Domotics::PROTOCOL_VERSION
+          loop do
+            break if !client_string = client.gets.chop
+            client_request = client_string.split
+            case client_request[0]
+            when 'GET'
+              client.puts 'OK'
+            when 'SET'
+              client.puts 'OK'
+            when 'SCRIPT'
+              client.puts 'OK'
+            when 'QUIT'
+              client.puts 'BYE'
+              break
+            when 'TEST'
+              client.puts 'OK'
+            when 'DEBUG'
+              client.puts 'OK'
+            else
+              client.puts 'UNKNOWN'
+              break
+            end
+          end
+        end
+      end
     end
   end
 end
