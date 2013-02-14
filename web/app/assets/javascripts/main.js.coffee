@@ -1,6 +1,6 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-#$(document).ready -> setInterval ->
-#  $('#terminal_info').load('main/server_refresh')
-#, 500
+resizeRoom = ->
+  $(".room").each ->
+   $(this).height(0.6*$(this).width())
+
+$(window).resize(resizeRoom).triggerHandler "resize"
+  

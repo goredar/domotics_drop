@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(:version => 20121211115831) do
     t.string   "name"
     t.integer  "device_type_id"
     t.string   "options"
+    t.string   "description"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.string   "description"
   end
 
   create_table "element_types", :force => true do |t|
