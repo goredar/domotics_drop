@@ -38,29 +38,8 @@ module Domotics
       end
     end
     def serve(io)
+      p io
       io.puts 'GDS '+Domotics::PROTOCOL_VERSION
-      loop do
-        break if !client_string = io.gets.chop
-        client_request = client_string.split
-        case client_request[0]
-        when 'GET'
-          client.puts 'OK'
-        when 'SET'
-          client.puts 'OK'
-        when 'SCRIPT'
-          client.puts 'OK'
-        when 'QUIT'
-          client.puts 'BYE'
-          break
-        when 'TEST'
-          client.puts 'OK'
-        when 'DEBUG'
-          client.puts 'OK'
-        else
-          client.puts 'UNKNOWN'
-          break
-        end
-      end
     end
   end
 end
