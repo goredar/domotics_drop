@@ -27,4 +27,4 @@ end
   sleep 1
 end
 
-loop
+srv.join
