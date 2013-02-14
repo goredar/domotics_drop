@@ -3,7 +3,8 @@
 
 Dir[File.dirname(__FILE__) + '/app/**/*.rb'].sort.each {|file| require file}
 
-srv = Domotics::Server.new
+srv = Domotics::DomServer.new
+srv.start
 
 5.times do
   p 'on'
@@ -25,6 +26,3 @@ end
   p 'off'
   sleep 1
 end
-
-
-srv.run

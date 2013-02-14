@@ -3,6 +3,7 @@
 
 require 'open-uri'
 require 'socket'
+require 'gserver'
 
 module Domotics
   # Configuration
@@ -10,8 +11,8 @@ module Domotics
   SERVER_PORT = 50002
   PROTOCOL_VERSION = '1'
   
-  class Server
-    def initialize
+  class DomServer < GServer
+    def initialize(port=SERVER_PORT, *args)
       show_exception_in_threads
       # Create devices, rooms and elements
       for file in %w(devices.conf rooms.conf elements.conf) do
@@ -19,6 +20,7 @@ module Domotics
           Marshal.load(f.read).each { |x| eval %Q{ #{x[:klass]}.new(#{x[:options]}) } }
         end
       end
+      super(port, *args)
     end
     def show_exception_in_threads
       Thread.class_eval do
@@ -35,33 +37,28 @@ module Domotics
         end
       end
     end
-    def run
-      command_server = TCPServer.open(Domotics::SERVER_PORT)
+    def serve(io)
+      io.puts 'GDS '+Domotics::PROTOCOL_VERSION
       loop do
-        Thread.start(command_server.accept) do |client|
-          client.puts 'GDS '+Domotics::PROTOCOL_VERSION
-          loop do
-            break if !client_string = client.gets.chop
-            client_request = client_string.split
-            case client_request[0]
-            when 'GET'
-              client.puts 'OK'
-            when 'SET'
-              client.puts 'OK'
-            when 'SCRIPT'
-              client.puts 'OK'
-            when 'QUIT'
-              client.puts 'BYE'
-              break
-            when 'TEST'
-              client.puts 'OK'
-            when 'DEBUG'
-              client.puts 'OK'
-            else
-              client.puts 'UNKNOWN'
-              break
-            end
-          end
+        break if !client_string = io.gets.chop
+        client_request = client_string.split
+        case client_request[0]
+        when 'GET'
+          client.puts 'OK'
+        when 'SET'
+          client.puts 'OK'
+        when 'SCRIPT'
+          client.puts 'OK'
+        when 'QUIT'
+          client.puts 'BYE'
+          break
+        when 'TEST'
+          client.puts 'OK'
+        when 'DEBUG'
+          client.puts 'OK'
+        else
+          client.puts 'UNKNOWN'
+          break
         end
       end
     end
