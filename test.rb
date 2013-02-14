@@ -3,10 +3,10 @@
 
 require 'socket'
 TCPSocket.open('goredar.dyndns.org', 50002) do |socket|
-  puts Marshal.load socket.gets.chop
+  p eval socket.gets
   5.times do
-    socket.puts Marshal.dump request: :test
-    p Marshal.load socket.gets.chop
+    socket.puts '{request: :test}'
+    p eval socket.gets
   end
   socket.puts("QUIT")
 end

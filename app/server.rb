@@ -39,25 +39,30 @@ module Domotics
       server = TCPServer.new SERVER_PORT
       loop do
         Thread.start(server.accept) do |client|
-          client.puts Marshal.dump version: 'GDS '+Domotics::PROTOCOL_VERSION
+          client.puts "{version: 'GDS #{Domotics::PROTOCOL_VERSION}'"
           loop do
-            break if !message = Marshal.load(client.gets.chop)
-            case message[:request]
+            break if !message = client.gets
+            begin 
+              data = eval message
+            rescue
+              break
+            end
+            case data[:request]
             when :get
-              client.puts Marshal.dump response: :ok
+              client.puts '{response: :ok}'
             when :set
-              client.puts Marshal.dump response: :ok
+              client.puts '{response: :ok}'
             when :script
-              client.puts Marshal.dump response: :ok
+              client.puts '{response: :ok}'
             when :quit
-              client.puts Marshal.dump response: :bye
+              client.puts '{response: :bye}'
               break
             when :test
-              client.puts Marshal.dump response: :ok
+              client.puts '{response: :ok}'
             when :debug
-              client.puts Marshal.dump response: :ok
+              client.puts '{response: :ok}'
             else
-              client.puts Marshal.dump response: :unknown
+              client.puts '{response: :unknown}'
               break
             end
           end
