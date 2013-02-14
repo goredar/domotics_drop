@@ -41,24 +41,23 @@ module Domotics
         Thread.start(server.accept) do |client|
           client.puts Marshal.dump version: 'GDS '+Domotics::PROTOCOL_VERSION
           loop do
-            break if !client_string = client.gets.chop
-            client_request = client_string.split
-            case client_request[0]
-            when 'GET'
-              client.puts 'OK'
-            when 'SET'
-              client.puts 'OK'
-            when 'SCRIPT'
-              client.puts 'OK'
-            when 'QUIT'
-              client.puts 'BYE'
+            break if !message = Marshal.load client.gets.chop
+            case message[:request]
+            when :get
+              client.puts Marshal.dump response: :ok
+            when :set
+              client.puts Marshal.dump response: :ok
+            when :script
+              client.puts Marshal.dump response: :ok
+            when :quit
+              client.puts Marshal.dump response: :bye
               break
-            when 'TEST'
-              client.puts 'OK'
-            when 'DEBUG'
-              client.puts 'OK'
+            when :test
+              client.puts Marshal.dump response: :ok
+            when :debug
+              client.puts Marshal.dump response: :ok
             else
-              client.puts 'UNKNOWN'
+              client.puts Marshal.dump response: :unknown
               break
             end
           end
