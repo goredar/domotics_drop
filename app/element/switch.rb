@@ -10,7 +10,6 @@ module Domotics
       super
       # Identifier of lag thread
       @lag = nil
-      @switch = self
     end
     def on(timer = nil)
       self.state = :on
@@ -40,7 +39,7 @@ module Domotics
       # Delayed action
       @lag = Thread.new do
         sleep timer
-        @switch.public_send action
+        public_send action
       end
     rescue ArgumentError
       nil
