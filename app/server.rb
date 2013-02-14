@@ -12,7 +12,7 @@ module Domotics
   PROTOCOL_VERSION = '1'
   
   class DomServer < GServer
-    def initialize(port=SERVER_PORT, *args)
+    def initialize(port=SERVER_PORT, host = '0.0.0.0', *args)
       show_exception_in_threads
       # Create devices, rooms and elements
       for file in %w(devices.conf rooms.conf elements.conf) do
@@ -20,7 +20,7 @@ module Domotics
           Marshal.load(f.read).each { |x| eval %Q{ #{x[:klass]}.new(#{x[:options]}) } }
         end
       end
-      super(port, *args)
+      super(port, host, *args)
     end
     def show_exception_in_threads
       Thread.class_eval do
