@@ -39,7 +39,7 @@ module Domotics
       server = TCPServer.new SERVER_PORT
       loop do
         Thread.start(server.accept) do |client|
-          client.puts 'GDS '+Domotics::PROTOCOL_VERSION
+          client.puts Marshal.dump version: 'GDS '+Domotics::PROTOCOL_VERSION
           loop do
             break if !client_string = client.gets.chop
             client_request = client_string.split
