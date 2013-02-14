@@ -1,0 +1,26 @@
+%nav.top-bar
+  %ul.title-area
+    %li.name
+      %h1
+        = link_to t('navbar.title'), index_path
+    %li.toggle-topbar.menu-icon
+      %a
+        %span Menu
+  %section.top-bar-section
+    %ul.right
+      %li.divider
+      %li
+        = link_to_menu t('navbar.main'), index_path, 'star'
+      %li.divider
+      %li
+        = link_to_menu t('navbar.configure'), configure_path, 'settings'
+      %li.divider
+      %li 
+        = link_to_menu t('navbar.torrent'), 'http://goredar.dyndns.org:50000/', 'inbox'
+      %li.divider
+      %li 
+        = link_to_menu t('navbar.htpc'), 'http://goredar.dyndns.org:50001/', 'video'
+      %li.divider
+      %li 
+        = link_to_menu t('navbar.lightstock'), 'http://goredar.dyndns.org:50002/', 'cart'
+      %li.divider

@@ -1,17 +1,15 @@
-//- @actions = [{label: t('action_bar.server_refresh'), path: server_refresh_path, options: {remote: true}},
-//  {label: t('action_bar.server_clear'), path: server_clear_path, options: {remote: true}}]
-.span10
+.row
   = render 'shared/notice'
-  .row
-    .span6.room#room_1
-      %span.badge.badge-inverse Детская комната
-    .span6.room#room_2
-      %span.badge.badge-inverse Зал-гостинаая
-  .row
-    .span6.room#wc
-      %span.badge.badge-inverse Туалет
-    .span6.room#br
-      %span.badge.badge-inverse Ванная комната
-  .row
-    #terminal_info
-      = render 'term_output'
+.row
+  .large-6.columns.room#room_1
+    %span.label Детская комната
+  .large-6.columns.room#room_2
+    %span.label Зал-гостинаая
+.row
+  .large-6.columns.room#wc
+    %span.label Туалет
+  .large-6.columns.room#br
+    %span.label Ванная комната
+.row
+  #terminal_info
+    = render 'term_output'

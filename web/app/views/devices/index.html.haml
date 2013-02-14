@@ -1,18 +1,20 @@
-- @actions = [{label: t('action_bar.new_dev'), path: new_device_path}]
-.span9
-  %h4 #{t('.title')}
-  = render 'shared/notice'
-  %table{:class => "table table-bordered table-hover"}
-    %thead
-      %tr
-        %th #{t('helpers.label.device.name')}
-        %th #{t('helpers.label.device.device_type')}
-        %th #{t('helpers.label.device.options')}
-        %th #{t('helpers.label.device.description')}
-    %tbody
-    - @devices.each do |device|
-      %tr
-        %td= link_to "#{device.name}", edit_device_path(device)
-        %td= device.device_type.name
-        %td= device.options
-        %td= device.description
+.row
+  .large-3.columns
+    = render 'shared/side_nav'
+  .large-9.columns
+    %h4 #{t('.title')}
+    = render 'shared/notice'
+    %table{:class => "table table-bordered table-hover"}
+      %thead
+        %tr
+          %th #{t('helpers.label.device.name')}
+          %th #{t('helpers.label.device.device_type')}
+          %th #{t('helpers.label.device.options')}
+          %th #{t('helpers.label.device.description')}
+      %tbody
+      - @devices.each do |device|
+        %tr
+          %td= link_to "#{device.name}", edit_device_path(device)
+          %td= device.device_type.name
+          %td= device.options
+          %td= device.description
