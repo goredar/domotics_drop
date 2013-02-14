@@ -3,7 +3,8 @@
 
 require 'socket'
 TCPSocket.open('goredar.dyndns.org', 50002) do |socket|
-  p eval socket.gets
+  p str = socket.gets
+  p eval str
   5.times do
     socket.puts '{request: :test}'
     p eval socket.gets
