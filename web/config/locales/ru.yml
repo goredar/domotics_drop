@@ -17,7 +17,6 @@ ru:
     server_start: 'Запустить сервер'
     server_stop: 'Остановить сервер'
   c:
-    actions: 'Действия'
     back: '<= Назад'
     cant_delete: 'удаление невозможно...'
     confirm_del: 'Последствия необратимы...'
@@ -30,7 +29,6 @@ ru:
     errored: 'Операция невозможна =>'
     help: 'Помощь'
     record_not_found: 'Невозможно отобразить запрошенное содержимое...'
-    sections: 'Разделы'
     show: 'Показать'
     success: 'Успех!'
     updated: 'обновление завершено.'
@@ -57,6 +55,7 @@ ru:
   navbar:
     configure: 'Настройка'
     htpc: 'Медиа центр'
+    lightstock: 'LightStock'
     main: 'Главная'
     title: "Goredar's Domotics"
     torrent: 'Трансмиссия'

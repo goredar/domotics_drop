@@ -1,27 +1,28 @@
 .span6
-  %h4 #{@title}
-  = form_for type_form, :html => { :class => "form-horizontal" } do |f|
-    = render(partial: 'shared/form_error', object: type_form)
-    .field.control-group
-      .control-label
-        = f.label :name
-      .controls
-        = f.text_field :name ,:size => 40
-    .field.control-group
-      .control-label
-        = f.label :class_name
-      .controls
-        = f.text_field :class_name ,:size => nil
-    .field.control-group
-      .control-label
-        = f.label :options
-      .controls
-        = f.text_field :options, :size => nil
-    .field.control-group
-      .control-label
-        = f.label :description
-      .controls
-        = f.text_field :description, :size => nil
-    .actions.control-group
-      .controls
-        = f.submit :class => "btn btn-primary"
+  .well
+    %h4 #{@title}
+    = form_for type_form, :html => { :class => "form-horizontal" } do |f|
+      = render(partial: 'shared/form_error', object: type_form)
+      .field.control-group
+        .control-label
+          = f.label :name
+        .controls
+          = f.text_field :name ,:size => 40
+      .field.control-group
+        .control-label
+          = f.label :class_name
+        .controls
+          = f.text_field :class_name ,:size => nil
+      .field.control-group
+        .control-label
+          = f.label :options
+        .controls
+          = f.text_field :options, :size => nil
+      .field.control-group
+        .control-label
+          = f.label :description
+        .controls
+          = f.text_field :description, :size => nil
+      .actions.control-group
+        .controls
+          = f.submit :class => "btn btn-primary"

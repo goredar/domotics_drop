@@ -1,0 +1,26 @@
+@mixin rounded-with-border
+  border: 1px solid #e5e5e5
+  -webkit-border-radius: 8px
+  -moz-border-radius: 8px
+  border-radius: 8px
+
+body
+  padding-top: 60px
+  padding-bottom: 40px
+
+ul#action_bar
+  li:first-child  a
+    -webkit-border-radius: 6px 6px 0 0
+    -moz-border-radius: 6px 6px 0 0
+    border-radius: 6px 6px 0 0
+  li:last-child  a
+    -webkit-border-radius: 0 0 6px 6px
+    -moz-border-radius: 0 0 6px 6px
+    border-radius: 0 0 6px 6px
+  li a
+    border: 1px solid #e5e5e5
+    margin:
+      left: -16px
+      right: -16px
+      top: -1px
+      bottom: -1px
