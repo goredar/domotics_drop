@@ -1,9 +1,16 @@
-.small-1.v-small-12.columns.white
-  = link_to('#', { :class => 'button tiny expand' }) do
+.button-group
+  = link_to('#', { :class => 'button tiny' }) do
     %i.icon-brightnessfull.icon-2x
-  = link_to('#', { :class => 'button tiny expand' }) do
+  = link_to('#', { :class => 'button tiny' }) do
     %i.icon-brightnesshalf.icon-2x
-  = link_to('#', { :class => 'button tiny expand' }) do
+  = link_to('#', { :class => 'button tiny' }) do
     %i.icon-brightness.icon-2x
-  = link_to('#', { :class => 'button tiny expand' }) do
+  = link_to('#', { :class => 'button tiny' }) do
     %i.icon-off.icon-2x
+  %span.icobutton
+    - unless full_view
+      = link_to controller: :rooms, action: :show, id: room.id do
+        %i.icon-scaleup.icon-large
+    - else
+      = link_to index_path do
+        %i.icon-scaledown.icon-large

@@ -1,4 +1,6 @@
 .row
   .large-12.room
-    = render partial: 'rooms/room_bar', locals: { room: @room }
-    = render partial: "rooms/room", locals: { room: @room, full_view: true }
+    .row
+      = render partial: 'rooms/room_bar', locals: { room: @room, full_view: true }
+    .row
+      = render partial: "rooms/room", locals: { room: @room }

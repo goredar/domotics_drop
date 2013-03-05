@@ -2,6 +2,6 @@
   = render 'shared/notice'
 .row
   - @rooms.each do |r|
-    .large-6.columns.room
-      = render partial: 'rooms/room_bar', locals: { room: r }
-      = render partial: "rooms/room", locals: { room: r, full_view: false }
+    .large-6.columns
+      = render partial: 'rooms/room_bar', locals: { room: r, full_view: false  }
+      = render partial: "rooms/room", locals: { room: r}
