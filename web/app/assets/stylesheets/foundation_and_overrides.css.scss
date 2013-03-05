@@ -987,3 +987,15 @@
 
 
 @import 'foundation';
+
+/* Fix label position */
+span.label {
+  top: 3px;
+}
+/* Fixed topbar */
+.top-bar {
+  position: fixed;
+}
+#content {
+  padding-top: $topbar-height;
+}

@@ -3,18 +3,16 @@
     = render 'shared/notice'
     = render 'shared/side_nav'
   .large-9.columns
-    %h4 #{@title}
-    %table.table
-      %thead
-        %tr
-          %th #{t('.name')}
-          %th #{t('.class_name')}
-          %th #{t('.options')}
-          %th #{t('.description')}
-      %tbody
-      - type_index.each do |type|
-        %tr
-          %td= link_to "#{type.name}", id: type, action: :edit
-          %td= type.class_name
-          %td= type.options
-          %td= type.description
+    - sel=0
+    - colored=true
+    - (type_index.size/2).times do
+      .row.element_container
+        - colored=!colored
+        - type_index[sel,2].each do |type|
+          - colored=!colored
+          %div{ :class => "large-6 columns#{' colored' if colored}" }
+            %span.label.name= type.name
+            %span.class_name= type.class_name
+            %span.options= type.options
+            %span.description= type.description
+        - sel += 2

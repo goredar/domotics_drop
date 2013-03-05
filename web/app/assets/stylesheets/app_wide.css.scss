@@ -1,11 +1,39 @@
-@import 'foundation-icons';
-section.top-bar-section {
-  ul { 
-    li { 
-      a {
-        height: 45px;
-      }
+$border_width: 1px;
+$border_color: #cccccc;
+
+@mixin element_border {
+  border-top: $border_width solid $border_color;
+  &:hover {
+    background-color: #fff;
+  }
+}
+/* Sidebar navigation */
+.side-nav {
+  padding: 0;
+  border: $border_width solid $border_color;
+  border-top: none;
+  li {
+    margin: -1px 0 0;
+    padding: 5px 10px;
+    background-color: #efefef;
+    border-top: $border_width solid $border_color;
+    &:hover {
+      background-color: #fff;
     }
   }
 }
-  
+/* Elements */
+.element_container {
+  div {
+    height: 64px;
+    background-color: #ccc;
+    border: 1px solid #777;
+    opacity: 0.75;
+    &.colored {
+      background-color: #aaa;
+    }
+    &:hover {
+      background-color: #fff;
+    }
+  }
+}

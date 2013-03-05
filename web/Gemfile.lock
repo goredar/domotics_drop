@@ -40,9 +40,8 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    foundation-icons-sass-rails (2.0.0)
-      railties (>= 3.1.1)
-      sass-rails (>= 3.1.1)
+    font-awesome-rails (3.0.2.0)
+      railties (>= 3.1)
     haml (4.0.0)
       tilt
     haml-rails (0.4)
@@ -119,7 +118,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
-  foundation-icons-sass-rails
+  font-awesome-rails
   haml-rails
   jquery-rails
   mysql2

@@ -21,8 +21,9 @@ end
 
   gem 'uglifier', '>= 1.0.3'
   gem 'zurb-foundation', '~> 4.0.0'
-  gem 'foundation-icons-sass-rails'
-  gem "haml-rails"
+#  gem 'foundation-icons-sass-rails'
+  gem 'font-awesome-rails'
+  gem 'haml-rails'
 #end
 
 gem 'jquery-rails'

@@ -21,9 +21,9 @@
 </head>
 <body>
   <%= render 'layouts/navbar' %>
-
-  <%= yield %>
-  
+  <div id="content">
+    <%= yield %>
+  <div>
   <%= javascript_include_tag "application" %>
 </body>
 </html>
