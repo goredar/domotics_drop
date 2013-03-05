@@ -35,7 +35,10 @@ module Domotics
     end
     def lag(action = nil, timer = nil)
       # Kill previous action -> out of date
-      @lag.kill if @lag
+      if @lag
+        @lag.kill
+        @lag = nil
+      end
       raise ArgumentError unless (timer.is_a?(Integer) and timer >= MINIMUM_LAG)
       # Delayed action
       @lag = Thread.new do

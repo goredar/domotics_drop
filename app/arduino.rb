@@ -90,7 +90,7 @@ module Arduino
     # ---0--- SETPINMODE 
     def set_mode(pin, mode)
       check_pin(pin); check_pin_watch(pin); raise ArgumentError, 'Error! Invalid mode.' unless MODES.include? mode
-      warn 'Warning! already set mode.' if @pin_mode[pin] == mode
+      $logger.warn { "Already set mode for pin: #{pin}." } if @pin_mode[pin] == mode
       @pin_mode[pin] = mode
       send_command(SETPINMODE, pin, mode)
     end
@@ -139,7 +139,7 @@ module Arduino
     # ---6--- SETWATCH
     def set_watch(pin, watch)
       check_pin(pin); raise ArgumentError, 'Error! Invalid watch mode.' unless W_STATES.include? watch
-      warn 'Warning! already set watch mode' if @watch_list[pin] == watch
+      $logger.warn { "Warning! already set watch mode for pin: #{pin}." } if @watch_list[pin] == watch
       set_mode(pin, INPUT) if @pin_mode[pin] == OUTPUT
       @watch_list[pin] = watch
       send_command(SETWATCH, pin, watch)
