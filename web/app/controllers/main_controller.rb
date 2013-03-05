@@ -1,7 +1,7 @@
 class MainController < ApplicationController
   @@term_output = Array.new
   def index
-    @term_output = @@term_output
+    @rooms = Room.all
   end
   def post_terminal_line
     @@term_output << params[:terminal_line]

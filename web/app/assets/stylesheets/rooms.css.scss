@@ -1,3 +1,85 @@
-// Place all the styles related to the Rooms controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.room {
+  background-color: #d0d0d0;
+}
+.light_group:hover .circle {
+  border: 2px solid #2ba6cb;
+}
+.line_top {
+  text-align: center;
+  position: absolute;
+  top: 5%;
+  width: 80%;
+  left: 10%;
+  height: 8%;
+}
+.line_bottom {
+  text-align: center;
+  position: absolute;
+  width: 80%;
+  bottom: 5%;
+  left: 10%;
+  height: 8%;
+}
+.line_center {
+  text-align: center;
+  position: absolute;
+  top: 42%;
+  width: 20%;
+  left: 40%;
+  height: 16%;
+}
+.line_left {
+  position: absolute;
+  left: 5%;
+  top: 10%;
+  width: 5%;
+  height: 80%;
+}
+.line_right {
+  position: absolute;
+  right: 5%;
+  top: 10%;
+  width: 5%;
+  height: 80%;
+}
+.corner_1 {
+  position: absolute;
+  top: 20%;
+  width: 12%;
+  left: 25%;
+  height: 18%;
+}
+.corner_2 {
+  position: absolute;
+  top: 20%;
+  width: 12%;
+  right: 25%;
+  height: 18%;
+}
+.corner_3 {
+  position: absolute;
+  bottom: 20%;
+  width: 12%;
+  right: 25%;
+  height: 18%;
+}
+.corner_4 {
+  position: absolute;
+  bottom: 20%;
+  width: 12%;
+  left: 25%;
+  height: 18%;
+}
+.circle {
+  display: inline-block;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.vc_5 {
+  margin: 0 5%;
+}
+.c_4 {
+  margin: 75% 0;
+}

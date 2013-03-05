@@ -1,0 +1,11 @@
+.small-1.columns
+  - if room
+    = link_to( room, { :class => 'button tiny expand success' }) do
+      %i.icon-zoom-in.icon-2x
+  - else
+    = link_to( index_path, { :class => 'button tiny expand secondary' }) do
+      %i.icon-circle-arrow-left.icon-2x
+  = link_to('#', { :class => 'button tiny expand' }) do
+    %i.icon-plus-sign.icon-2x
+  = link_to('#', { :class => 'button tiny expand' }) do
+    %i.icon-minus-sign.icon-2x
