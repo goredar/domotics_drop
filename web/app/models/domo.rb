@@ -9,10 +9,10 @@ class Domo
                  :room_type_id, :device_type_id, :options, :description]
   GDS_ADDR = 'localhost'
   GDS_PORT = '50002'
-  cattr_accessor :gds_node
-  def gds_req(request)
+  @@gds_node = nil
+  def self.gds_req(request)
     @@gds_node = TCPSocket.open(GDS_ADDR, GDS_PORT) if !@@gds_node
-    socket.puts request
-    socket.gets
+    @@gds_node.puts request
+    @@gds_node.gets
   end
 end
