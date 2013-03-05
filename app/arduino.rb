@@ -127,7 +127,7 @@ module Arduino
     end
     # Default event handler simple prints event.
     def event_handler(hash)
-      puts hash
+      p hash.inspect
     end
 
     private
@@ -230,6 +230,7 @@ module Arduino
         retry
       end
       $logger.error { "Board malfunction. Automatic restart failed." }
+      event_handler :event => :malfunction
     end
     # Checks
     def check_pin(pin)

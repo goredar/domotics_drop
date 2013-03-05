@@ -26,7 +26,7 @@ module Arduino
       # Tell element to change state
       when :pinstate
         @pins[hash[:pin]].on_state_changed hash[:state]
-      when :boardreset
+      when :malfunction
         nil
       else
         nil
