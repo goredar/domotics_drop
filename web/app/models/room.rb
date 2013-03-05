@@ -6,7 +6,7 @@ class Room < ActiveRecord::Base
 
   attr_accessible :description, :name, :options, :room_type_id
 
-  validates :name, :presence => true, :uniqueness => true, :format => { :with => GHome::WORD_REGEXP }
+  validates :name, :presence => true, :uniqueness => true, :format => { :with => Domo::RUBY_NAME_REGEXP }
   validates :room_type_id, :presence => true, :inclusion => {:in => proc { RoomType.all.collect{|x| x.id }}}
-  validates :options, :format => { :with => GHome::HASH_REGEXP }, :if => lambda { |x| !x.options.empty? }
+  validates :options, :format => { :with => Domo::RUBY_HASH_REGEXP }, :if => lambda { |x| !x.options.empty? }
 end

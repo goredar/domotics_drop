@@ -194,7 +194,7 @@
 // $fieldset-border-width: 1px;
 // $fieldset-border-color: #ddd;
 // $fieldset-padding: emCalc(20px);
-// $fieldset-margin: emCalc(18px) 0;
+$fieldset-margin: 0 0;
 
 // We use these to style the legends when you use them
 // $legend-bg: #fff;
@@ -226,7 +226,7 @@
 
 // We use this to control the display property.
 // $button-display: inline-block;
-// $button-margin-bottom: emCalc(20px);
+$button-margin-bottom: 0;
 
 // We use these to control button text styles.
 // $button-font-color: #fff;
@@ -333,8 +333,8 @@
 // $alert-padding-bottom: $alert-padding-top + emCalc(1px);
 
 // We use these to control text style.
-// $alert-font-weight: bold;
-// $alert-font-size: emCalc(14px);
+$alert-font-weight: normal;
+$alert-font-size: emCalc(12px);
 // $alert-font-color: #fff;
 // $alert-font-color-alt: darken($secondary-color, 60%);
 
@@ -1005,20 +1005,16 @@
   padding-left: 0;
   padding-right: 0;
 }
-fieldset {
-  margin: 0;
-}
-/* No shadows */
-.button {
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  margin-bottom: 0;
-}
 .button-group {
   margin-bottom: 0;
   li {
     margin: 0;
   }
+}
+/* No shadows */
+.button {
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 /* Custom alert box */
 .alert-succsess { @include alert(#dff0d8); }

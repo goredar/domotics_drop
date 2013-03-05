@@ -1,24 +1,2 @@
-.row
-  .large-3.columns
-    = render 'shared/side_nav'
-  .large-9.columns
-    %h4 #{t('.title')}
-    = render 'shared/notice'
-    %table{:class => "table table-bordered table-hover"}
-      %thead
-        %tr
-          %th #{t('helpers.label.element.name')}
-          %th #{t('helpers.label.element.element_type')}
-          %th #{t('helpers.label.element.room')}
-          %th #{t('helpers.label.element.device')}
-          %th #{t('helpers.label.element.options')}
-          %th #{t('helpers.label.element.description')}
-      %tbody
-      - @elements.each do |element|
-        %tr
-          %td= link_to "#{element.name}", edit_element_path(element)
-          %td= element.element_type.name
-          %td= element.room.name
-          %td= element.device.name
-          %td= element.options
-          %td= element.description
+- @title = t('.title')
+= render(partial:'shared/conf_item_index', object: @elements)

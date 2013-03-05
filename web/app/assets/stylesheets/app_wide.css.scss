@@ -5,7 +5,7 @@
   li {
     margin: -1px 0 0;
     padding: 5px 10px;
-    border-top: 1px solid #777;
+    border-top: 1px solid #4d4d4d;
     &:hover {
       background-color: #efefef;
     }
@@ -14,9 +14,9 @@
 /* Elements */
 div.element_container div {
   min-height: 128px;
-  background-color: #fff;
+  background-color: white;
   &:hover {
-    background-color: #eee;
+    background-color: #efefef;
   }
 }
 /* icobutton */
