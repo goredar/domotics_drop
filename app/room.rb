@@ -37,8 +37,12 @@ module Domotics
     end
 
     # Return requested room
-    def self.[](symbol)
-      @@rooms[symbol]
+    def self.[](symbol = nil)
+      if symbol
+        @@rooms[symbol]
+      else
+        @@rooms
+      end
     end
 
     # Like var

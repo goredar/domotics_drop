@@ -5,10 +5,10 @@
   &:hover .circle {
     border: 2px solid #2ba6cb;
   }
-  &.active .circle {
+  &.on .circle {
     background-color: #2ba6cb;
   }
-  &.active:hover .circle {
+  &.on:hover .circle {
     border: 2px solid #fff;
   }
 }

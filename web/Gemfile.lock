@@ -1,6 +1,6 @@
 GIT
-  remote: git@github.com:goredar/icomoon-rails.git
-  revision: 78a22e7457b57ffbf7c51f992caaaf95fa5dc20b
+  remote: git://github.com/goredar/icomoon-rails.git
+  revision: e2288cc6cc786feb76d344f3de04bb3f23b71005
   specs:
     icomoon-rails (0.1.0)
       railties (>= 3.1.1)

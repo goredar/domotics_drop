@@ -12,7 +12,6 @@ module Domotics
       @state
     end
     def state=(value)
-      # Set hardware state and save it
       @state = value
     end
     def on_state_changed(pin_state)

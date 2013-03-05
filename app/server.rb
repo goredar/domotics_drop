@@ -53,7 +53,7 @@ module Domotics
             when :eval
               begin
                 $logger.debug { "client request: "+data.inspect }
-                reply = { :state => Room[data[:object].to_sym].instance_eval(data[:expression]) == :on ? :active : nil }
+                reply = { :reply => find_object(data[:object]).instance_eval(data[:expression]) }
                 $logger.debug { "client reply: "+reply.inspect }
                 client.puts(reply)
               rescue Exception => e
@@ -73,6 +73,10 @@ module Domotics
           end
         end
       end
+    end
+    def find_object(obj)
+      obj = obj.to_sym
+      Room[obj] || ArduinoBoard[obj] || self
     end
   end
 end

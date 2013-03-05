@@ -20,7 +20,6 @@ module Arduino
     #  Override in child for needed action
     def on_state_changed(pin_state)
       # Dummy
-      p pin_state
     end
     # Override in children if other states
     # Convert to High Level State

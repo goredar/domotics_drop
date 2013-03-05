@@ -33,8 +33,12 @@ module Arduino
       end
     end
 
-    def self.[](symbol)
-      @@boards[symbol]
+    def self.[](symbol = nil)
+      if symbol
+        @@boards[symbol]
+      else
+        @@boards
+      end
     end
   end
 end

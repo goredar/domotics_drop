@@ -12,13 +12,6 @@ Web::Application.routes.draw do
   match "/configure" => 'main#configure', :as => :configure
   match "/" => redirect("/index")
 
-
-#  get 'main/server_start', :as => :server_start
-#  get 'main/server_stop', :as => :server_stop
-  get 'main/server_clear', :as => :server_clear
-  get 'main/server_refresh', :as => :server_refresh
-  post 'main/post_terminal_line', :as => :server_post_terminal_line
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
