@@ -8,7 +8,7 @@ module Domotics
   # Configuration
   CONF_BASE = 'http://127.0.0.1/configure/'
   SERVER_PORT = 50002
-  PROTOCOL_VERSION = '1'
+  PROTOCOL_VERSION = '1.0'
   
   class DomServer
     def initialize
@@ -39,15 +39,19 @@ module Domotics
       server = TCPServer.new SERVER_PORT
       loop do
         Thread.start(server.accept) do |client|
-          client.puts "{version: 'GDS #{Domotics::PROTOCOL_VERSION}'}"
+          client.puts { GDS: Domotics::PROTOCOL_VERSION }
           loop do
             break if !message = client.gets
-            begin 
+            begin
               data = eval message
             rescue
               break
             end
             case data[:request]
+            # Evaluate expression in term of object
+            # { request: :eval, object: :some_object, expression: :some_expression }
+            when :eval
+              client.puts '{response: :ok}'
             when :get
               client.puts '{response: :ok}'
             when :set
