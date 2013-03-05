@@ -1,4 +1,4 @@
-.small-11.columns.expand_all.updatable{id: room.name, data: {id: room.id, time: (Time.now.to_f*10).to_i}}
+.small-11.columns.expand_all.updatable{id: room.name, data: {id: room.id, time: RoomsController.last_update[room.id].to_i}}
   - room.elements.each do |el|
     = link_to controller: :elements, action: :toggle, id: el.id, remote: true do
       = render partial: "rooms/#{room.name}/#{el.name}", locals: {el: el} rescue nil

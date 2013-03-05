@@ -100,7 +100,7 @@ class ElementsController < ApplicationController
   def toggle
     @element = Element.find(params[:id])
     @element.state = @element.state ? nil : 'active'
-    RoomsController.last_update[@element.room.id] = (Time.now.to_f*10).to_i
+    RoomsController.last_update[@element.room.id] = (Time.now.to_f*100).to_i
     respond_to do |format|
       format.js
     end

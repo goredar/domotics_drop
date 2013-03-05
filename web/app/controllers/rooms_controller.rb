@@ -27,14 +27,14 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
-    if params[:time].to_i < @@last_update[params[:id].to_i].to_i
-      @room = Room.find(params[:id])
-      respond_to do |format|
-        format.js
-      end
-    else
-      respond_to do |format|
-        format.js { render nothing: true }
+    respond_to do |format|
+      format.html { @room = Room.find(params[:id]) }
+      format.js do
+        if params[:time].to_i < @@last_update[params[:id].to_i].to_i
+          @room = Room.find(params[:id])
+        else
+          render nothing: true
+        end
       end
     end
   end
