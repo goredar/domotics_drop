@@ -7,5 +7,5 @@
       = link_to index_path do
         %i.icon-scaledown.icon-large
   - room.elements.each do |el|
-    = link_to controller: :elements, action: :toggle, id: el.id, remote: true do
+    = link_to controller: :elements, action: :command, id: el.id, options: :switch, remote: true do
       = render partial: "rooms/#{room.name}/#{el.name}", locals: {el: el} rescue nil
