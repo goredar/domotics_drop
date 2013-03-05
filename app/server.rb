@@ -51,9 +51,15 @@ module Domotics
             # Evaluate expression in term of object
             # { request: :eval, object: :some_object, expression: :some_expression }
             when :eval
-              $logger.debug { data.inspect }
-              $logger.debug state = Room[data[:object].to_sym].instance_eval(data[:expression])
-              client.puts({ :state => state == :on ? :active : nil })
+              begin
+                $logger.debug { "client request: "+data.inspect }
+                reply = { :state => Room[data[:object].to_sym].instance_eval(data[:expression]) == :on ? :active : nil }
+                $logger.debug { "client reply: "+reply.inspect }
+                client.puts(reply)
+              rescue Exception => e
+                $logger.error e.message
+                break
+              end
             when :get
             when :set
             when :script

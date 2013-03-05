@@ -212,7 +212,7 @@ module Arduino
     end
     
   rescue ArgumentError => e
-    $logger.error { e.message }
+    $logger.error e.message
     nil
   end
 end
