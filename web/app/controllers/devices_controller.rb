@@ -17,7 +17,7 @@
           opt.merge! name: x.name.to_sym
           { klass: x.device_type.class_name.to_sym, options: opt }
         end
-        send_data Marshal.dump(data)
+        send_data data.inspect
       end
     end
   end

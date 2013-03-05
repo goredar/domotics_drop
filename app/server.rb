@@ -7,6 +7,7 @@ require 'socket'
 module Domotics
   # Configuration
   CONF_BASE = 'http://127.0.0.1/configure/'
+  CONF_BASE_DEVEL = 'http://127.0.0.1:3000/configure/'
   SERVER_PORT = 50002
   PROTOCOL_VERSION = '1.0'
   
@@ -14,10 +15,21 @@ module Domotics
     def initialize
       show_exception_in_threads
       # Create devices, rooms and elements
-      for file in %w(devices.conf rooms.conf elements.conf) do
-        open(URI(CONF_BASE+file)) do |f|
-          Marshal.load(f.read).each { |x| eval %Q{ #{x[:klass]}.new(#{x[:options]}) } }
+      base = CONF_BASE
+      begin
+        for file in %w(devices.conf rooms.conf elements.conf) do
+          open(URI(base+file)) { |f| eval(f.read).each { |x| eval %Q{ #{x[:klass]}.new(#{x[:options]}) } } }
         end
+      rescue Errno::ECONNREFUSED
+        unless base == CONF_BASE_DEVEL
+          base = CONF_BASE_DEVEL
+          retry
+        else
+          raise
+        end
+      rescue Exception => e
+        $logger.error e.message
+        nil
       end
     end
     def show_exception_in_threads

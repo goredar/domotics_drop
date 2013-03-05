@@ -16,7 +16,7 @@ class ElementsController < ApplicationController
           opt.merge! name: x.name.to_sym , room: x.room.name.to_sym, device: x.device.name.to_sym
           { klass: x.element_type.class_name.to_sym, options: opt }
         end
-        send_data Marshal.dump(data)
+        send_data data.inspect
       end
     end
   end
@@ -101,7 +101,7 @@ class ElementsController < ApplicationController
     @element = Element.find(params[:id])
     @element.state = Domo.gds_req({ request: :eval, object: @element.room.name, expression: "#{@element.name}.#{params[:options]}" })[:reply]
     RoomsController.last_update[@element.room.id] = (Time.now.to_f*100).to_i
+    respond_to { |format| format.js }
     @element.save
-    render nothing: true
   end
 end
