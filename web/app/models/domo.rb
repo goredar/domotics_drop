@@ -12,7 +12,14 @@ class Domo
   @@gds_node = nil
   def self.gds_req(request)
     @@gds_node = TCPSocket.open(GDS_ADDR, GDS_PORT) if !@@gds_node
-    @@gds_node.puts request
-    @@gds_node.gets
+    gds_node.puts request
+    raise ArgumentError if !reply = gds_node.gets
+    reply
+  rescue ArgumentError, Errno::EPIPE
+    @@gds_node.close
+    @@gds_node = nil
+    retry
+  rescue Errno::ECONNREFUSED
+    return { status: :fail }
   end
 end
