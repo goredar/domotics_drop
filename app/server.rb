@@ -39,7 +39,7 @@ module Domotics
       Socket.tcp_server_loop(SERVER_PORT) do |client, client_addrinfo|
         Thread.new do
           # client.puts GDS: Domotics::PROTOCOL_VERSION
-          $logger.info { "New client connection from #{client_addrinfo.ip_address}:#{client_addrinfo.ip_port} accepted.\n" }
+          $logger.info { "New client connection from #{client_addrinfo.ip_address}:#{client_addrinfo.ip_port} accepted." }
           loop do
             break if !message = client.gets
             begin

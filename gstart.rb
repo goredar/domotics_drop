@@ -8,7 +8,7 @@ require 'logger'
 $logger = Logger.new(STDERR)
 $logger.level = Logger::DEBUG
 $logger.formatter = proc do |severity, datetime, progname, msg|
-  "#{severity}=> #{msg}"
+  "#{severity} #{msg}\n"
 end
 # Run server
 Domotics::DomServer.new.start

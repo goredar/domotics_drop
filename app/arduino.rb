@@ -185,21 +185,21 @@ module Arduino
       # Hard reset board
       @board.dtr = 0
       sleep(2)
-      $logger.info { "OK!\n" }
-      $logger.info { "Reset to defaults..." }
+      $logger.info { "done." }
+      $logger.info { "Reset board to defaults..." }
       if send_command(DEFAULTS)
-        $logger.info { "OK!\n" }
+        $logger.info { "done." }
       else
-        $logger.error { "Error! Can't reset board\n" }
+        $logger.error { "Can't reset board." }
         raise ArduinoSerialError
       end
-      $logger.info { "Checking connection..." }
+      $logger.info { "Checking connection with board..." }
       random = Random.new
       a, b = 2.times.map { random.rand(0..9) }
       if send_command(ECHOREPLY, a, b) == [b, a]
-        $logger.info { "OK!\n" }
+        $logger.info { "done." }
       else
-        $logger.error { "Error! Bad reply from board.\n" }
+        $logger.error { "Bad reply from board (wrong firmware?)." }
         raise ArduinoSerialError
       end
     end
