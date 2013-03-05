@@ -20,9 +20,10 @@ div.element_container div {
   }
 }
 /* icobutton */
-span.icobutton {
+.icobutton {
   float:right;
   padding-top: 3px;
+  padding-right: 3px;
   i {
     opacity: 0.4;
     &:hover {

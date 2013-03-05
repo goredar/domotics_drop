@@ -3,5 +3,5 @@
 .row
   - @rooms.each do |r|
     .large-6.columns.room
-      = render partial: 'rooms/room_bar', object: r
-      = render partial: "rooms/room", object: r
+      = render partial: 'rooms/room_bar', locals: { room: r }
+      = render partial: "rooms/room", locals: { room: r, full_view: false }

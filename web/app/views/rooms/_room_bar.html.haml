@@ -1,14 +1,7 @@
 .small-1.v-small-12.columns.white
-  - if room_bar
-    = link_to( {controller: :rooms, action: :show, id: room_bar.id}, { :class => 'button tiny expand success' }) do
-      %i.icon-zoom-in.icon-2x
-  - else
-    = link_to( index_path, { :class => 'button tiny expand secondary' }) do
-      %i.icon-circle-arrow-left.icon-2x
   = link_to('#', { :class => 'button tiny expand' }) do
-    %i.icon-plus-sign.icon-2x
+    %span.label.round.alert max
   = link_to('#', { :class => 'button tiny expand' }) do
     %i.icon-minus-sign.icon-2x
-  .v-small-1
   = link_to('#', { :class => 'button tiny expand' }) do
     %i.icon-minus-sign.icon-2x
