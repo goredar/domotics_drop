@@ -988,14 +988,10 @@
 
 @import 'foundation';
 
-/* Fix label position */
-span.label {
-  top: 3px;
-}
 /* Fix expand button text size */
-.button.expand {
+/*.button.expand {
   font-size: 0.8em;
-}
+}*/
 /* Fixed topbar */
 .top-bar {
   position: fixed;
@@ -1024,6 +1020,9 @@ fieldset {
 }
 .button-group {
   margin-bottom: 0;
+  li {
+    margin: 0;
+  }
 }
 /* Custom alert box */
 .alert-succsess { @include alert(#dff0d8); }

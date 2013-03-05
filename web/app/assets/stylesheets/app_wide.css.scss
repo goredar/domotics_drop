@@ -1,12 +1,3 @@
-$border_width: 1px;
-$border_color: #cccccc;
-
-@mixin element_border {
-  border-top: 1px solid #cccccc;
-  &:hover {
-    background-color: #fff;
-  }
-}
 /* Sidebar navigation */
 .side-nav {
   padding: 0;
@@ -23,18 +14,17 @@ $border_color: #cccccc;
   }
 }
 /* Elements */
-.element_container {
-  div {
-    min-height: 128px;
-    background-color: #fff;
-    &:hover {
-      background-color: #eee;
-    }
+div.element_container div {
+  min-height: 128px;
+  background-color: #fff;
+  &:hover {
+    background-color: #eee;
   }
 }
 /* icobutton */
 span.icobutton {
   float:right;
+  padding-top: 3px;
   i {
     opacity: 0.4;
     &:hover {
@@ -47,5 +37,17 @@ span.icobutton {
   opacity: 0.8;
   &:hover {
     opacity: 1;
+  }
+}
+
+p {
+  padding: 0;
+  margin: 0;
+  border: none;
+  span {
+    padding: 0;
+    margin: 0;
+    border: none;
+    top: -1px;
   }
 }

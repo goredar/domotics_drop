@@ -1,22 +1,29 @@
 .row
   .large-3.columns
     = render 'shared/side_nav'
-    = link_to({:action => :new}, {:class => 'button small expand'}) do
-      %i.icon-plus-sign.icon-large
-      = t('c.add')
+    %ul.button-group.even-2
+      %li
+        = link_to({:action => :new}, {:class => 'button small'}) do
+          %i.icon-plus-sign.icon-large
+          = t('c.add')
+      %li
+        = link_to(configure_path, { :class => 'button small secondary' }) do
+          %i.icon-circle-arrow-left.icon-large
+          = t('c.back')
     = render 'shared/notice'
   .large-9.columns
     - sel=0
     - (conf_item_index.size/2+conf_item_index.size%2).times do
       .row.element_container
         - (conf_item_index[sel,2]).each  do |item|
-          %div.large-6.columns
+          .large-6.columns
             %span.icobutton
               = link_to :action => :edit, :id => item.id do
                 %i.icon-wrench
               = link_to item, :method => :delete, :id => item.id, :data => {:confirm => t('c.confirm_del')} do
                 %i.icon-trash
-            %p.label.name= item.name
+            %p.name
+              %span.label= item.name
             %p.class_name= item.class_name
             %p.options= item.options
             %p.description= item.description
