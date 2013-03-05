@@ -1,5 +1,5 @@
 .small-11.columns.expand_all{id: room.name}
   - room.elements.each do |el|
     = link_to controller: :elements, action: :toggle, id: el.id, remote: true do
-      %div{:id => "#{el.name}"}
-        = render partial: "rooms/#{room.name}/#{el.name}", object: el
+      %div{id: el.name}
+        = render partial: "rooms/#{room.name}/#{el.name}", locals: {el: el} rescue nil

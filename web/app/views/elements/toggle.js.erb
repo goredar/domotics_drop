@@ -1,4 +1,4 @@
-$("#main_lights").html("<%=j render partial: 'rooms/playroom/main_lights', object: @element %>");
+$("#<%=@element.name%>").html('<%=j render partial: "rooms/#{@element.room.name}/#{@element.name}", locals: {el: @element} %>');
 $(".circle").each(function() {
   if ($(this).is(".v-small-12, .v-small-6")) {
     $(this).width($(this).height());
