@@ -44,7 +44,10 @@ span.icobutton {
     }
   }
 }
-/* alert-box */
+/* Alert box */
 .alert-box {
-  opacity: 0.75;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+  }
 }

@@ -1,16 +1,23 @@
 .row
   .large-3.columns
     = render 'shared/side_nav'
-  .large9
-    %h4 #{@title}
-    = form_for type_form, :html => { :class => "form-horizontal" } do |f|
-      = render(partial: 'shared/form_error', object: type_form)
-      = f.label :name
-      = f.text_field :name
-      = f.label :class_name
-      = f.text_field :class_name
-      = f.label :options
-      = f.text_field :options
-      = f.label :description
-      = f.text_field :description
-      = f.submit
+  .large-6.pull-3.columns
+    = form_for type_form, :html => { :id => "#{type_form.class}_#{type_form.id}" } do |form|
+      %fieldset
+        %legend
+          %span.label
+            #{ @title }
+        = render partial: 'shared/form_error', object: type_form
+        = render partial: 'shared/form_field', locals: { form: form, item: :name }
+        = render partial: 'shared/form_field', locals: { form: form, item: :class_name }
+        = render partial: 'shared/form_field', locals: { form: form, item: :options }
+        = render partial: 'shared/form_field', locals: { form: form, item: :description }
+        %ul.button-group.even-2
+          %li
+            = link_to("#", { :class => 'button success small', :onclick=>"$(\"##{type_form.class}_#{type_form.id}\").submit()" }) do
+              %i.icon-save.icon-large
+              = t('c.save')
+          %li
+            = link_to({ :action => :index }, { :class => 'button small' }) do
+              %i.icon-circle-arrow-left.icon-large
+              = t('c.back')

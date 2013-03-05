@@ -1,8 +1,8 @@
 .row
   .large-3.columns
     = render 'shared/side_nav'
-    = link_to({:action => :new}, {:class => 'button tiny expand'}) do
-      %i.icon-plus-sign
+    = link_to({:action => :new}, {:class => 'button small expand'}) do
+      %i.icon-plus-sign.icon-large
       = t('c.add')
     = render 'shared/notice'
   .large-9.columns
