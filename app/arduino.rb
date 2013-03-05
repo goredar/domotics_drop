@@ -178,28 +178,28 @@ module Arduino
     end
     # Reset board
     def reset
-      logger.info { "Initializing arduino board..." }
+      $logger.info { "Initializing arduino board..." }
       # Pin states and mods
       @pin_mode = Array.new(@number_of_pins, INPUT)
       @watch_list = Array.new(@number_of_pins, WATCHOFF)
       # Hard reset board
       @board.dtr = 0
       sleep(2)
-      logger.info { "OK!\n" }
-      logger.info { "Reset to defaults..." }
+      $logger.info { "OK!\n" }
+      $logger.info { "Reset to defaults..." }
       if send_command(DEFAULTS)
-        logger.info { "OK!\n" }
+        $logger.info { "OK!\n" }
       else
-        logger.error { "Error! Can't reset board\n" }
+        $logger.error { "Error! Can't reset board\n" }
         raise ArduinoSerialError
       end
-      logger.info { "Checking connection..." }
+      $logger.info { "Checking connection..." }
       random = Random.new
       a, b = 2.times.map { random.rand(0..9) }
       if send_command(ECHOREPLY, a, b) == [b, a]
-        logger.info { "OK!\n" }
+        $logger.info { "OK!\n" }
       else
-        logger.error { "Error! Bad reply from board.\n" }
+        $logger.error { "Error! Bad reply from board.\n" }
         raise ArduinoSerialError
       end
     end
@@ -212,7 +212,7 @@ module Arduino
     end
     
   rescue ArgumentError => e
-    logger.error { e.message }
+    $logger.error { e.message }
     nil
   end
 end
