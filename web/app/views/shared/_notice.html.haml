@@ -1,10 +1,10 @@
 - if flash[:notice]
-  .alert-box.secondary{:data => {:alert => true}}
+  .alert-box.success{:data => {:alert => true}}
     %a.close{:href => "#"} &times;
-    %h4 #{t('c.success')}
+    %h6 #{t('c.success')}
     = flash[:notice]
 - elsif flash[:alert]
   .alert-box.secondary{:data => {:alert => true}}
     %a.close{:href => "#"} &times;
-    %h4 #{t('c.error')}
+    %h6 #{t('c.error')}
     = flash[:alert]

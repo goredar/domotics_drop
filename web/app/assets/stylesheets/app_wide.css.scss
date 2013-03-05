@@ -26,14 +26,25 @@ $border_color: #cccccc;
 .element_container {
   div {
     min-height: 128px;
-    background-color: #ccc;
-    border: 1px solid #777;
-    opacity: 0.75;
-    &.colored {
-      background-color: #aaa;
-    }
+    background-color: #fff;
+/*     border: 1px solid #777; */
+/*     opacity: 0.75; */
     &:hover {
-      background-color: #fff;
+      background-color: #eee;
     }
   }
+}
+/* icobutton */
+span.icobutton {
+  float:right;
+  i {
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+/* alert-box */
+.alert-box {
+  opacity: 0.75;
 }
