@@ -1,5 +1,5 @@
 Web::Application.routes.draw do
-  match 'rooms/:id' => 'rooms#show'
+  match 'rooms/:id(/:time)' => 'rooms#show'
   scope 'configure' do
     resources :device_types
     resources :room_types

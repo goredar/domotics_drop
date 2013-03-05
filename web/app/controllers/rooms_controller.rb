@@ -1,4 +1,6 @@
 class RoomsController < ApplicationController
+  cattr_accessor  :last_update
+  @@last_update = []
   # GET /rooms
   # GET /rooms.json
   def index
@@ -25,11 +27,15 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
-    @room = Room.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @room }
+    if params[:time].to_i < @@last_update[params[:id].to_i].to_i
+      @room = Room.find(params[:id])
+      respond_to do |format|
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.js { render nothing: true }
+      end
     end
   end
 

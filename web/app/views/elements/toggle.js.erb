@@ -1,9 +1,2 @@
-$("#<%=@element.name%>").html('<%=j render partial: "rooms/#{@element.room.name}/#{@element.name}", locals: {el: @element} %>');
-$(".circle").each(function() {
-  if ($(this).is(".v-small-12, .v-small-6")) {
-    $(this).width($(this).height());
-  }
-  else {
-    $(this).height($(this).width());
-  }
-});
+$("#<%=@element.name%>").replaceWith('<%=j render partial: "rooms/#{@element.room.name}/#{@element.name}", locals: { el: @element } %>');
+window.domoticsGO.resizeElements()

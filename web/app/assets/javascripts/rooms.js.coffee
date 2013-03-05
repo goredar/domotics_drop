@@ -1,4 +1,7 @@
-resizeElements = ->
+# NEW namespace
+window.domoticsGO = {}
+# Resize room view and circles
+window.domoticsGO.resizeElements = ->
   $(".room").each ->
     $(this).height(0.6*$(this).width())
   $(".circle").each ->
@@ -6,6 +9,13 @@ resizeElements = ->
       $(this).width($(this).height())
     else
       $(this).height($(this).width())
-    
-$(window).resize(resizeElements).triggerHandler "resize"
-$(resizeElements)
+# Set trigger for resize
+$(window).resize(window.domoticsGO.resizeElements).triggerHandler "resize"
+# Update room view
+window.domoticsGO.updateRoom = ->
+  $(".updatable").each ->
+    $.getScript('/rooms/'+$(this).attr('data-id')+'/'+$(this).attr('data-time')+'.js')
+# Poll for changes
+setInterval ->
+  window.domoticsGO.updateRoom()
+, 1000
