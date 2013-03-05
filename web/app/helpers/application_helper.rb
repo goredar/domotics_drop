@@ -11,4 +11,8 @@ module ApplicationHelper
       end
     end
   end
+  def provide_title(title = nil)
+    @title = title || t('.title')
+    provide :title, @title
+  end
 end

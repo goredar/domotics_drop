@@ -1,4 +1,2 @@
-.span6
-  .well
-    %h4 #{t('c.editing')}
-    = render 'form'
+- provide_title t('c.editing')
+= render(partial: 'shared/conf_item_form', object: @room)

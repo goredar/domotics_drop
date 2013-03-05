@@ -25,9 +25,9 @@ ru:
     delete: 'Удалить'
     deleted: 'удаление завершено.'
     edit: 'Изменить'
-    editing: 'Внесение изменений:'
+    editing: 'Внесение изменений'
     error: 'Провал!?'
-    errored: 'Операция невозможна =>'
+    errored: 'Операция невозможна.'
     help: 'Помощь'
     record_not_found: 'Невозможно отобразить запрошенное содержимое...'
     save: 'Сохранить'
@@ -38,22 +38,22 @@ ru:
     index:
       title: 'Типы устройств'
     new:
-      title: 'Новый тип устройства:'
+      title: 'Новый тип устройства'
   devices:
     index:
       title: 'Устройства'
     new:
-      title: 'Новое устройство:'
+      title: 'Новое устройство'
   element_types:
     index:
       title: 'Типы элементов'
     new:
-      title: 'Новый тип элемента:'
+      title: 'Новый тип элемента'
   elements:
     index:
       title: 'Элементы'
     new:
-      title: 'Новый элемент:'
+      title: 'Новый элемент'
   navbar:
     configure: 'Настройка'
     htpc: 'Медиа центр'
@@ -65,12 +65,12 @@ ru:
     index:
       title: 'Типы помещений'
     new:
-      title: 'Новый тип помещения:'
+      title: 'Новый тип помещения'
   rooms:
     index:
       title: 'Помещения'
     new:
-      title: 'Новое помещение:'
+      title: 'Новое помещение'
   shared:
     type_index:
       name: 'Наименование'

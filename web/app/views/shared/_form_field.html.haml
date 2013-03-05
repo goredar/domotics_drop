@@ -1,6 +1,9 @@
 .row.collapse
   .small-9.columns
-    = form.text_field item
+    - if item.to_s.split('_')[-1] == 'id'
+      = form.select item, eval("#{item.to_s.classify[0..-3]}.all.collect { |x| [x.name, x.id] }")
+    - else
+      = form.text_field item
   .small-3.columns
     %span.postfix
       = form.label item
