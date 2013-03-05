@@ -1,2 +1,2 @@
-$("#<%=@room.name%>").replaceWith('<%=j render partial: "rooms/room", locals: { room: @room, full_view: true } %>');
+$("#<%=@room.name%>").replaceWith('<%=j render partial: "rooms/room", locals: { room: @room } %>');
 window.domoticsGO.resizeElements()

@@ -3,7 +3,7 @@ window.domoticsGO = {}
 # Resize room view and circles
 window.domoticsGO.resizeElements = ->
   $(".room").each ->
-    $(this).height(0.6*$(this).width())
+    $(this).height(0.5*$(this).width())
   $(".circle").each ->
     if $(this).is(".v-small-12, .v-small-6")
       $(this).width($(this).height())
