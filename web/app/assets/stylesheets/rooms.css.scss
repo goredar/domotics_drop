@@ -1,74 +1,16 @@
 .room {
   background-color: #d0d0d0;
 }
-.light_group:hover .circle {
-  border: 2px solid #2ba6cb;
-}
-.line_top {
-  text-align: center;
-  position: absolute;
-  top: 5%;
-  width: 80%;
-  left: 10%;
-  height: 8%;
-}
-.line_bottom {
-  text-align: center;
-  position: absolute;
-  width: 80%;
-  bottom: 5%;
-  left: 10%;
-  height: 8%;
-}
-.line_center {
-  text-align: center;
-  position: absolute;
-  top: 42%;
-  width: 20%;
-  left: 40%;
-  height: 16%;
-}
-.line_left {
-  position: absolute;
-  left: 5%;
-  top: 10%;
-  width: 5%;
-  height: 80%;
-}
-.line_right {
-  position: absolute;
-  right: 5%;
-  top: 10%;
-  width: 5%;
-  height: 80%;
-}
-.corner_1 {
-  position: absolute;
-  top: 20%;
-  width: 12%;
-  left: 25%;
-  height: 18%;
-}
-.corner_2 {
-  position: absolute;
-  top: 20%;
-  width: 12%;
-  right: 25%;
-  height: 18%;
-}
-.corner_3 {
-  position: absolute;
-  bottom: 20%;
-  width: 12%;
-  right: 25%;
-  height: 18%;
-}
-.corner_4 {
-  position: absolute;
-  bottom: 20%;
-  width: 12%;
-  left: 25%;
-  height: 18%;
+.light_group {
+  &:hover .circle {
+    border: 2px solid #2ba6cb;
+  }
+  &.active .circle {
+    background-color: #2ba6cb;
+  }
+  &.active:hover .circle {
+    border: 2px solid #fff;
+  }
 }
 .circle {
   display: inline-block;

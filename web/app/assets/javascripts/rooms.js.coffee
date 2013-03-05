@@ -6,8 +6,6 @@ resizeElements = ->
       $(this).width($(this).height())
     else
       $(this).height($(this).width())
-addLightGroup = ->
-  $(".light_group div").each ->
     
 $(window).resize(resizeElements).triggerHandler "resize"
 $(resizeElements)

@@ -1,4 +1,5 @@
 Web::Application.routes.draw do
+  match 'rooms/:id' => 'rooms#show'
   scope 'configure' do
     resources :device_types
     resources :room_types
@@ -73,5 +74,5 @@ Web::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
+  match ':controller(/:action(/:id))(.:format)'
 end

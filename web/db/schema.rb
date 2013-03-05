@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20121211115831) do
     t.integer  "element_type_id"
     t.string   "options"
     t.string   "description"
+    t.string   "state"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end

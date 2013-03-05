@@ -7,6 +7,7 @@ class CreateElements < ActiveRecord::Migration
       t.integer :element_type_id
       t.string :options
       t.string :description
+      t.string :state
 
       t.timestamps
     end
