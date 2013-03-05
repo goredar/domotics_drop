@@ -100,10 +100,9 @@ class ElementsController < ApplicationController
   def toggle
     @element = Element.find(params[:id])
     @element.state = @element.state ? nil : 'active'
-    @element.save
     respond_to do |format|
-#       format.html
       format.js
     end
+    @element.save
   end
 end
