@@ -5,10 +5,10 @@
   .large-9.columns
     - sel=0
     - colored=true
-    - (type_index.size/2).times do
+    - (type_index.size/2+type_index.size%2).times do
       .row.element_container
         - colored=!colored
-        - type_index[sel,2].each do |type|
+        - (type_index[sel,2]).each  do |type|
           - colored=!colored
           %div{ :class => "large-6 columns#{' colored' if colored}" }
             %span.label.name= type.name

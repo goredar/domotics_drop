@@ -25,7 +25,7 @@ $border_color: #cccccc;
 /* Elements */
 .element_container {
   div {
-    height: 64px;
+    min-height: 128px;
     background-color: #ccc;
     border: 1px solid #777;
     opacity: 0.75;

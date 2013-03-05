@@ -1,16 +1,18 @@
-%nav.fixed.top-bar
+%nav.top-bar.fixed.contain-to-grid
   %ul.title-area
     %li.name
       %h1
         = link_to t('navbar.title'), index_path
     %li.toggle-topbar.menu-icon
-      %a
+      %a{:href=>'#'}
         %span Menu
   %section.top-bar-section
+    %ul
+      %li
     %ul.right
       %li.divider
       %li
-        = link_to_menu t('navbar.main'), index_path, 'home 2x'
+        = link_to_menu t('navbar.main'), index_path, 'home large'
       %li.divider
       %li
         = link_to_menu t('navbar.configure'), configure_path, 'cogs large'
