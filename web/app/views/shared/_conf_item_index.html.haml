@@ -3,7 +3,7 @@
     = render 'shared/side_nav'
     = link_to({:action => :new}, {:class => 'button small expand'}) do
       %i.icon-plus-sign.icon-large
-      = t('c.add')
+      %span t('c.add')
     = render 'shared/notice'
   .large-9.columns
     - sel=0
