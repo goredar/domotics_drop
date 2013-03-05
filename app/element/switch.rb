@@ -28,6 +28,7 @@ module Domotics
     def switch(timer = nil)
       self.state = self.state == :off ? :on : :off
       lag(:switch, timer)
+      self.state
     end
     def delay_switch(timer)
       lag(:switch, timer)
