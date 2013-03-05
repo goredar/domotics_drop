@@ -13,7 +13,7 @@ module Domotics
     end
     def state=(value)
       # Set hardware state and save it
-      @state = value if super
+      @state = value
     end
     def on_state_changed(pin_state)
       @state = to_hls pin_state

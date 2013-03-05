@@ -15,6 +15,7 @@ module Arduino
     end
     def state=(value)
       @board.set_digital @pin, to_lls(value)
+      super
     end
     #  Override in child for needed action
     def on_state_changed(pin_state)
