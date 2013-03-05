@@ -1,21 +1,27 @@
 .raw.room_bar
   .button-group
-    = link_to('#', { :class => 'button tiny' }) do
+    = link_to({ controller: :rooms, action: :command, id: room.id, options: :lightf_off }, 
+    {remote: true, class: 'button tiny' }) do
       %i.icon-power.icon-2x
-    = link_to('#', { :class => 'button tiny' }) do
+    = link_to({ controller: :rooms, action: :command, id: room.id, options: :lightf_min }, 
+    {remote: true, class: 'button tiny' }) do
       %i.icon-brightness.icon-2x
-    = link_to('#', { :class => 'button tiny' }) do
+    = link_to({ controller: :rooms, action: :command, id: room.id, options: :lightf_mid }, 
+    {remote: true, class: 'button tiny' }) do
       %i.icon-brightnesshalf.icon-2x
-    = link_to('#', { :class => 'button tiny' }) do
+    = link_to({ controller: :rooms, action: :command, id: room.id, options: :lightf_max }, 
+    {remote: true, class: 'button tiny' }) do
       %i.icon-brightnessfull.icon-2x
     .right
       - unless full_view
         = link_to({ controller: :rooms, action: :show, id: room.id }, { class: 'button tiny secondary' }) do
+          = room.name
           %i.icon-scaleup.icon-2x
       - else
         = link_to index_path, class: 'button tiny secondary' do
+          = room.name
           %i.icon-scaledown.icon-2x
 .row.room
   .small-1.columns.expand_all.room_bar
   .small-11.columns.expand_all
-    = render partial: "rooms/room", locals: { room: room}
+    = render partial: "rooms/room", locals: { room: room }

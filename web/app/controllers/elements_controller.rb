@@ -99,8 +99,7 @@ class ElementsController < ApplicationController
   
   def command
     @element = Element.find(params[:id])
-    command = params[:options]
-    @element.state = Domo.gds_req({ request: :eval, object: @element.room.name, expression: "#{@element.name}.#{command}" })[:reply]
+    @element.state = Domo.gds_req({ request: :eval, object: @element.room.name, expression: "#{@element.name}.#{params[:options]}" })[:reply]
     RoomsController.last_update[@element.room.id] = (Time.now.to_f*100).to_i
     @element.save
     render nothing: true
