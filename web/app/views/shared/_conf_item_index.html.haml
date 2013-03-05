@@ -22,8 +22,7 @@
                 %i.icon-wrench
               = link_to item, :method => :delete, :id => item.id, :data => {:confirm => t('c.confirm_del')} do
                 %i.icon-trash
-            %p.name
-              %span.label= item.name
+            %span.label= item.name
             %p.options= item.options
             %p.description= item.description
         - sel += 2
