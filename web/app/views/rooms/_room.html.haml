@@ -2,10 +2,10 @@
   %span.icobutton
     - unless full_view
       = link_to controller: :rooms, action: :show, id: room.id do
-        %i.icon-external-link.icon-large
+        %i.icon-scaleup.icon-large
     - else
       = link_to index_path do
-        %i.icon-reply.icon-large
+        %i.icon-scaledown.icon-large
   - room.elements.each do |el|
     = link_to controller: :elements, action: :toggle, id: el.id, remote: true do
       = render partial: "rooms/#{room.name}/#{el.name}", locals: {el: el} rescue nil

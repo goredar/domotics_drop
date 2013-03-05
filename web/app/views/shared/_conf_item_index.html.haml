@@ -19,9 +19,9 @@
           .large-6.columns
             %span.icobutton
               = link_to :action => :edit, :id => item.id do
-                %i.icon-wrench
+                %i.icon-cog
               = link_to item, :method => :delete, :id => item.id, :data => {:confirm => t('c.confirm_del')} do
-                %i.icon-trash
+                %i.icon-remove
             %span.label= item.name
             %p.options= item.options
             %p.description= item.description

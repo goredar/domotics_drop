@@ -1,7 +1,7 @@
 %ul.side-nav
-  = link_to_menu t('action_bar.elements'), elements_path, 'folder-close', 2
-  = link_to_menu t('action_bar.rooms'), rooms_path, 'folder-close', 2
-  = link_to_menu t('action_bar.devices'), devices_path, 'folder-close', 2
-  = link_to_menu t('action_bar.element_types'), element_types_path, 'folder-close', 2
-  = link_to_menu t('action_bar.room_types'), room_types_path, 'folder-close', 2
-  = link_to_menu t('action_bar.device_types'), device_types_path, 'folder-close', 2
+  = link_to_menu " #{t('action_bar.elements')}", elements_path, 'th-list', 2
+  = link_to_menu " #{t('action_bar.rooms')}", rooms_path, 'th-list', 2
+  = link_to_menu " #{t('action_bar.devices')}", devices_path, 'th-list', 2
+  = link_to_menu " #{t('action_bar.element_types')}", element_types_path, 'circle-blank', 2
+  = link_to_menu " #{t('action_bar.room_types')}", room_types_path, 'circle-blank', 2
+  = link_to_menu " #{t('action_bar.device_types')}", device_types_path, 'circle-blank', 2

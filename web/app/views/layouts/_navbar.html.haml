@@ -10,8 +10,8 @@
     %ul
       %li
     %ul.right
-      %li= link_to_menu t('navbar.main'), index_path, 'home large'
-      %li= link_to_menu t('navbar.configure'), configure_path, 'cogs large'
-      %li= link_to_menu t('navbar.torrent'), 'http://goredar.dyndns.org:50000/', 'download-alt large'
-      %li= link_to_menu t('navbar.htpc'), 'http://goredar.dyndns.org:50001/', 'film large'
-      %li= link_to_menu t('navbar.lightstock'), 'http://goredar.dyndns.org:50002/', 'shopping-cart large'
+      %li= link_to_menu " #{t('navbar.main')}", index_path, 'dashboard large'
+      %li= link_to_menu " #{t('navbar.configure')}", configure_path, 'cogs large'
+      %li= link_to_menu " #{t('navbar.torrent')}", 'http://goredar.dyndns.org:50000/', 'download-alt large'
+      %li= link_to_menu " #{t('navbar.htpc')}", 'http://goredar.dyndns.org:50001/', 'film large'
+      %li= link_to_menu " #{t('navbar.lightstock')}", 'http://goredar.dyndns.org:50002/', 'shopping-cart large'

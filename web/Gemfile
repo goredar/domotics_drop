@@ -23,6 +23,7 @@ end
   gem 'zurb-foundation', '~> 4.0.0'
 #  gem 'foundation-icons-sass-rails'
   gem 'font-awesome-rails'
+  gem 'icomoon-rails', git: 'git@github.com:goredar/icomoon-rails.git'
   gem 'haml-rails'
 #end
 
