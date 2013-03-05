@@ -38,7 +38,7 @@ module Domotics
     def start
       Socket.tcp_server_loop(16807) do |client, client_addrinfo|
         Thread.new do
-          client.puts GDS: Domotics::PROTOCOL_VERSION
+          # client.puts GDS: Domotics::PROTOCOL_VERSION
           loop do
             break if !message = client.gets
             begin
@@ -50,7 +50,8 @@ module Domotics
             # Evaluate expression in term of object
             # { request: :eval, object: :some_object, expression: :some_expression }
             when :eval
-              client.puts '{response: :ok}'
+              p data
+              client.puts status: :ok, state: :active
             when :get
               client.puts '{response: :ok}'
             when :set

@@ -99,7 +99,7 @@ class ElementsController < ApplicationController
   
   def toggle
     @element = Element.find(params[:id])
-    @element.state = @element.state ? nil : 'active'
+    @element.state = DOMO.gds_req({ request: :eval, object: @lement.name, expression: "#{@element.room.name}.#{@element.name}.switch" })[:state]
     RoomsController.last_update[@element.room.id] = (Time.now.to_f*100).to_i
     respond_to do |format|
       format.js
