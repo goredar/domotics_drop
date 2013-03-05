@@ -14,7 +14,7 @@ class Domo
     @@gds_node = TCPSocket.open(GDS_ADDR, GDS_PORT) unless @@gds_node
     @@gds_node.puts request
     raise ArgumentError unless reply = @@gds_node.gets
-    reply
+    eval reply
   rescue ArgumentError, Errno::EPIPE
     @@gds_node.close
     @@gds_node = nil

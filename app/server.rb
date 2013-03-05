@@ -52,8 +52,7 @@ module Domotics
             when :eval
               p data
               p state = Room[data[:object].to_sym].instance_eval(data[:expression])
-              p({:state => state == :on ? :active : nil})
-              client.puts({:state => state == :on ? :active : nil})
+              client.puts({ :state => state == :on ? :active : nil })
             when :get
               client.puts '{response: :ok}'
             when :set
