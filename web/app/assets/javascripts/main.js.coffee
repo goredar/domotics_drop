@@ -1,5 +1,9 @@
-resizeRoom = ->
+resizeElements = ->
   $(".room").each ->
-   $(this).height(0.6*$(this).width())
-$(window).resize(resizeRoom).triggerHandler "resize"
-$(resizeRoom)
+    $(this).height(0.6*$(this).width())
+  $(".circle").each ->
+    $(this).height($(this).width())
+  $(".circle_inline").each ->
+    $(this).width($(this).height())
+$(window).resize(resizeElements).triggerHandler "resize"
+$(resizeElements)

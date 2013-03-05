@@ -1019,3 +1019,14 @@ $alert-font-size: emCalc(12px);
 /* Custom alert box */
 .alert-succsess { @include alert(#dff0d8); }
 .alert-alert { @include alert(#f2dede); }
+p {
+  padding: 0;
+  margin: 0;
+  border: none;
+  span {
+    padding: 0;
+    margin: 0;
+    border: none;
+    top: -1px;
+  }
+}
