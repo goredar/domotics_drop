@@ -7,7 +7,7 @@ class Domo
   WORDS_REGEXP = /\A[\w ]+\Z/
   VIEW_FIELDS = [:name, :class_name, :element_type_id, :room_id, :device_id,
                  :room_type_id, :device_type_id, :options, :description]
-  GDS_ADDR = 'localhost'
+  GDS_ADDR = '127.0.0.1'
   GDS_PORT = '50002'
   @@gds_node = nil
   def self.gds_req(request)
