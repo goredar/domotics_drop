@@ -53,7 +53,7 @@ module Arduino
         @adc_pins = Array.new(16) { |index| 54+index }
         @pwm_pins = Array.new(12) { |index| 2+index } + [44,45,46]
       else
-        raise ArduinoSerialError, 'Error! Invalid board type.'
+        raise ArduinoSerialError, 'Invalid board type.'
       end
       # Open connection
       baudrate = 115200; databits = 8; stopbits = 1; parity = SerialPort::NONE
@@ -67,7 +67,7 @@ module Arduino
       Thread.new do
         loop do
           message = @board.gets
-          raise ArduinoSerialError if !message # message nil - board disconected
+          raise ArduinoSerialError, 'Board does not respond.' unless message # message nil - board disconected
           message = message.split
           case message.length
           when 1
@@ -77,7 +77,7 @@ module Arduino
           when 2
             @reply.push(message.collect{ |m| m.to_i })
           else
-            raise ArduinoSerialError
+            raise ArduinoSerialError, 'Invalid reply from board.'
           end
         end
       #rescue ArduinoSerialError => e
