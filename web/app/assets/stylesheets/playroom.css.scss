@@ -1,7 +1,7 @@
 #playroom {
-  border-bottom: 5px solid #5da423;
+  border-bottom: 2px solid #5da423;
   &:hover {
-    border-bottom: 5px solid #457a1a;
+    border-bottom: 2px solid #457a1a;
   }
 }
 #main_lights {
@@ -15,7 +15,7 @@
 #line_1_lights {
   text-align: center;
   position: absolute;
-  top: 5%;
+  top: 4%;
   width: 70%;
   left: 15%;
   height: 8%;
@@ -46,28 +46,28 @@
 #corner_1_lights {
   position: absolute;
   top: 20%;
-  width: 10%;
+  width: 11%;
   left: 25%;
   height: 18%;
 }
 #corner_2_lights {
   position: absolute;
   top: 20%;
-  width: 10%;
+  width: 11%;
   right: 24%;
   height: 18%;
 }
 #corner_3_lights {
   position: absolute;
   bottom: 20%;
-  width: 10%;
+  width: 11%;
   right: 24%;
   height: 18%;
 }
 #corner_4_lights {
   position: absolute;
   bottom: 20%;
-  width: 10%;
+  width: 11%;
   left: 25%;
   height: 18%;
 }

@@ -1,13 +1,13 @@
 .raw.room_bar
   .button-group
     = link_to('#', { :class => 'button tiny' }) do
-      %i.icon-brightnessfull.icon-2x
-    = link_to('#', { :class => 'button tiny' }) do
-      %i.icon-brightnesshalf.icon-2x
+      %i.icon-power.icon-2x
     = link_to('#', { :class => 'button tiny' }) do
       %i.icon-brightness.icon-2x
     = link_to('#', { :class => 'button tiny' }) do
-      %i.icon-power.icon-2x
+      %i.icon-brightnesshalf.icon-2x
+    = link_to('#', { :class => 'button tiny' }) do
+      %i.icon-brightnessfull.icon-2x
     .right
       - unless full_view
         = link_to({ controller: :rooms, action: :show, id: room.id }, { class: 'button tiny secondary' }) do
