@@ -42,49 +42,26 @@ module Arduino
       b_type = args_hash[:type] || :mega
       case b_type
       when :nano
-        port_str = args_hash[:port] || "/dev/ttyUSB0"
+        @port_str = args_hash[:port] || "/dev/ttyUSB0"
         @number_of_pins = 22
         # todo: address of last 2 pins on nano???
         @adc_pins = Array.new(8) { |index| 14+index }
         @pwm_pins = [2,5,6,9,10,11]
       when :mega
-        port_str = args_hash[:port] || "/dev/ttyACM0"
+        @port_str = args_hash[:port] || "/dev/ttyACM0"
         @number_of_pins = 70
         @adc_pins = Array.new(16) { |index| 54+index }
         @pwm_pins = Array.new(12) { |index| 2+index } + [44,45,46]
       else
         raise ArduinoSerialError, 'Invalid board type.'
       end
-      # Open connection
-      baudrate = 115200; databits = 8; stopbits = 1; parity = SerialPort::NONE
-      @board = SerialPort.new(port_str, baudrate, databits, stopbits, parity)
-      @board.read_timeout = 0
-      @board.sync = true
       # Not allow multiple command sends
       @command_lock = Mutex.new
       @reply = Queue.new
-      # Listen for board replies and alarms
-      Thread.new do
-        loop do
-          message = @board.gets
-          raise ArduinoSerialError, 'Board does not respond.' unless message # message nil - board disconected
-          message = message.split
-          case message.length
-          when 1
-            @reply.push(message[0].to_i)
-          when 3
-            event_handler :event => EVENTS[message[0]], :pin => message[1].to_i, :state => message[2].to_i
-          when 2
-            @reply.push(message.collect{ |m| m.to_i })
-          else
-            raise ArduinoSerialError, 'Invalid reply from board.'
-          end
-        end
-      #rescue ArduinoSerialError => e
-        #@reply.push(FAILREPRLY) if @command_lock.locked?
-      end
-      # Reset the board
-      reset
+      # Open connection
+      @board = nil
+      @board_listener = nil
+      connect
     end
     
     # ---0--- SETPINMODE 
@@ -176,8 +153,51 @@ module Arduino
         end
       end
     end
-    # Reset board
-    def reset
+    # Listen for board replies and alarms
+    def listen
+      @board_listener.exit if @board_listener
+      @board_listener = Thread.new do
+        begin
+          loop do
+            message = @board.gets
+            raise ArduinoSerialError, 'Board i/o error.' unless message # message nil - board disconected
+            message = message.split
+            case message.length
+            when 1
+              @reply.push(message[0].to_i)
+            when 3
+              event_handler :event => EVENTS[message[0]], :pin => message[1].to_i, :state => message[2].to_i
+            when 2
+              @reply.push(message.collect{ |m| m.to_i })
+            else
+              raise ArduinoSerialError, 'Invalid reply from board.'
+            end
+          end
+        rescue ArduinoSerialError => e
+          # Continue to operate in new thread
+          Thread.new do
+            $logger.error e.message
+            # Release command lock
+            @reply.push(FAILREPRLY) if @command_lock.locked?
+            # Close board connection
+            @board.close
+            $logger.info 'Try to restart board in 5 seconds...'
+            sleep 5
+            connect
+          end
+          # Exit errored thread
+          @board_listener.exit
+        end
+      end
+    end
+    # Connect to board
+    def connect
+      $logger.info { "Open serial connection to board..." }
+      baudrate = 115200; databits = 8; stopbits = 1; parity = SerialPort::NONE
+      @board = SerialPort.new(@port_str, baudrate, databits, stopbits, parity)
+      @board.read_timeout = 0
+      @board.sync = true
+      $logger.info { "done." }
       $logger.info { "Initializing arduino board..." }
       # Pin states and mods
       @pin_mode = Array.new(@number_of_pins, INPUT)
@@ -186,13 +206,11 @@ module Arduino
       @board.dtr = 0
       sleep(2)
       $logger.info { "done." }
+      $logger.info { "Starting board listener..." }
+      listen
+      $logger.info { "done." }
       $logger.info { "Reset board to defaults..." }
-      if send_command(DEFAULTS)
-        $logger.info { "done." }
-      else
-        $logger.error { "Can't reset board." }
-        raise ArduinoSerialError
-      end
+      $logger.info { "done." } if send_command(DEFAULTS)
       $logger.info { "Checking connection with board..." }
       random = Random.new
       a, b = 2.times.map { random.rand(0..9) }
@@ -202,6 +220,16 @@ module Arduino
         $logger.error { "Bad reply from board (wrong firmware?)." }
         raise ArduinoSerialError
       end
+    rescue Exception => e
+      $logger.error { e.message }
+      tries = tries || 0
+      tries += 1
+      if tries <= 3
+        $logger.info { "Attempt #{tries}: try to reconnect in #{5**tries} seconds." }
+        sleep 5**tries
+        retry
+      end
+      $logger.error { "Board malfunction. Automatic restart failed." }
     end
     # Checks
     def check_pin(pin)

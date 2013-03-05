@@ -15,7 +15,7 @@ module Domotics
       show_exception_in_threads
       # Create devices, rooms and elements
       for file in %w(devices.conf rooms.conf elements.conf) do
-        open(CONF_BASE+file) do |f|
+        open(URI(CONF_BASE+file)) do |f|
           Marshal.load(f.read).each { |x| eval %Q{ #{x[:klass]}.new(#{x[:options]}) } }
         end
       end
@@ -28,7 +28,7 @@ module Domotics
             begin
               block.call
             rescue Exception => e
-              $stderr.puts e.message
+              $logger.error e.message
               raise e
             end
           end
