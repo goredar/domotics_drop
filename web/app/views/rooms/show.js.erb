@@ -1,2 +1,3 @@
 $("#<%=@room.name%>").replaceWith('<%=j render partial: "rooms/room", locals: { room: @room } %>');
-window.domoticsGO.resizeElements()
+$("#<%=@room.name+'_lc'%>").html('<%=j render partial: "rooms/lights_control", locals: { room: @room, current: nil } %>');
+window.domoticsGO.resizeElements();

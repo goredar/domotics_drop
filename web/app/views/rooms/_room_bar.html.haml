@@ -1,7 +1,7 @@
-.raw.room_bar
+.row.room_bar
   .button-group
-    .lights_control
-    = render partial: "rooms/lights_control", locals: { room: room }
+    .lights_control.button-group{ id: room.name+'_lc' }
+      = render partial: "rooms/lights_control", locals: { room: room, current: nil }
     .right
       - unless full_view
         = link_to({ controller: :rooms, action: :show, id: room.id }, { class: 'button tiny secondary' }) do

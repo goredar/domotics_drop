@@ -1,0 +1,1 @@
+$("#<%=@room.name+'_lc'%>").html('<%=j render partial: "rooms/lights_control", locals: { room: @room, current: params[:options].to_sym } %>');

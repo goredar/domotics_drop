@@ -1,4 +1,2 @@
-= lights_action room, :lights_off
-= lights_action room, :lights_min
-= lights_action room, :lights_mid
-= lights_action room, :lights_max
+- [:lights_off, :lights_min, :lights_mid, :lights_max ].each do |x|
+  = lights_action(room, x, x == current)

@@ -18,4 +18,4 @@ window.domoticsGO.updateRoom = ->
 # Poll for changes
 setInterval ->
   window.domoticsGO.updateRoom()
-, 2000
+, 1000
