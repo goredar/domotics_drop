@@ -15,7 +15,7 @@ development:
   host: localhost
   username: rails
   password: rails
-  pool: 5
+  pool: 100
   timeout: 5000
 
 
@@ -36,5 +36,5 @@ production:
   host: localhost
   username: rails
   password: rails
-  pool: 5
+  pool: 100
   timeout: 5000
