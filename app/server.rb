@@ -1,37 +1,53 @@
 #!/usr/bin/ruby -w
 # coding: utf-8
 
-require 'open-uri'
+#require 'open-uri'
 require 'socket'
+require 'active_record'
+require 'yaml'
 
 module Domotics
   # Configuration
-  WEB_SERVER = 'http://127.0.0.1/'
-  CONF_BASE = 'http://127.0.0.1/configure/'
-  CONF_BASE_DEVEL = 'http://127.0.0.1:3000/configure/'
+  #WEB_SERVER = 'http://127.0.0.1/'
+  #CONF_BASE = 'http://127.0.0.1/configure/'
+  #CONF_BASE_DEVEL = 'http://127.0.0.1:3000/configure/'
   SERVER_PORT = 50002
   PROTOCOL_VERSION = '1.0'
+  AR_CONFIG = 'web/config/database.yml'
+  AR_ENV = "production"
   
   class DomServer
     def initialize
       show_exception_in_threads
+      # Connect to the Rails database
+      ar_connect
       # Create devices, rooms and elements
-      base = CONF_BASE
-      begin
-        for file in %w(devices.conf rooms.conf elements.conf) do
-          open(URI(base+file)) { |f| eval(f.read).each { |x| eval %Q{ #{x[:klass]}.new(#{x[:options]}) } } }
+      ADevice.all.each do |x|
+        begin
+          opt = eval("{#{x.device_type.options}}").merge(eval("{#{x.options}}"))
+        rescue
+          opt = Hash.new
         end
-      rescue Errno::ECONNREFUSED
-        unless base == CONF_BASE_DEVEL
-          base = CONF_BASE_DEVEL
-          retry
-        else
-          $logger.error 'No configuration provided'
-          exit
+        opt.merge! name: x.name.to_sym
+        eval %Q{ #{x.device_type.class_name}.new(#{opt}) }
+      end
+      ARoom.all.each do |x|
+        begin
+          opt = eval("{#{x.room_type.options}}").merge(eval("{#{x.options}}"))
+        rescue
+          opt = Hash.new
         end
-      rescue Exception => e
-        $logger.error e.message
-        nil
+        opt.merge! name: x.name.to_sym
+        eval %Q{ #{x.room_type.class_name}.new(#{opt}) }
+      end
+      AElement.all.each do |x|
+        begin
+          opt = eval("{#{x.element_type.options}}").merge(eval("{#{x.options}}"))
+        rescue Exception => e
+          opt = Hash.new
+        end
+        opt.merge! name: x.name.to_sym, room: x.room.name.to_sym, device: x.device.name.to_sym, id: x.id, state: x.state
+        eval %Q{ #{x.room_type.class_name}.new(#{opt}) }
       end
     end
     def show_exception_in_threads
@@ -92,5 +108,28 @@ module Domotics
       obj = obj.to_sym
       Room[obj] || ArduinoBoard[obj] || self
     end
+    def ar_connect(env = AR_ENV)
+      dbconfig = YAML::load IO.read AR_CONFIG
+      ActiveRecord::Base.establish_connection dbconfig[env]
+    end
+  end
+  # Rails database
+  class ADevice < ActiveRecord::Base
+    self.table_name = 'devices'
+    belongs_to :device_type
+  end
+  class DeviceType < ActiveRecord::Base
+  end
+  class AElement < ActiveRecord::Base
+    self.table_name = "elements"
+    belongs_to :element_type
+  end
+  class ElementType < ActiveRecord::Base
+  end
+  class ARoom < ActiveRecord::Base
+    self.table_name = "rooms"
+    belongs_to :room_type
+  end
+  class RoomType < ActiveRecord::Base
   end
 end
