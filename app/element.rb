@@ -8,7 +8,7 @@ module Domotics
     def initialize(args_hash = {})
       @room = Room[args_hash[:room]]
       @room.register_element self, args_hash[:name]
-      @web_id = args_hash[:id]
+      @id = args_hash[:id]
       if args_hash[:state]
         self.state=(args_hash[:state].to_sym)
       else
