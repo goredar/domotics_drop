@@ -161,7 +161,7 @@ module Arduino
           loop do
             message = @board.gets
             raise ArduinoSerialError, 'Board i/o error.' unless message # message nil - board disconected
-            message = message.split
+            message = message.encode('UTF-8').split
             case message.length
             when 1
               @reply.push(message[0].to_i)
@@ -240,8 +240,8 @@ module Arduino
       raise ArgumentError, 'Error! Cant access watched pin.' if @watch_list[pin] == WATCHON
     end
     
-  #rescue ArgumentError => e
-    #$logger.error e.backtrace
-    #nil
+  rescue ArgumentError => e
+    $logger.error e.message
+    nil
   end
 end
