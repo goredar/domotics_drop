@@ -65,7 +65,7 @@ module Domotics
         end
       end
     end
-    def start
+    def run
       Socket.tcp_server_loop(SERVER_PORT) do |client, client_addrinfo|
         Thread.new do
           # client.puts GDS: Domotics::PROTOCOL_VERSION
