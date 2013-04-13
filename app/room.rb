@@ -14,7 +14,7 @@ module Domotics
       @elements = {}
       # New queue thread
       @room_queue = Queue.new
-      Thread.new { loop { on_event @room_queue.pop } }
+      @queue_thread = Thread.new { loop { on_event @room_queue.pop } }
     end
     # Register element
     def register_element(element, name)
@@ -45,6 +45,9 @@ module Domotics
     # Default simple prints event
     def on_event(element)
       puts element
+    end
+    def destroy
+      @queue_thread.exit
     end
     # Return requested room
     def self.[](symbol = nil)

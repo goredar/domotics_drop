@@ -122,8 +122,13 @@ module Arduino
       send_command(SETWATCH, pin, watch)
     end
 
-    def close
-      @board.close
+    def destroy
+      $logger.info { "Destroy board connection..." }
+      @command_lock.synchronize do
+        @board_listener.exit if @board_listener
+        @board.close
+      end
+      $logger.info { "done." }
     end
     # Default event handler simple prints event.
     def event_handler(hash)

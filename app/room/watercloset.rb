@@ -3,7 +3,7 @@
 
 # Water Closet
 module Domotics
-  class WC < Room
+  class WaterCloset < Room
     def on_event(element)
       case element.state
       when :move

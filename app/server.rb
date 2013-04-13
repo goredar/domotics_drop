@@ -22,33 +22,9 @@ module Domotics
       # Connect to the Rails database
       ar_connect
       # Create devices, rooms and elements
-      ADevice.all.each do |x|
-        begin
-          opt = eval("{#{x.device_type.options}}").merge(eval("{#{x.options}}"))
-        rescue
-          opt = Hash.new
-        end
-        opt.merge! name: x.name.to_sym
-        eval %Q{ #{x.device_type.class_name}.new(#{opt}) }
-      end
-      ARoom.all.each do |x|
-        begin
-          opt = eval("{#{x.room_type.options}}").merge(eval("{#{x.options}}"))
-        rescue
-          opt = Hash.new
-        end
-        opt.merge! name: x.name.to_sym, id: x.id
-        eval %Q{ #{x.room_type.class_name}.new(#{opt}) }
-      end
-      AElement.all.each do |x|
-        begin
-          opt = eval("{#{x.element_type.options}}").merge(eval("{#{x.options}}"))
-        rescue
-          opt = Hash.new
-        end
-        opt.merge! name: x.name.to_sym, room: x.room.name.to_sym, device: x.device.name.to_sym, id: x.id, state: x.state
-        eval %Q{ #{x.element_type.class_name}.new(#{opt}) }
-      end
+      ADevice.all.each {|dev| load_device dev }
+      ARoom.all.each {|room| load_room room }
+      AElement.all.each {|el| load_element el }
     end
     def show_exception_in_threads
       Thread.class_eval do
@@ -77,15 +53,13 @@ module Domotics
             rescue
               break
             end
+            $logger.debug { "client request: "+data.inspect }
             case data[:request]
             # Evaluate expression in term of object
             # { request: :eval, object: :some_object, expression: :some_expression }
             when :eval
               begin
-                $logger.debug { "client request: "+data.inspect }
                 reply = { :reply => find_object(data[:object]).instance_eval(data[:expression]) }
-                $logger.debug { "client reply: "+reply.inspect }
-                client.puts(reply)
               rescue Exception => e
                  $logger.error e.message
                  break
@@ -95,28 +69,69 @@ module Domotics
             when :script
             when :quit
               break
+            when :reload_device
+              device = ADevice.where(:name => data[:object]).first
+              find_object(device.name).destroy
+              load_device device
+              device.elements.each {|el| load_element el }
+              reply = { :reply => :done }
+            when :reload_room
+              room = ARoom.where(:name => data[:object]).first
+              find_object(room.name).destroy
+              load_room room
+              room.elements.each {|el| load_element el }
+              reply = { :reply => :done }
             when :test
             when :debug
             else
               break
             end
+            $logger.debug { "client reply: "+reply.inspect }
+            client.puts(reply)
           end
         end
       end
     end
+    
+    private
+    
+    # Select object for eval
     def find_object(obj)
       obj = obj.to_sym
-      Room[obj] || ArduinoBoard[obj] || self
+      Room[obj] || Arduino::ArduinoBoard[obj]
     end
+    # Connect to database
     def ar_connect(env = AR_ENV)
       dbconfig = YAML::load IO.read File.expand_path AR_CONFIG, File.dirname(__FILE__)
       ActiveRecord::Base.establish_connection dbconfig[env]
+    end
+    def load_device(dev)
+      options = get_options(dev.device_type.options, dev.options).merge!(name: dev.name.to_sym)
+      eval %Q{ #{dev.device_type.class_name}.new(#{options}) }
+    end
+    def load_room(room)
+      options = get_options(room.room_type.options, room.options).merge!(name: room.name.to_sym, id: room.id)
+      eval %Q{ #{room.room_type.class_name}.new(#{options}) }
+    end
+    def load_element(el)
+      options = get_options(el.element_type.options, el.options).merge!(
+        name: el.name.to_sym, room: el.room.name.to_sym, device: el.device.name.to_sym, id: el.id, state: el.state)
+      eval %Q{ #{el.element_type.class_name}.new(#{options}) }
+    end
+    def get_options(type_opt = nil, main_opt = nil)
+      begin
+        options = eval("{#{type_opt}}").merge(eval("{#{main_opt}}"))
+      rescue
+        options = Hash.new
+      end
+      options
     end
   end
   # Rails database
   class ADevice < ActiveRecord::Base
     self.table_name = 'devices'
     belongs_to :device_type
+    has_many :elements, :class_name => "AElement", :foreign_key => "device_id"
   end
   class DeviceType < ActiveRecord::Base
   end
@@ -131,6 +146,7 @@ module Domotics
   class ARoom < ActiveRecord::Base
     self.table_name = "rooms"
     belongs_to :room_type
+    has_many :elements, :class_name => "AElement", :foreign_key => "room_id"
   end
   class RoomType < ActiveRecord::Base
   end

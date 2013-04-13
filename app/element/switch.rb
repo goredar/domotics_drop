@@ -14,6 +14,10 @@ module Domotics
     def on(timer = nil)
       self.state = :on
       lag(:off, timer)
+      self.state
+    end
+    def on?
+      self.state == :on
     end
     def delay_on(timer)
       lag(:on, timer)
@@ -21,6 +25,7 @@ module Domotics
     def off(timer = nil)
       self.state = :off
       lag(:on, timer)
+      self.state
     end
     def delay_off(timer)
       lag(:off, timer)

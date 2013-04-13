@@ -19,7 +19,6 @@ module Domotics
       @state
     end
     def state=(value)
-      #Thread.new { web_notify value }
       AElement.update(@db_id, :state => value.to_s)
       ARoom.update(@room.db_id, :last_update => (Time.now.to_f*1000).to_i)
       @state = value
@@ -27,6 +26,9 @@ module Domotics
     def on_state_changed(pin_state)
       @state = to_hls pin_state
       @room.notify self.dup
+    end
+    def to_hls(value)
+      value
     end
   end
 end
