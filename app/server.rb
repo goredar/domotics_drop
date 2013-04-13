@@ -46,7 +46,7 @@ module Domotics
         rescue
           opt = Hash.new
         end
-        opt.merge! name: x.name.to_sym, room: x.aroom.name.to_sym, device: x.adevice.name.to_sym, id: x.id, state: x.state
+        opt.merge! name: x.name.to_sym, room: x.a_room.name.to_sym, device: x.a_device.name.to_sym, id: x.id, state: x.state
         eval %Q{ #{x.room_type.class_name}.new(#{opt}) }
       end
     end
