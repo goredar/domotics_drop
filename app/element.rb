@@ -8,7 +8,7 @@ module Domotics
     def initialize(args_hash = {})
       @room = Room[args_hash[:room]]
       @room.register_element self, args_hash[:name]
-      @id = args_hash[:id]
+      @db_id = args_hash[:id]
       if args_hash[:state]
         self.state=(args_hash[:state].to_sym)
       else
@@ -20,7 +20,8 @@ module Domotics
     end
     def state=(value)
       #Thread.new { web_notify value }
-      AElement.update(@id, :state => value.to_s)
+      AElement.update(@db_id, :state => value.to_s)
+      ARoom.update(@room.db_id, :last_update => (Time.now.to_f*1000).to_i)
       @state = value
     end
     def on_state_changed(pin_state)

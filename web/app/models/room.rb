@@ -4,7 +4,7 @@ class Room < ActiveRecord::Base
 
   before_destroy { |x| x.elements.empty? }
 
-  attr_accessible :description, :name, :options, :room_type_id
+  attr_accessible :description, :name, :options, :room_type_id, :last_update
 
   validates :name, :presence => true, :uniqueness => true, :format => { :with => Domo::RUBY_NAME_REGEXP }
   validates :room_type_id, :presence => true, :inclusion => {:in => proc { RoomType.all.collect{|x| x.id }}}

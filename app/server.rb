@@ -13,7 +13,7 @@ module Domotics
   #CONF_BASE_DEVEL = 'http://127.0.0.1:3000/configure/'
   SERVER_PORT = 50002
   PROTOCOL_VERSION = '1.0'
-  AR_CONFIG = 'web/config/database.yml'
+  AR_CONFIG = '../web/config/database.yml'
   AR_ENV = "production"
   
   class DomServer
@@ -37,7 +37,7 @@ module Domotics
         rescue
           opt = Hash.new
         end
-        opt.merge! name: x.name.to_sym
+        opt.merge! name: x.name.to_sym, id: x.id
         eval %Q{ #{x.room_type.class_name}.new(#{opt}) }
       end
       AElement.all.each do |x|
@@ -109,7 +109,7 @@ module Domotics
       Room[obj] || ArduinoBoard[obj] || self
     end
     def ar_connect(env = AR_ENV)
-      dbconfig = YAML::load IO.read AR_CONFIG
+      dbconfig = YAML::load IO.read File.expand_path AR_CONFIG, File.dirname(__FILE__)
       ActiveRecord::Base.establish_connection dbconfig[env]
     end
   end

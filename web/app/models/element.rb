@@ -13,4 +13,10 @@ class Element < ActiveRecord::Base
   validates :options, :format => { :with => Domo::RUBY_HASH_REGEXP }
 
   scope :by_room, order(:room_id, :name)
+  
+  def self.find!(content_id)
+    uncached do 
+      find(content_id)
+    end 
+  end
 end

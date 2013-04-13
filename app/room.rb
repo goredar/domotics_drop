@@ -3,11 +3,13 @@
 
 module Domotics
   class Room
+    attr_reader :db_id
     # All rooms
     @@rooms = {}
     def initialize(args_hash = {})
       # Save self
       @@rooms[args_hash[:name]] = self
+      @db_id = args_hash[:id]
       # Hash of elements
       @elements = {}
       # New queue thread
