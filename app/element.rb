@@ -19,7 +19,8 @@ module Domotics
       @state
     end
     def state=(value)
-      Thread.new { web_notify value }
+      #Thread.new { web_notify value }
+      AElement.update(@id, :state => value.to_s)
       @state = value
     end
     def on_state_changed(pin_state)
