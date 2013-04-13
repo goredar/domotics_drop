@@ -46,7 +46,7 @@ module Domotics
         rescue
           opt = Hash.new
         end
-        opt.merge! name: x.name.to_sym, room: x.a_room.name.to_sym, device: x.a_device.name.to_sym, id: x.id, state: x.state
+        opt.merge! name: x.name.to_sym, room: x.room.name.to_sym, device: x.device.name.to_sym, id: x.id, state: x.state
         eval %Q{ #{x.room_type.class_name}.new(#{opt}) }
       end
     end
@@ -123,8 +123,8 @@ module Domotics
   class AElement < ActiveRecord::Base
     self.table_name = "elements"
     belongs_to :element_type
-    belongs_to :a_device
-    belongs_to :a_room
+    belongs_to :device, :class_name => "ADevice"
+    belongs_to :room, :class_name => "ARoom"
   end
   class ElementType < ActiveRecord::Base
   end
