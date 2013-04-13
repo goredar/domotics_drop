@@ -6,7 +6,7 @@ require 'socket'
 
 module Domotics
   # Configuration
-  WEB_SERVER = 'http://127.0.0.1:3000/'
+  WEB_SERVER = 'http://127.0.0.1/'
   CONF_BASE = 'http://127.0.0.1/configure/'
   CONF_BASE_DEVEL = 'http://127.0.0.1:3000/configure/'
   SERVER_PORT = 50002
