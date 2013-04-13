@@ -71,13 +71,15 @@ module Domotics
               break
             when :reload_device
               device = ADevice.where(:name => data[:object]).first
-              find_object(device.name).destroy
+              old_dev = find_object(device.name)
+              old_dev.destroy if old_dev
               load_device device
               device.elements.each {|el| load_element el }
               reply = { :reply => :done }
             when :reload_room
               room = ARoom.where(:name => data[:object]).first
-              find_object(room.name).destroy
+              old_room = find_object(room.name)
+              old_room.destroy if old_room
               load_room room
               room.elements.each {|el| load_element el }
               reply = { :reply => :done }
