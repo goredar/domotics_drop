@@ -40,7 +40,7 @@ module Domotics
             begin
               block.call
             rescue Exception => e
-              $logger.error e.backtrace
+              $logger.error e.message
               raise e
             end
           end
