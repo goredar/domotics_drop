@@ -1,7 +1,9 @@
 #playroom {
   border-bottom: 2px solid #5da423;
+  border-left: 1px solid #5da423;
   &:hover {
     border-bottom: 2px solid #457a1a;
+    border-left: 1px solid #457a1a;
   }
 }
 #main_lights {

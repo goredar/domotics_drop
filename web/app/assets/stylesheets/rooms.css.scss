@@ -1,5 +1,5 @@
 .room {
-  background-color: #d0d0d0;
+  background-color: #d5d5d5;
   position: relative;
 }
 .room_bar {
@@ -14,7 +14,7 @@
     border: 1px solid #2ba6cb;
   }
   &.on .circle {
-    background-color: #32CD32;
+    background-color: #32cd32;
   }
 }
 .circle {
@@ -22,7 +22,6 @@
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background-color: #fff;
 }
 .vc_5 {
   margin: 0 6%;
