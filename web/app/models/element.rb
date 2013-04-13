@@ -11,4 +11,6 @@ class Element < ActiveRecord::Base
   validates :room_id, :inclusion => {:in => proc { Room.all.collect{|x| x.id }}}
   validates :device_id, :inclusion => {:in => proc { Device.all.collect{|x| x.id }}}
   validates :options, :format => { :with => Domo::RUBY_HASH_REGEXP }
+
+  scope :by_room, order(:room_id, :name)
 end

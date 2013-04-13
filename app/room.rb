@@ -3,16 +3,16 @@
 
 module Domotics
   class Room
+    # All rooms
     @@rooms = {}
-
     def initialize(args_hash = {})
-      name = args_hash[:name]
-      @@rooms[name] = self
+      # Save self
+      @@rooms[args_hash[:name]] = self
       # Hash of elements
       @elements = {}
       # New queue thread
       @room_queue = Queue.new
-      Thread.new {loop {on_event @room_queue.pop}}
+      Thread.new { loop { on_event @room_queue.pop } }
     end
     # Register element
     def register_element(element, name)
@@ -20,22 +20,30 @@ module Domotics
       # Add method with the same name as elements symbol
       instance_eval %Q{def #{name}; @elements[:#{name}]; end;}
     end
+    def lights_off
+      @elements.values.reject{ |v| v.state == :off }.each{ |e| e.off }
+      :ok
+    end
+    def lights_min
+    end
+    def lights_mid
+    end
+    def lights_max
+      @elements.values.reject{ |v| v.state == :on }.each{ |e| e.on }
+      :ok
+    end
     # Return element object
     def [](symbol)
       @elements[symbol]
     end
     # Method for pushing into queue
-    def push_event(*args)
+    def notify(*args)
       @room_queue.push(*args)
     end
     # Default simple prints event
     def on_event(element)
       puts element
     end
-    def inform(element)
-      p "#{element.name} -> #{element.state}"
-    end
-
     # Return requested room
     def self.[](symbol = nil)
       if symbol
@@ -44,7 +52,6 @@ module Domotics
         @@rooms
       end
     end
-
     # Like var
     def method_missing(symbol)
       @@rooms[symbol]

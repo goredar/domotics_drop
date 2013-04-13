@@ -106,8 +106,7 @@ class RoomsController < ApplicationController
   
   def command
     @room = Room.find(params[:id])
+    respond_to { |format| format.js }
     Domo.gds_req request: :eval, object: @room.name, expression: params[:options]
-    RoomsController.last_update[@room.id] = (Time.now.to_f*100).to_i
-    render nothing: true
   end
 end

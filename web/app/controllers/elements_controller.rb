@@ -2,7 +2,7 @@ class ElementsController < ApplicationController
   # GET /elements
   # GET /elements.json
   def index
-    @elements = Element.all(:order => 'room_id, name')
+    @elements = Element.by_room
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @elements }
@@ -13,7 +13,8 @@ class ElementsController < ApplicationController
           rescue Exception => e
             opt = Hash.new
           end
-          opt.merge! name: x.name.to_sym , room: x.room.name.to_sym, device: x.device.name.to_sym
+          opt.merge! name: x.name.to_sym , room: x.room.name.to_sym, 
+            device: x.device.name.to_sym, id: x.id, state: x.state
           { klass: x.element_type.class_name.to_sym, options: opt }
         end
         send_data data.inspect
@@ -100,8 +101,14 @@ class ElementsController < ApplicationController
   def command
     @element = Element.find(params[:id])
     @element.state = Domo.gds_req({ request: :eval, object: @element.room.name, expression: "#{@element.name}.#{params[:options]}" })[:reply]
-    RoomsController.last_update[@element.room.id] = (Time.now.to_f*100).to_i
     respond_to { |format| format.js }
+  end
+
+  def notify
+    render nothing: true
+    @element = Element.find(params[:id])
+    @element.state = params[:options]
     @element.save
+    RoomsController.last_update[@element.room.id] = (Time.now.to_f*100).to_i
   end
 end

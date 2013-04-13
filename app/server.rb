@@ -6,6 +6,7 @@ require 'socket'
 
 module Domotics
   # Configuration
+  WEB_SERVER = 'http://127.0.0.1:3000/'
   CONF_BASE = 'http://127.0.0.1/configure/'
   CONF_BASE_DEVEL = 'http://127.0.0.1:3000/configure/'
   SERVER_PORT = 50002
@@ -25,7 +26,8 @@ module Domotics
           base = CONF_BASE_DEVEL
           retry
         else
-          raise
+          $logger.error 'No configuration provided'
+          exit
         end
       rescue Exception => e
         $logger.error e.message
@@ -65,12 +67,12 @@ module Domotics
             when :eval
               begin
                 $logger.debug { "client request: "+data.inspect }
-                reply = { :reply => find_object(data[:object]).instance_eval(data[:expression]) }
+                p reply = { :reply => find_object(data[:object]).instance_eval(data[:expression]) }
                 $logger.debug { "client reply: "+reply.inspect }
                 client.puts(reply)
               rescue Exception => e
-                $logger.error e.message
-                break
+                 $logger.error e.message
+                 break
               end
             when :get
             when :set

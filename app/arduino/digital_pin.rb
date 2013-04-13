@@ -5,10 +5,10 @@
 module Arduino
   module DigitalPin
     def initialize(args_hash = {})
-      super
       @board = ArduinoBoard[args_hash[:device]]
       @pin = args_hash[:pin]
       @board.register_pin self, @pin
+      super
     end
     def state!
       to_hls @board.get_digital(@pin)
