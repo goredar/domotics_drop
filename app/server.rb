@@ -62,7 +62,7 @@ module Domotics
                 reply = { :reply => find_object(data[:object]).instance_eval(data[:expression]) }
               rescue Exception => e
                  $logger.error e.message
-                 break
+                 reply = { :reply => :fail }
               end
             when :get
             when :set
