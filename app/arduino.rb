@@ -240,8 +240,8 @@ module Arduino
       raise ArgumentError, 'Error! Cant access watched pin.' if @watch_list[pin] == WATCHON
     end
     
-  rescue ArgumentError => e
-    $logger.error e.backtrace
-    nil
+  #rescue ArgumentError => e
+    #$logger.error e.backtrace
+    #nil
   end
 end
