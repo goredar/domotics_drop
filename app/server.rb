@@ -123,8 +123,8 @@ module Domotics
   class AElement < ActiveRecord::Base
     self.table_name = "elements"
     belongs_to :element_type
-    belongs_to :adevice
-    belongs_to :aroom
+    belongs_to :a_device
+    belongs_to :a_room
   end
   class ElementType < ActiveRecord::Base
   end
