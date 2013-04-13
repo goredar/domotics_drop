@@ -23,7 +23,7 @@ module Domotics
       instance_eval %Q{def #{name}; @elements[:#{name}]; end;}
     end
     def lights_off
-      @elements.values.reject{ |v| v.state == :off }.each{ |e| Thread.new { e.off } }
+      @elements.values.reject{ |v| v.state == :off }.each{ |e| Thread.new { e.off; ActiveRecord::Base.connection.close } }
       :ok
     end
     def lights_min
@@ -31,7 +31,7 @@ module Domotics
     def lights_mid
     end
     def lights_max
-      @elements.values.reject{ |v| v.state == :on }.each{ |e| Thread.new { e.on } }
+      @elements.values.reject{ |v| v.state == :on }.each{ |e| Thread.new { e.on; ActiveRecord::Base.connection.close } }
       :ok
     end
     # Return element object
