@@ -161,7 +161,7 @@ module Arduino
           loop do
             message = @board.gets
             raise ArduinoSerialError, 'Board i/o error.' unless message # message nil - board disconected
-            message = message.encode('UTF-8').split
+            message = message.force_encoding("ISO-8859-1").split
             case message.length
             when 1
               @reply.push(message[0].to_i)
