@@ -43,7 +43,7 @@ module Domotics
       AElement.all.each do |x|
         begin
           opt = eval("{#{x.element_type.options}}").merge(eval("{#{x.options}}"))
-        rescue Exception => e
+        rescue
           opt = Hash.new
         end
         opt.merge! name: x.name.to_sym, room: x.room.name.to_sym, device: x.device.name.to_sym, id: x.id, state: x.state
@@ -123,6 +123,8 @@ module Domotics
   class AElement < ActiveRecord::Base
     self.table_name = "elements"
     belongs_to :element_type
+    belongs_to :device
+    belongs_to :room
   end
   class ElementType < ActiveRecord::Base
   end
