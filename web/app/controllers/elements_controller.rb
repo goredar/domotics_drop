@@ -109,6 +109,6 @@ class ElementsController < ApplicationController
     @element = Element.find(params[:id])
     @element.state = params[:options]
     @element.save
-    RoomsController.last_update[@element.room.id] = (Time.now.to_f*100).to_i
+    RoomsController.last_update[@element.room.id] = (Time.now.to_f*1000).to_i
   end
 end
