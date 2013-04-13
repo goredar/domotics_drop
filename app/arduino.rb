@@ -241,7 +241,7 @@ module Arduino
     end
     
   rescue ArgumentError => e
-    $logger.error e.message
+    $logger.error e.backtrace
     nil
   end
 end
