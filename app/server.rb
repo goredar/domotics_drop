@@ -83,7 +83,7 @@ module Domotics
             when :eval
               begin
                 $logger.debug { "client request: "+data.inspect }
-                p reply = { :reply => find_object(data[:object]).instance_eval(data[:expression]) }
+                reply = { :reply => find_object(data[:object]).instance_eval(data[:expression]) }
                 $logger.debug { "client reply: "+reply.inspect }
                 client.puts(reply)
               rescue Exception => e

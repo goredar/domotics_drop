@@ -27,12 +27,5 @@ module Domotics
       @state = to_hls pin_state
       @room.notify self.dup
     end
-    def web_notify(value)
-      notify = "#{Domotics::WEB_SERVER}elements/notify/#{@web_id}/#{value}"
-      open(URI(notify))
-    rescue Exception => e
-      $logger.error e.message
-      nil
-    end
   end
 end
