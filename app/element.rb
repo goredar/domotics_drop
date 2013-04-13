@@ -23,12 +23,9 @@ module Domotics
       ARoom.update(@room.db_id, :last_update => (Time.now.to_f*1000).to_i)
       @state = value
     end
-    def on_state_changed(pin_state)
-      @state = to_hls pin_state
+    def on_state_changed(state)
+      @state = state
       @room.notify self.dup
-    end
-    def to_hls(value)
-      value
     end
   end
 end

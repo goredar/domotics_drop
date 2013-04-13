@@ -13,13 +13,12 @@ module Arduino
       @@boards[@name] = self
       super
     end
-    def reload(saved_pins)
-      @pins = saved_pins
-    end
+    
     # Register pin for watch events
     def register_pin(pin_object, number)
       @pins[number] = pin_object
     end
+    
     # Return pin object
     def [](number = nil)
       if number
@@ -28,18 +27,7 @@ module Arduino
         @pins
       end
     end
-    # Override default handler
-    def event_handler(hash)
-      case hash[:event]
-      # Tell element to change state
-      when :pinstate
-        @pins[hash[:pin]].on_state_changed hash[:state]
-      when :malfunction
-        nil
-      else
-        nil
-      end
-    end
+
     def destroy
       super
       @@boards[@name] = nil
@@ -50,6 +38,21 @@ module Arduino
         @@boards[symbol]
       else
         @@boards
+      end
+    end
+    
+    private
+    
+    # Override default handler
+    def event_handler(hash)
+      case hash[:event]
+        # Tell element to change state
+      when :pinstate
+        @pins[hash[:pin]].on_state_changed hash[:state]
+      when :malfunction
+        nil
+      else
+        nil
       end
     end
   end

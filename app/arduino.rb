@@ -130,12 +130,13 @@ module Arduino
       end
       $logger.info { "done." }
     end
+    
+    private
+    
     # Default event handler simple prints event.
     def event_handler(hash)
       p hash.inspect
     end
-
-    private
 
     # Send command directly to board
     def send_command(command, pin = 0, value = 0)

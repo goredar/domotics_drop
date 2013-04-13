@@ -19,27 +19,18 @@ module Arduino
     end
     #  Override in child for needed action
     def on_state_changed(pin_state)
-      # Dummy
+      super to_hls(pin_state)
     end
-    # Override in children if other states
+
+    private
+
     # Convert to High Level State
     def to_hls(value)
       value == ArduinoSerial::HIGH ? :on : :off
     end
     # Convert to Low Level State
     def to_lls(value)
-      case value
-      when ArduinoSerial::LOW, ArduinoSerial::HIGH
-        value
-      when :off
-        ArduinoSerial::LOW
-      when :on
-        ArduinoSerial::HIGH
-      end
+      value == :on ? ArduinoSerial::HIGH : ArduinoSerial::LOW
     end
-    
-  rescue ArgumentError => e
-    $stderr.puts e.message
-    nil
   end
 end
