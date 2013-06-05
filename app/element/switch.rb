@@ -12,32 +12,35 @@ module Domotics
       @lag = nil
     end
     def on(timer = nil)
-      self.state = :on
+      set_state :on
       lag(:off, timer)
-      self.state
+      state
     end
     def on?
-      self.state == :on
+      state == :on
     end
     def delay_on(timer)
       lag(:on, timer)
     end
     def off(timer = nil)
-      self.state = :off
+      set_state :off
       lag(:on, timer)
-      self.state
+      state
     end
     def delay_off(timer)
       lag(:off, timer)
     end
     def switch(timer = nil)
-      self.state = self.state == :off ? :on : :off
+      set_state state == :off ? :on : :off
       lag(:switch, timer)
-      self.state
+      state
     end
     def delay_switch(timer)
       lag(:switch, timer)
     end
+
+    private
+
     def lag(action = nil, timer = nil)
       # Kill previous action -> out of date
       if @lag

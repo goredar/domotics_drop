@@ -4,9 +4,9 @@
 module Domotics
   class Device
     @@devices = {}
+    attr_reader :name
     def initialize(args_hash)
-      @name = args_hash[:name]
-      @@devices[@name] = self
+      @@devices[@name = args_hash[:name]] = self
     end
 
     def self.[](symbol = nil)

@@ -5,9 +5,10 @@ module Domotics
   class Room
     # All rooms
     @@rooms = {}
+    attr_reader :name
     def initialize(args_hash = {})
       # Save self
-      @@rooms[args_hash[:name]] = self
+      @@rooms[@name = args_hash[:name]] = self
       # Hash of elements
       @elements = {}
       # New queue thread
@@ -31,8 +32,9 @@ module Domotics
       end
     end
     # Return element object
-    def [](symbol)
-      @elements[symbol]
+    def [](symbol = nil)
+      return @elements[symbol] if symbol
+      @elements
     end
     # Method for pushing into queue
     def notify(*args)
@@ -47,11 +49,8 @@ module Domotics
     end
     # Return requested room
     def self.[](symbol = nil)
-      if symbol
-        @@rooms[symbol]
-      else
-        @@rooms
-      end
+      return @@rooms[symbol] if symbol
+      @@rooms
     end
     # Like var
     def method_missing(symbol)

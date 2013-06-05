@@ -13,32 +13,32 @@ module Domotics
     def level
       @level
     end
-    def level=(value = DEFAULT_LEVEL)
+    def set_level(value = DEFAULT_LEVEL)
       @level = value if super
     end
     def dim(value = nil)
       if value
-        self.level = value
+        set_level value
       else
-        self.level -= 100/GRADATION
+        level -= 100/GRADATION
       end
     end
     def bright(value = nil)
       if value
-        self.level = value
+        set_level value
       else
         self.level += 100/GRADATION
       end
     end
     def fade_in(sec = 4)
-      self.level = 0
+      #set_level 0
       GRADATION.times do
         bright
         sleep(sec/GRADATION)
       end
     end
     def fade_out(sec = 4)
-      self.level = 100
+      #set_level 100
       GRADATION.times do
         dim
         sleep(sec/GRADATION)

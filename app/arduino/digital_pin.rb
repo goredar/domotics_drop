@@ -13,7 +13,7 @@ module Arduino
     def state!
       to_hls @board.get_digital(@pin)
     end
-    def state=(value)
+    def set_state(value)
       @board.set_digital @pin, to_lls(value)
       super
     end

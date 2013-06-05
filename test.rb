@@ -41,12 +41,25 @@ class HelloWorldTest < Test::Unit::TestCase
     assert last_response.ok?
     get '/kt/main_light?abracadabra'
     assert last_response.bad_request?
+    get '/kt/main_light'
+    assert last_response.bad_request?
   end
-  def test_flash
-    get '/kt?light&on'
+  def test_switch_element
+    get '/kt/main_light?on&1'
     assert last_response.ok?
-    sleep 1
-    get '/kt?light&off'
+    sleep 2
+    get '/kt/main_light?delay_on&1'
     assert last_response.ok?
+    sleep 2
+    get '/kt/main_light?off'
+    assert last_response.ok?
+    3.times do
+      sleep 1
+      get '/kt/main_light?switch'
+      assert last_response.ok?
+    end
+    get '/kt/main_light?delay_switch&1'
+    assert last_response.ok?
+    sleep 2
   end
 end

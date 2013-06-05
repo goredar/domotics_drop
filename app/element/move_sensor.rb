@@ -7,7 +7,7 @@ module Domotics
     def state
       super == :on ? :move : :no_move
     end
-    def state=(*args)
+    def set_state(*args)
       nil
     end
   end

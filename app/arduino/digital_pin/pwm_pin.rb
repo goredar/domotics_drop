@@ -4,7 +4,7 @@
 module Arduino
   module PWMPin
     include DigitalPin
-    def level=(value = 127)
+    def set_level(value = 127)
       case value
       when 0
         @board.set_low @pin

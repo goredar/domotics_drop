@@ -37,4 +37,4 @@ builder = Rack::Builder.new do
   use Rack::Lint
   run Domotics::Server.new
 end
-#Rack::Handler::Thin.run builder, :Port => 9292
+Rack::Handler::Thin.run builder, :Port => 9292

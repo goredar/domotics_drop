@@ -7,7 +7,7 @@ module Domotics
     def state
       super == :on ? :open : :close
     end
-    def state=(*args)
+    def set_state(*args)
       nil
     end
   end

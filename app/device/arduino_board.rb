@@ -6,7 +6,7 @@ module Domotics
     include Arduino::ArduinoSerial
 
     def initialize(args_hash = {})
-      @pins = []
+      @pins = Hash.new
       super
     end
     
@@ -17,11 +17,8 @@ module Domotics
     
     # Return pin object
     def [](number = nil)
-      if number
-        @pins[number]
-      else
-        @pins
-      end
+      return @pins[number] if number
+      @pins
     end
 
     private
