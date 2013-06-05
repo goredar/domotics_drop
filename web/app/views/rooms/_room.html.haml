@@ -1,4 +1,0 @@
-.expand_all.updatable{ id: room.name, data: { id: room.id, time: room.last_update } }
-  - room.elements.each do |el|
-    = link_to controller: :elements, action: :command, id: el.id, options: :switch, remote: true do
-      = render partial: "rooms/#{room.name}/#{el.name}", locals: {el: el} rescue nil

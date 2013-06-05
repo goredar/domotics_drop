@@ -1,8 +1,0 @@
-.row
-  = render 'shared/notice'
-.row
-  - @rooms.each do |r|
-    .large-6.columns
-      = render partial: 'rooms/room_bar', locals: { room: r, full_view: false  }
-  - if @rooms.size%2 == 1
-    .large-6.columns

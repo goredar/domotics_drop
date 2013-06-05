@@ -8,7 +8,6 @@ module Domotics
     def initialize(args_hash = {})
       @room = Room[args_hash[:room]]
       @room.register_element self, args_hash[:name]
-      @db_id = args_hash[:id]
       if args_hash[:state]
         self.state=(args_hash[:state].to_sym)
       else
@@ -19,8 +18,6 @@ module Domotics
       @state
     end
     def state=(value)
-      AElement.update(@db_id, :state => value.to_s)
-      ARoom.update(@room.db_id, :last_update => (Time.now.to_f*1000).to_i)
       @state = value
     end
     def on_state_changed(state)

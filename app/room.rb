@@ -3,13 +3,11 @@
 
 module Domotics
   class Room
-    attr_reader :db_id
     # All rooms
     @@rooms = {}
     def initialize(args_hash = {})
       # Save self
       @@rooms[args_hash[:name]] = self
-      @db_id = args_hash[:id]
       # Hash of elements
       @elements = {}
       # New queue thread
@@ -22,17 +20,15 @@ module Domotics
       # Add method with the same name as elements symbol
       instance_eval %Q{def #{name}; @elements[:#{name}]; end;}
     end
-    def lights_off
-      @elements.values.reject{ |v| v.state == :off }.each{ |e| Thread.new { e.off; ActiveRecord::Base.connection.close } }
-      :ok
-    end
-    def lights_min
-    end
-    def lights_mid
-    end
-    def lights_max
-      @elements.values.reject{ |v| v.state == :on }.each{ |e| Thread.new { e.on; ActiveRecord::Base.connection.close } }
-      :ok
+    def light(action = :toggle)
+      case action
+      when :on
+        @elements.values.reject{ |v| v.state == :on }.each{ |e| e.on }
+      when :off
+        @elements.values.reject{ |v| v.state == :off }.each{ |e| e.off }
+      when :toggle
+        @elements.values.each { |e| e.on? ? e.off : e.on }
+      end
     end
     # Return element object
     def [](symbol)
@@ -59,7 +55,9 @@ module Domotics
     end
     # Like var
     def method_missing(symbol)
-      @@rooms[symbol]
+      return @@rooms[symbol] if @@rooms[symbol]
+      #return self[symbol] if self[symbol]
+      super
     end
   end
 end
