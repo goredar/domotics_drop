@@ -30,6 +30,7 @@ module Domotics
       when :toggle
         @elements.values.each { |e| e.on? ? e.off : e.on }
       end
+      nil
     end
     # Return element object
     def [](symbol = nil)

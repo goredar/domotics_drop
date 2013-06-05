@@ -18,6 +18,7 @@ module Domotics
     def call(env)
       request = env['PATH_INFO'][1..-1].split('/')
       query = env['QUERY_STRING'].split('&').collect { |q| q.to_isym }
+      responce = Hash.new
       return invalid 'object' unless (1..2).include? request.size
       object = request.shift.to_sym
       return invalid 'object' unless object = Room[object] || Device[object] || (self if object == :self)
@@ -27,16 +28,16 @@ module Domotics
       end
       return invalid 'query action' unless (action = query.shift) and (object.respond_to? action)
       begin
-        object.public_send action, *query
+        responce[:responce] = object.public_send(action, *query)
       rescue
         return invalid 'request'
       end
       if object.respond_to?(:[])
-        elements = object[].values.inject(Hash.new) { |memo, el| memo[el.name] = el.state if el.respond_to? :state; memo }
-        return ok({ object.name => elements }.to_json)
+        responce[object.name] = object[].values.inject(Hash.new) { |memo, el| memo[el.name] = el.state if el.respond_to? :state; memo }
+        return ok responce.to_json
       end
-      return ok({ grand_object.name => { object.name => object.state }}.to_json) if object.respond_to? :state
-      ok
+      responce[grand_object.name] = { object.name => object.state } if object.respond_to? :state
+      ok responce.to_json
     end
     def invalid(param='argument')
       [400, {"Content-Type" => "text/html"}, ["Processing error: invalid #{param}."]]
