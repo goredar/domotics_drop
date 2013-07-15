@@ -4,20 +4,15 @@
 module Arduino
   module PWMPin
     include DigitalPin
-    def set_level(value = 127)
+    def set_level(value = 0)
+      value = value.to_i
       case value
-      when 0
+      when 0..7
         @board.set_low @pin
-      when 1..99
-        @board.set_pwm @pin, value*255/100
-      when 100
-        @board.set_high @pin
-      when 101..254
+      when 8..247
         @board.set_pwm @pin, value
-      when 255
+      when 248-255
         @board.set_high @pin
-      else
-        raise ArgumentError, 'Invalid scale for PWM.'
       end
     end
   end

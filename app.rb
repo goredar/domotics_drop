@@ -1,6 +1,8 @@
 #!/usr/bin/ruby
 # coding: utf-8
 
+require 'rubygems'
+require 'bundler/setup'
 require 'rack'
 
 # Debug - Show exception in threads
@@ -26,6 +28,8 @@ $logger.level = Logger::DEBUG
 $logger.formatter = proc do |severity, datetime, progname, msg|
   "#{severity} #{msg}\n"
 end
+# Set data store
+Domotics::Element.data=Domotics::DataRedis.new
 
 require './config.rb'
 

@@ -21,7 +21,7 @@ module Arduino
     SUCCESSREPRLY = 2
     FAILREPRLY = 3
     # Board events
-    EVENTS = {'0' => :pinstate}
+    EVENTS = {'0' => :pin_state_change}
     # Commands for board
     SETPINMODE = 0
     GETDIGITAL = 1
@@ -132,12 +132,12 @@ module Arduino
       $logger.info { "done." }
       super
     end
-    
+
     private
-    
+
     # Default event handler simple prints event.
     def event_handler(hash)
-      p hash.inspect
+      puts hash.inspect
     end
 
     # Send command directly to board

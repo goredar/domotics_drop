@@ -4,9 +4,15 @@
 module Domotics
   class Setup
     CLASS_MAP = {
+      # Rooms
       kitchen: [:room, 'Domotics::Kitchen'],
+      wc: [:room, 'Domotics::WaterCloset'],
+      playroom: [:room, 'Domotics::PlayRoom'],
+      # Devices
       arduino: [:device, 'Domotics::ArduinoBoard'],
-      light: [:element, 'Domotics::Switch'],
+      # Elements
+      light: [:element, 'Domotics::PowerSwitch'],
+      button: [:element, 'Domotics::ButtonSensor'],
       }
 
     def initialize(&block)
@@ -39,7 +45,7 @@ module Domotics
       args[:name] = name
       args[:room] = @current_room
       args[:device] = @current_device
-      eval %Q{ #{class_name}.new(#{args}) }
+      eval %Q{ #{class_name}.new(#{args}) } unless Room[@current_room][name]
     end
     
     def method_missing(object, *args, &block)
