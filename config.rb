@@ -2,6 +2,7 @@
 # coding: utf-8
 
 Domotics::Setup.new do
+  home 'g-home'
   # Room
   kitchen 'kt' do
     # Device

@@ -5,6 +5,7 @@ module Domotics
   class Setup
     CLASS_MAP = {
       # Rooms
+      home: [:room, 'Domotics::Home'], # Meta-room. Represents all rooms and executes scenarios.
       kitchen: [:room, 'Domotics::Kitchen'],
       wc: [:room, 'Domotics::WaterCloset'],
       playroom: [:room, 'Domotics::PlayRoom'],

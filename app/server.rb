@@ -16,11 +16,13 @@ end
 module Domotics
   class Server
     def call(env)
+      # [PATH_INFO]?[QUERY_STRING] = [object]?[action]&[params]
       request = env['PATH_INFO'][1..-1].split('/')
       query = env['QUERY_STRING'].split('&').collect { |q| q.to_isym }
       responce = Hash.new
       return invalid 'object' unless (1..2).include? request.size
       object = request.shift.to_sym
+      # Only room???
       return invalid 'object' unless object = Room[object] || Device[object] || (self if object == :self)
       if sub_object = request.shift
         object, grand_object = object[sub_object.to_isym], object

@@ -21,6 +21,11 @@ module Domotics
       # Add method with the same name as elements symbol
       instance_eval %Q{def #{name}; @elements[:#{name}]; end;}
     end
+    # Return state of all elements
+    def state
+      @elements.map { |element| { element.name => element.state }}
+    end
+    # Perform action with light
     def light(action = :toggle)
       case action
       when :on
@@ -32,28 +37,30 @@ module Domotics
       end
       nil
     end
-    # Return element object
-    def [](symbol = nil)
-      return @elements[symbol] if symbol
-      @elements
-    end
+    
     # Method for pushing into queue
     def notify(*args)
       @room_queue.push(*args)
     end
-    # Default simple prints event
+    # Default - simple prints event
     def on_event(element)
       puts element
     end
     def destroy
       @queue_thread.exit
     end
-    # Return requested room
+    
+    # Return element object
+    def [](symbol = nil)
+      return @elements[symbol] if symbol
+      @elements
+    end
+    # Return requested room like element of array
     def self.[](symbol = nil)
       return @@rooms[symbol] if symbol
       @@rooms
     end
-    # Like var
+    # Return requested room like variable
     def method_missing(symbol)
       return @@rooms[symbol] if @@rooms[symbol]
       #return self[symbol] if self[symbol]
