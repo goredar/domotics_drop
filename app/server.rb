@@ -16,36 +16,31 @@ end
 module Domotics
   class Server
     def call(env)
-      # [PATH_INFO]?[QUERY_STRING] = [object]?[action]&[params]
+      # [object]/[action]/[params]
       request = env['PATH_INFO'][1..-1].split('/')
-      query = env['QUERY_STRING'].split('&').collect { |q| q.to_isym }
-      responce = Hash.new
-      return invalid 'object' unless (1..2).include? request.size
-      object = request.shift.to_sym
-      # Only room???
-      return invalid 'object' unless object = Room[object] || Device[object] || (self if object == :self)
-      if sub_object = request.shift
-        object, grand_object = object[sub_object.to_isym], object
-        return invalid 'object' unless object
+      object = request.shift
+      return invalid 'room' unless object and object = Room[object.to_sym]
+      return invalid 'element or action' unless object_action = request.shift
+      if sub_object = object[object_action.to_isym]
+        room, object = object, sub_object
+        action = request.shift
+      else
+        room = object
+        action = object_action
       end
-      return invalid 'query action' unless (action = query.shift) and (object.respond_to? action)
+      return invalid 'action' unless action and object.respond_to? action
       begin
-        responce[:responce] = object.public_send(action, *query)
+        object.public_send(action, *request.map { |param| param.to_isym })
       rescue
         return invalid 'request'
       end
-      if object.respond_to?(:[])
-        responce[object.name] = object[].values.inject(Hash.new) { |memo, el| memo[el.name] = el.state if el.respond_to? :state; memo }
-        return ok responce.to_json
-      end
-      responce[grand_object.name] = { object.name => object.state } if object.respond_to? :state
-      ok responce.to_json
+      ok object.verbose_state.to_json
     end
     def invalid(param='argument')
       [400, {"Content-Type" => "text/html"}, ["Processing error: invalid #{param}."]]
     end
     def ok(param='OK')
-      [200, {"Content-Type" => "text/html"}, [param.to_s]]
+      [200, {"Content-Type" => "text/html"}, [param]]
     end
   end
 end

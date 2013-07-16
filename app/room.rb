@@ -21,9 +21,18 @@ module Domotics
       # Add method with the same name as elements symbol
       instance_eval %Q{def #{name}; @elements[:#{name}]; end;}
     end
-    # Return state of all elements
     def state
-      @elements.map { |element| { element.name => element.state }}
+      :ok
+    end
+    # Return state of all elements
+    def verbose_state
+      { @name =>
+        { :elements =>
+            @elements.inject(Hash.new) { |hash, element| hash.merge element[1].verbose_state[@name][:elements] },
+          :state => state,
+          :info => (info if respond_to? :info)
+        }
+      }
     end
     # Perform action with light
     def light(action = :toggle)

@@ -12,6 +12,17 @@ module Domotics
     def state
       @@data[@room.name, @name]
     end
+    def verbose_state
+      { @room.name => 
+        { :elements => 
+          { @name => 
+            { :state => @@data[@room.name, @name],
+              :info => (info if respond_to? :info)
+            }
+          }
+        }
+      }
+    end
     def set_state(value)
       @@data[@room.name, @name] = value
       value
