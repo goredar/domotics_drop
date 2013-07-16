@@ -4,7 +4,7 @@
 module Domotics
   class MoveSensor < Element
     include Arduino::NOSensor
-    def state
+    def to_hls(state)
       super == :on ? :move : :no_move
     end
     def set_state(*args)

@@ -14,10 +14,12 @@ module Domotics
     end
     def set_state(value)
       @@data[@room.name, @name] = value
+      value
     end
     def on_state_changed(value)
       @@data[@room.name, @name] = value
       @room.notify self
+      value
     end
     
     def self.data=(value)

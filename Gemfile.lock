@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    daemons (1.1.9)
+    eventmachine (1.0.3)
     hiredis (0.4.5)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -8,6 +10,10 @@ GEM
     redis (3.0.4)
     serialport (1.1.0)
     test-unit (2.5.5)
+    thin (1.5.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
 
 PLATFORMS
   ruby
@@ -19,3 +25,4 @@ DEPENDENCIES
   redis
   serialport
   test-unit
+  thin

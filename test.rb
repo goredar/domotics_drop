@@ -1,11 +1,11 @@
 #!/usr/bin/ruby -w
 # coding: utf-8
 
+ENV['RACK_ENV'] = 'test'
+
 require './app.rb'
 require 'test/unit'
 require 'rack/test'
-
-ENV['RACK_ENV'] = 'test'
 
 class HelloWorldTest < Test::Unit::TestCase
   include Rack::Test::Methods

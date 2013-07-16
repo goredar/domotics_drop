@@ -7,7 +7,7 @@ module Arduino
     include DigitalPin
     def initialize(args_hash = {})
       super
-      @board.set_watch @pin, DuinoSerial::WATCHON
+      @board.set_watch @pin, ArduinoSerial::WATCHON
     end
   end
 end

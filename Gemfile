@@ -8,6 +8,7 @@ gem "hiredis"
 gem "redis", :require => ["redis/connection/hiredis", "redis"]
 # Server
 gem "rack"
+gem "thin"
 # Test
 gem "test-unit"
 gem "rack-test"

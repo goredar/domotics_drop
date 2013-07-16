@@ -17,13 +17,6 @@ module Arduino
       @board.set_digital @pin, to_lls(value)
       super
     end
-    #  Override in child for needed action
-    def on_state_changed(pin_state)
-      super to_hls(pin_state)
-    end
-
-    private
-
     # Convert to High Level State
     def to_hls(value)
       value == ArduinoSerial::HIGH ? :on : :off

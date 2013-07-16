@@ -8,7 +8,7 @@ module Arduino
     def initialize(args_hash = {})
       super
       @board.set_input_pullup @pin
-      @board.set_watch @pin, DuinoSerial::WATCHON
+      @board.set_watch @pin, ArduinoSerial::WATCHON
     end
   end
 end

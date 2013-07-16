@@ -13,6 +13,8 @@ module Domotics
       # Elements
       light: [:element, 'Domotics::PowerSwitch'],
       button: [:element, 'Domotics::ButtonSensor'],
+      door: [:element, 'Domotics::DoorSensor'],
+      move: [:element, 'Domotics::MoveSensor'],
       }
 
     def initialize(&block)
