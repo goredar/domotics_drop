@@ -41,6 +41,9 @@ html {
   vertical-align: baseline;
   font-size: 100%; }
 
+.spacer {
+  background-color: #555; }
+
 .square-2x {
   font-size: 200%; }
 

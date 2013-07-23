@@ -10,10 +10,11 @@
     base_dim = Math.round((w_height - row_count * gutter) / row_count);
     col_count = 6;
     $('html').width(w_width).height(w_height);
-    $('body').width((base_dim + gutter) * col_count).height(w_height - gutter);
+    $('body').width(w_width).height(w_height - gutter * 2);
     $('body').css('font-size', "" + (base_dim / 2) + "px");
     $('.column').width(base_dim + gutter).height('100%');
     $('.column-2x').width((base_dim + gutter) * 2).height('100%');
+    $('.spacer').width(w_width - (base_dim + gutter) * col_count - gutter * 2).height('100%').css('margin_right', gutter).css('margin_left', gutter);
     $('.square').width(base_dim).height(base_dim);
     $('.rectangle').width(base_dim).height(base_dim * 2 + gutter);
     $('.square-1x').width(base_dim).height(base_dim).css('margin_right', gutter);
