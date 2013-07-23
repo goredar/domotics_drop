@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/local/rvm/rubies/ruby-1.9.3-p448/bin/ruby
 # coding: utf-8
 
 require 'rubygems'
@@ -31,7 +31,7 @@ end
 # Set data store
 Domotics::Element.data=Domotics::DataRedis.new
 
-require './config.rb'
+require "#{File.dirname(__FILE__)}/config.rb"
 
 builder = Rack::Builder.new do
   use Rack::Reloader, 0
