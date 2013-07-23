@@ -1,4 +1,4 @@
 domotics
 ========
 
-Home automation
+Home automation system
