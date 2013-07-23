@@ -12,3 +12,7 @@ gem "thin"
 # Test
 gem "test-unit"
 gem "rack-test"
+# Web Build
+gem "coffee-script"
+gem "slim"
+gem "sass"
