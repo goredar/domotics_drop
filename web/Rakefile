@@ -1,0 +1,21 @@
+desc 'Compile style sheets'
+file 'css/style.css' => 'css/style.scss' do
+  `sass css/style.scss css/style.css`
+end
+
+desc 'Complile javascript'
+file 'js/script.js' => 'js/script.js.coffee' do
+  require 'coffee-script'
+  File.open("js/script.js", 'w') do |f|
+    f.write CoffeeScript.compile File.read("js/script.js.coffee")
+  end
+end
+
+desc 'Complile HTML'
+file 'index.html' => 'index.html.slim' do
+  `slimrb -p -l index.html.slim index.html`
+end
+
+task :default => ['css/style.css', 'js/script.js', 'index.html'] do
+  $stdout.puts 'compiling... done!'
+end

@@ -1,0 +1,49 @@
+doctype html
+html
+  head
+    title Test Page
+    meta charset="utf-8"
+    meta content="height = device-height, width = device-width,\
+      initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"
+    link href="css/style.css" rel="stylesheet"
+    link href="css/typicons.css" rel="stylesheet"
+  body
+    .screen#kt
+      .column
+        .s3.square data-command="light/on"
+          span.typcn-eye-outline
+        .s3.square data-command="light/off"
+          span.typcn-eye
+        .s4.square
+        .s4.square
+      .column-2x
+        .square-1x#corner_1_light data-command="switch"
+          .element
+            span.typcn
+        .square-1x#corner_2_light data-command="switch"
+          .element
+            span.typcn
+        .square-1x#corner_3_light data-command="switch"
+          .element
+            span.typcn
+        .square-1x#corner_4_light data-command="switch"
+          .element
+            span.typcn
+        .s2.rectangle-land
+        .s2.square-1x
+        .s1.square-1x
+      .column-2x
+        .s1.square-2x
+        .s5.rectangle-port
+        .s3.square-1x
+        .s1.square-1x
+      .column
+        .square
+        .square
+        .s4.square data-command="state"
+          span.typcn-arrow-sync
+        .s7.square
+          span.typcn-delete-outline
+    
+    script src="js/zepto.js"
+    script src="js/script.js"

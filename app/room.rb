@@ -21,9 +21,6 @@ module Domotics
       # Add method with the same name as elements symbol
       instance_eval %Q{def #{name}; @elements[:#{name}]; end;}
     end
-    def state
-      :ok
-    end
     # Return state of all elements
     def verbose_state
       { @name =>
@@ -33,6 +30,9 @@ module Domotics
           :info => (info if respond_to? :info)
         }
       }
+    end
+    def state
+      nil
     end
     # Perform action with light
     def light(action = :toggle)
