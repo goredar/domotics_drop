@@ -28,6 +28,9 @@ module Domotics
       lag(:on, timer)
       state
     end
+    def off?
+      state == :off
+    end
     def delay_off(timer)
       lag(:off, timer)
     end

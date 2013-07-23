@@ -35,16 +35,16 @@ module Domotics
       nil
     end
     # Perform action with light
-    def light(action = :toggle)
-      case action
-      when :on
-        @elements.values.reject{ |v| v.state == :on }.each{ |e| e.on }
-      when :off
-        @elements.values.reject{ |v| v.state == :off }.each{ |e| e.off }
-      when :toggle
-        @elements.values.each { |e| e.on? ? e.off : e.on }
+    def light(action = :switch)
+      return unless [:on, :off, :switch].include? action
+      @elements.each do |name, element|
+        next unless element.kind_of? PowerSwitch
+        next unless name =~ /light/
+        if element.respond_to? ask_action = (action.to_s+'?').to_sym
+          next if element.public_send ask_action
+        end
+        element.public_send action
       end
-      nil
     end
     
     # Method for pushing into queue
