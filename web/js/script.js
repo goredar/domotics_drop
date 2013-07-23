@@ -5,7 +5,7 @@
     var base_dim, col_count, gutter, row_count, w_height, w_width;
     w_width = $(window).width();
     w_height = $(window).height();
-    gutter = Math.round(w_height / 100);
+    gutter = Math.round(w_height / 80);
     row_count = 4;
     base_dim = Math.round((w_height - row_count * gutter) / row_count);
     col_count = 6;

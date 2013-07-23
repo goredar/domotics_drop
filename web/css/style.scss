@@ -21,8 +21,8 @@
 $green: #37DA7E;
 $blue: #66D1FF;
 $grey: #A8B1B8;
-$purple: #967DBC;
-$red: #EF2020;
+$purple: #A68DCC;
+$red: #FF2030;
 
 * {
   overflow: hidden;
@@ -38,7 +38,8 @@ html, body, div {
 
 html {
   @include center_content;
-  background-color: #fff;
+  background-color: #333;
+  color: #222;
   //background: url(../img/bg.gif) repeat;
 }
 
