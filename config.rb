@@ -4,7 +4,7 @@
 Domotics::Setup.new do
   home 'goredar_home'
   # Room
-  kitchen 'kt' do
+  playroom 'play' do
     # Device
     arduino 'mega_0', port: '/dev/ttyUSB0', type: :mega do
       # Element
