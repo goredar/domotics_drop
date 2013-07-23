@@ -1,4 +1,4 @@
-web/.sass-cache
+./web/.sass-cache
 ./config.rb
 
 *.gem
