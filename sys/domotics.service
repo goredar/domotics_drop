@@ -5,7 +5,6 @@ Description=Goredar's Domotics Server
 Type=simple
 SyslogIdentifier=gds
 User=domotics
-Group=rails
-ExecStart=/usr/bin/ruby -w /srv/rails/domotics/gstart.rb
+ExecStart=/usr/local/rvm/rubies/ruby-1.9.3-p448/bin/ruby /srv/domotics/app.rb
 [Install]
 WantedBy=multi-user.target

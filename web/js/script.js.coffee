@@ -6,12 +6,13 @@ DrawBlocks = () ->
   # Base sizes
   gutter = Math.round(w_height/100)
   row_count = 4
+  base_dim = Math.round((w_height-row_count*gutter)/row_count)
   col_count = 6
   #col_count = $('.column').size()+$('.column-2x').size()*2
-  base_dim = Math.round((w_height-row_count*gutter)/row_count)
   # Set global sizes
   $('html').width(w_width).height(w_height)
   $('body').width((base_dim+gutter)*col_count).height(w_height-gutter)
+  $('body').css('font-size', "#{base_dim/2}px")
   # Set coluns
   $('.column').width(base_dim+gutter).height('100%')
   $('.column-2x').width((base_dim+gutter)*2).height('100%')
@@ -27,19 +28,21 @@ DrawBlocks = () ->
   $('.column, .column-2x').children().css('margin_bottom', gutter)
   $('.column, .column-2x').children('*:last-child').css('margin_bottom', 0)
 # (Re)draw elements state and info
-DrawElements = (data, status, xhr)->
+PutElements = (data, status, xhr)->
   if status = "success"
     $.each data, (room_name, room_data)->
       $.each room_data["elements"], (element_name, element_data)->
         element = $("##{room_name} ##{element_name} div")
         element.removeClass()
         element.addClass("#{element_data["state"]}")
+# Get initial state
 $(".screen").each ->
-  $.getJSON "#{$(this).attr("id")}/state", DrawElements
+  $.getJSON "#{$(this).attr("id")}/state", PutElements
+
 $(document).on "click", "[data-command]", ()->
   request = "/#{$(this).closest('.screen').attr('id')}"
   request += "/#{$(this).attr('id')}" if $(this).attr("id")
   request += "/#{$(this).data('command')}"
-  $.getJSON request, DrawElements
+  $.getJSON request, PutElements
 DrawBlocks()
 window.onresize = DrawBlocks

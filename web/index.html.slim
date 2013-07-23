@@ -10,39 +10,41 @@ html
   body
     .screen#play
       .column
-        .s3.square data-command="light/on"
+        .blue.square data-command="light/on"
           span.typcn-eye-outline
-        .s1.square data-command="light/off"
+          span.label включить
+        .grey.square data-command="light/off"
           span.typcn-eye
-        .s4.square
-        .s4.square
+          span.label выключить
+        .red.square
+        .yellow.square
       .column-2x
         .square-1x#corner_1_light data-command="switch"
           .element
-            span.typcn
+            span.typcn-th-large
         .square-1x#corner_2_light data-command="switch"
           .element
-            span.typcn
+            span.typcn-th-large
         .square-1x#corner_3_light data-command="switch"
           .element
-            span.typcn
+            span.typcn-th-large
         .square-1x#corner_4_light data-command="switch"
           .element
-            span.typcn
+            span.typcn-th-large
         .s2.rectangle-land
         .s2.square-1x
         .s1.square-1x
       .column-2x
         .s1.square-2x
-        .s5.rectangle-port
+        .grey.rectangle-port
         .s3.square-1x
         .s1.square-1x
       .column
         .square
         .square
-        .s4.square data-command="state"
+        .purple.square data-command="state"
           span.typcn-arrow-sync
-        .s7.square
+        .red.square
           span.typcn-delete-outline
     
     script src="js/zepto.js"

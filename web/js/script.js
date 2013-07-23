@@ -1,5 +1,5 @@
 (function() {
-  var DrawBlocks, DrawElements;
+  var DrawBlocks, PutElements;
 
   DrawBlocks = function() {
     var base_dim, col_count, gutter, row_count, w_height, w_width;
@@ -7,10 +7,11 @@
     w_height = $(window).height();
     gutter = Math.round(w_height / 100);
     row_count = 4;
-    col_count = 6;
     base_dim = Math.round((w_height - row_count * gutter) / row_count);
+    col_count = 6;
     $('html').width(w_width).height(w_height);
     $('body').width((base_dim + gutter) * col_count).height(w_height - gutter);
+    $('body').css('font-size', "" + (base_dim / 2) + "px");
     $('.column').width(base_dim + gutter).height('100%');
     $('.column-2x').width((base_dim + gutter) * 2).height('100%');
     $('.square').width(base_dim).height(base_dim);
@@ -23,7 +24,7 @@
     return $('.column, .column-2x').children('*:last-child').css('margin_bottom', 0);
   };
 
-  DrawElements = function(data, status, xhr) {
+  PutElements = function(data, status, xhr) {
     if (status = "success") {
       return $.each(data, function(room_name, room_data) {
         return $.each(room_data["elements"], function(element_name, element_data) {
@@ -37,7 +38,7 @@
   };
 
   $(".screen").each(function() {
-    return $.getJSON("" + ($(this).attr("id")) + "/state", DrawElements);
+    return $.getJSON("" + ($(this).attr("id")) + "/state", PutElements);
   });
 
   $(document).on("click", "[data-command]", function() {
@@ -47,7 +48,7 @@
       request += "/" + ($(this).attr('id'));
     }
     request += "/" + ($(this).data('command'));
-    return $.getJSON(request, DrawElements);
+    return $.getJSON(request, PutElements);
   });
 
   DrawBlocks();
