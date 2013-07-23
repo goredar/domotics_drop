@@ -8,6 +8,7 @@ html
     link href="css/style.css" rel="stylesheet"
     link href="css/typicons.css" rel="stylesheet"
   body
+    .divider
     .screen#play
       .column
         .blue.square data-command="light/on"
@@ -16,7 +17,7 @@ html
         .grey.square data-command="light/off"
           span.typcn-eye
           span.label off
-        .red.square
+        .square
         .green.square
       .column-2x
         .square-1x#corner_1_light data-command="switch"
@@ -31,21 +32,34 @@ html
         .square-1x#corner_4_light data-command="switch"
           .element
             span.typcn-th-large
-        .purple.rectangle-land
+        .rectangle-land
         .green.square-1x
         .green.square-1x
+      .column
+        .square
+        .square
+        .grey.rectangle-port
       .column-2x
         .purple.square-2x
-        .grey.rectangle-port
-        .grey.square-1x
-        .grey.square-1x
-      .column
-        .blue.square
-        .blue.square
-        .purple.square data-command="state"
+        .blue.square-1x
+        .purple.square-1x data-command="state"
           span.typcn-arrow-sync
-        .red.square
+        .blue.square-1x
+        .red.square-1x
           span.typcn-delete-outline
-    
+    .divider
+    .screen#living
+      .column
+        .square
+        .square
+        .grey.rectangle-port
+      .column-2x
+        .purple.square-2x
+        .blue.square-1x
+        .purple.square-1x data-command="state"
+          span.typcn-arrow-sync
+        .blue.square-1x
+        .red.square-1x
+          span.typcn-delete-outline
     script src="js/zepto.js"
     script src="js/script.js"
