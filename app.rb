@@ -41,4 +41,4 @@ builder = Rack::Builder.new do
   use Rack::Lint
   run Domotics::Server.new
 end
-Rack::Handler::Thin.run builder, :Port => 9292 unless ENV['RACK_ENV'] == 'test'
+Rack::Handler::Thin.run builder, :Host => 'localhost', :Port => 9292 unless ENV['RACK_ENV'] == 'test'
