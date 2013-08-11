@@ -24,7 +24,7 @@ module Domotics
       @current_device = nil
       instance_eval(&block) if block_given?
     end
-    
+
     def room(class_name, name, args = {})
       name = name.to_sym
       @current_room = name
@@ -33,7 +33,7 @@ module Domotics
       yield if block_given?
       @current_room = nil
     end
-    
+
     def device(class_name, name, args = {})
       name = name.to_sym
       @current_device = name
@@ -42,7 +42,7 @@ module Domotics
       yield if block_given?
       @current_device = nil
     end
-    
+
     def element(class_name, name, args = {})
       name = name.to_sym
       raise 'Element must have device and room' unless @current_device and @current_room
@@ -51,7 +51,7 @@ module Domotics
       args[:device] = @current_device
       eval %Q{ #{class_name}.new(#{args}) } unless Room[@current_room][name]
     end
-    
+
     def method_missing(object, *args, &block)
       if object = CLASS_MAP[object]
         public_send(*object, *args, &block)

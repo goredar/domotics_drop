@@ -1,6 +1,8 @@
+task :default => [:web]
+
 desc 'Compile style sheets'
 file 'web/css/style.css' => 'web/css/style.scss' do
-  `sass web/css/style.scss web/css/style.css`
+  %x{ sass web/css/style.scss web/css/style.css }
 end
 
 desc 'Compile javascript'
@@ -13,9 +15,15 @@ end
 
 desc 'Compile HTML'
 file 'web/index.html' => 'web/index.html.slim' do
-  `slimrb -p -l web/index.html.slim web/index.html`
+  %x{ slimrb -p -l web/index.html.slim web/index.html }
 end
 
+desc 'Compile web-based user interface'
 task :web => ['web/css/style.css', 'web/js/script.js', 'web/index.html'] do
   $stdout.puts 'compiling... done!'
+end
+
+desc 'Make some tests'
+task :test do
+  ruby "./test.rb"
 end
