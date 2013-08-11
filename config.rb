@@ -6,12 +6,12 @@ Domotics::Setup.new do
   # Room
   playroom 'play' do
     # Device
-    arduino 'mega_0', port: '/dev/ttyUSB0', type: :mega do
+    arduino 'mega_0', port: '/dev/mega_0', type: :mega do
       # Element
-      light 'corner_1_light', pin: 13
-      light 'corner_2_light', pin: 14
-      light 'corner_3_light', pin: 15
-      light 'corner_4_light', pin: 16
+      light 'corner_1_light', pin: 4
+      light 'corner_2_light', pin: 5
+      light 'corner_3_light', pin: 6
+      light 'corner_4_light', pin: 7
       button 'button_1', pin: 2
 	  light 'living_room_light', pin: 14
     end
