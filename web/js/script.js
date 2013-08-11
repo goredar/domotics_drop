@@ -1,14 +1,22 @@
 (function() {
-  var DrawBlocks, PullElements;
+  var DrawBlocks, PullElements, base_dim, col_count, gutter, gutter_part, row_count;
+
+  row_count = 4;
+
+  col_count = 6;
+
+  gutter_part = 0.04;
+
+  base_dim = 0;
+
+  gutter = 0;
 
   DrawBlocks = function() {
-    var base_dim, col_count, container_width, gutter, row_count, w_height, w_width;
+    var container_width, w_height, w_width;
     w_width = $(window).width();
     w_height = $(window).height();
-    gutter = Math.round(w_height / 80);
-    row_count = 4;
-    base_dim = Math.round((w_height - row_count * gutter) / row_count);
-    col_count = 6;
+    base_dim = Math.round(w_height / row_count / (1 + gutter_part));
+    gutter = Math.round(base_dim * gutter_part);
     $('body').height(w_height - gutter * 2);
     $('body').css('font-size', "" + (base_dim / 2) + "px");
     container_width = (base_dim + gutter) * col_count;
@@ -32,7 +40,10 @@
           var element;
           element = $("#" + room_name + " #" + element_name + " div");
           element.removeClass();
-          return element.addClass("" + element_data["state"]);
+          element.addClass("" + element_data["state"]);
+          if (element_data["info"]) {
+            return element.html("" + element_data["info"]);
+          }
         });
       });
     }
@@ -58,7 +69,7 @@
       var next_screen;
       if ($(this).is(":visible")) {
         $(this).hide();
-        next_screen = $(this).next();
+        next_screen = $(this).next(".screen");
         if (next_screen.size() === 1) {
           next_screen.show();
         } else {
@@ -69,6 +80,20 @@
       return true;
     });
     return false;
+  });
+
+  $(document).on("click", "[data-dialog]", function() {
+    var dialog, quit_button;
+    $(".screen").hide();
+    dialog = $("#" + ($(this).attr('id')) + "_dialog");
+    dialog.show();
+    quit_button = dialog.children(".quit");
+    quit_button.data("return", $(this).closest('.screen'));
+    $(document).on("click", quit_button, function() {
+      $(this).closest('.dialog').hide();
+      return $(this).data("return").show();
+    });
+    return dialog.children(".square").css('margin_bottom', gutter).css('margin_right', gutter);
   });
 
   $(".screen:not(:first-child)").hide();

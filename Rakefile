@@ -15,7 +15,7 @@ end
 
 desc 'Compile HTML'
 file 'web/index.html' => 'web/index.html.slim' do
-  %x{ slimrb -p -l web/index.html.slim web/index.html }
+  %x{ slimrb web/index.html.slim web/index.html }
 end
 
 desc 'Compile web-based user interface'

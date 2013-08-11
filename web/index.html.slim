@@ -37,13 +37,14 @@ html
           .green.square-1x
           .green.square-1x
         .column
-          .square
-          .square
-          .grey.rectangle-port
+          .green.rectangle#rgb_strip data-dialog=''
+            span.typcn-flash
+            span.label led strip
+          .grey.rectangle
         .column-2x
           .purple.square-2x
           .blue.square-1x
-          .purple.square-1x data-command="state"
+          .blue.square-1x data-command="state"
             span.typcn-arrow-sync
           .blue.square-1x
           .red.square-1x
@@ -60,9 +61,19 @@ html
         .column
           .square
           .square
-          .purple.square data-command="state"
+          .blue.square data-command="state"
             span.typcn-arrow-sync
           .red.square-1x
             span.typcn-delete-outline
+      .dialog#rgb_strip_dialog
+        - 18.times do
+          .square style="background-color: rgb (255,255,255) };"
+        .green.square.quit
+          span.typcn-power
+        - 4.times do |count|
+          .square style="background-color: rgb(#{42+20*count},#{149+20*count},#{195+20*count}); font-size: #{10*count+50}%;"
+            span.typcn-weather-sunny
+        .red.square.quit
+          span.typcn-delete-outline
     script src="js/zepto.min.js"
     script src="js/script.js"

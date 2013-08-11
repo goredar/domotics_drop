@@ -5,18 +5,20 @@ module Domotics
   class Setup
     CLASS_MAP = {
       # Rooms
-      home: [:room, 'Domotics::Home'], # Meta-room. Represents all rooms and executes scenarios.
-      kitchen: [:room, 'Domotics::Kitchen'],
-      wc: [:room, 'Domotics::WaterCloset'],
-      playroom: [:room, 'Domotics::PlayRoom'],
-      livingroom: [:room, 'Domotics::LivingRoom'],
+      home: [:room, "Domotics::Home"], # Meta-room. Represents all rooms and executes scenarios.
+      kitchen: [:room, "Domotics::Kitchen"],
+      wc: [:room, "Domotics::WaterCloset"],
+      playroom: [:room, "Domotics::PlayRoom"],
+      livingroom: [:room, "Domotics::LivingRoom"],
       # Devices
-      arduino: [:device, 'Domotics::ArduinoBoard'],
+      arduino: [:device, "Domotics::ArduinoBoard"],
       # Elements
-      light: [:element, 'Domotics::PowerSwitch'],
-      button: [:element, 'Domotics::ButtonSensor'],
-      door: [:element, 'Domotics::DoorSensor'],
-      move: [:element, 'Domotics::MoveSensor'],
+      light: [:element, "Domotics::PowerSwitch"],
+      button: [:element, "Domotics::ButtonSensor"],
+      door: [:element, "Domotics::DoorSensor"],
+      move: [:element, "Domotics::MoveSensor"],
+      dimmer: [:element, "Domotics::Dimmer"],
+      rgb_strip: [:element, "Domotics::RGBLedStrip"],
       }
 
     def initialize(&block)
@@ -45,7 +47,7 @@ module Domotics
 
     def element(class_name, name, args = {})
       name = name.to_sym
-      raise 'Element must have device and room' unless @current_device and @current_room
+      raise "Element must have device and room" unless @current_device and @current_room
       args[:name] = name
       args[:room] = @current_room
       args[:device] = @current_device

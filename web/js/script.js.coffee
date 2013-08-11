@@ -1,13 +1,17 @@
+# Base sizes
+row_count = 4
+col_count = 6
+gutter_part = 0.04
+base_dim = 0
+gutter = 0
+
 # (Re)draw view
 DrawBlocks = () ->
   # Get window dimentions
   w_width = $(window).width()
   w_height = $(window).height()
-  # Base sizes
-  gutter = Math.round(w_height/80)
-  row_count = 4
-  base_dim = Math.round((w_height-row_count*gutter)/row_count)
-  col_count = 6
+  base_dim = Math.round(w_height/row_count/(1+gutter_part))
+  gutter = Math.round(base_dim*gutter_part)
   #col_count = $('.column').size()+$('.column-2x').size()*2
   # Set global sizes
   $('body').height(w_height-gutter*2)
@@ -38,6 +42,7 @@ PullElements = (data, status, xhr)->
         element = $("##{room_name} ##{element_name} div")
         element.removeClass()
         element.addClass("#{element_data["state"]}")
+        element.html("#{element_data["info"]}") if element_data["info"]
 
 # Get initial state
 $(".screen").each ->
@@ -51,12 +56,12 @@ $(document).on "click", "[data-command]", ()->
   $.getJSON request, PullElements
   return false
 
-# Hook spacer's swipe
+# Hook spacer's click
 $(document).on "click", ".spacer", ()->
   $(".screen").each ()->
     if $(this).is(":visible")
       $(this).hide()
-      next_screen = $(this).next()
+      next_screen = $(this).next(".screen")
       if next_screen.size() == 1
         next_screen.show()
       else
@@ -64,6 +69,18 @@ $(document).on "click", ".spacer", ()->
       return false
     return true
   return false
+
+$(document).on "click", "[data-dialog]", ()->
+  $(".screen").hide()
+  dialog = $("##{$(this).attr('id')}_dialog")
+  dialog.show()
+  quit_button = dialog.children(".quit")
+  quit_button.data("return", $(this).closest('.screen'))
+  $(document).on "click", quit_button, ()->
+    $(this).closest('.dialog').hide()
+    $(this).data("return").show()
+  dialog.children(".square").css('margin_bottom', gutter).css('margin_right', gutter)
+
 # Show only first screen
 $(".screen:not(:first-child)").hide()
 DrawBlocks()

@@ -42,22 +42,21 @@ html {
   box-align: center;
   vertical-align: baseline;
   font-size: 100%; }
+  [class*="square"] div, [class*="rectangle"] div {
+    display: -moz-box;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+    /* Safari and Chrome */
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    /* W3C */
+    display: box;
+    box-pack: center;
+    box-align: center; }
 
 .spacer {
   background-color: #555; }
-
-[class*="square"] div {
-  display: -moz-box;
-  -moz-box-pack: center;
-  -moz-box-align: center;
-  /* Safari and Chrome */
-  display: -webkit-box;
-  -webkit-box-pack: center;
-  -webkit-box-align: center;
-  /* W3C */
-  display: box;
-  box-pack: center;
-  box-align: center; }
 
 .square-2x {
   font-size: 200%; }
@@ -88,3 +87,6 @@ html {
   bottom: 0;
   left: 0.25em;
   font-weight: bold; }
+
+.dialog {
+  display: none; }

@@ -4,32 +4,36 @@
 module Domotics
   class Dimmer < Element
     include Arduino::PWMPin
-    GRADATION_NUMBER_NUMBER = 16
+    GRADATION_NUMBER = 16
     DEFAULT_LEVEL = 0
     MIN_LEVEL = 0
-    MAX_LEVEL = 256
+    MAX_LEVEL = 255
     def initialize(args_hash = {})
       super
-      set_level args_hash[:level] || DEFAULT_LEVEL
+      set_level level || DEFAULT_LEVEL
     end
     def level
-      @level
+      @@data[@room.name, "#{@name}_level"]
     end
     def set_level(value = DEFAULT_LEVEL)
-      @level = value if super
+      value = 0 if !(value.is_a? Integer) or (value < 0)
+      value = 255 if value > 255
+      @@data[@room.name, "#{@name}_level"] = value if super value
     end
+    # Decrease brightness level (value 0-100%)
     def dim(value = nil)
       if value
-        set_level value
+        set_level value*256/100
       else
-        level -= 256/GRADATION_NUMBER
+        set_level @level-256/GRADATION_NUMBER
       end
     end
+    # Increase brightness level (value 0-100%)
     def bright(value = nil)
       if value
-        set_level value
+        set_level value*256/100
       else
-        self.level += 256/GRADATION_NUMBER
+        set_level  @level+256/GRADATION_NUMBER
       end
     end
     def fade_in(sec = 4)

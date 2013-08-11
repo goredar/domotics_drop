@@ -54,15 +54,14 @@ html {
   @include center_content;
   vertical-align: baseline;
   font-size: 100%;
+  & div {
+    @include center_content;
+    @include element_style;
+  }
 }
 
 .spacer {
   background-color: #555;
-}
-
-[class*="square"] div {
-  @include center_content;
-  @include element_style;
 }
 
 .square-2x {
@@ -92,4 +91,8 @@ html {
   bottom: 0;
   left: 0.25em;
   font-weight:bold;
+}
+
+.dialog {
+  display: none;
 }

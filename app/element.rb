@@ -13,10 +13,10 @@ module Domotics
       @@data[@room.name, @name]
     end
     def verbose_state
-      { @room.name => 
-        { :elements => 
-          { @name => 
-            { :state => @@data[@room.name, @name],
+      { @room.name =>
+        { :elements =>
+          { @name =>
+            { :state => state,
               :info => (info if respond_to? :info)
             }
           }
