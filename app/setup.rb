@@ -9,6 +9,7 @@ module Domotics
       kitchen: [:room, 'Domotics::Kitchen'],
       wc: [:room, 'Domotics::WaterCloset'],
       playroom: [:room, 'Domotics::PlayRoom'],
+	  livingroom: [:room, 'Domotics::LivingRoom'],
       # Devices
       arduino: [:device, 'Domotics::ArduinoBoard'],
       # Elements
