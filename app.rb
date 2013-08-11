@@ -31,7 +31,11 @@ end
 # Set data store
 Domotics::Element.data=Domotics::DataRedis.new
 
-require "#{File.dirname(__FILE__)}/config.rb"
+if ENV['RACK_ENV'] == 'test'
+  require "#{File.dirname(__FILE__)}/config.test.rb"
+else
+  require "#{File.dirname(__FILE__)}/config.rb"
+end
 
 builder = Rack::Builder.new do
   use Rack::Reloader, 0

@@ -13,7 +13,7 @@ Domotics::Setup.new do
       light 'corner_3_light', pin: 6
       light 'corner_4_light', pin: 7
       button 'button_1', pin: 2
-	  light 'living_room_light', pin: 14
+      light 'living_room_light', pin: 14
     end
   end
 end
