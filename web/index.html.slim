@@ -8,57 +8,61 @@ html
     link href="css/style.css" rel="stylesheet"
     link href="css/typicons.css" rel="stylesheet"
   body
-    .spacer 
-    .screen#play
-      .column
-        .blue.square data-command="light/on"
-          span.typcn-eye-outline
-          span.label on
-        .grey.square data-command="light/off"
-          span.typcn-eye
-          span.label off
-        .square
-        .green.square
-      .column-2x
-        .square-1x#corner_1_light data-command="switch"
-          .element
-            span.typcn-th-large
-        .square-1x#corner_2_light data-command="switch"
-          .element
-            span.typcn-th-large
-        .square-1x#corner_3_light data-command="switch"
-          .element
-            span.typcn-th-large
-        .square-1x#corner_4_light data-command="switch"
-          .element
-            span.typcn-th-large
-        .rectangle-land
-        .green.square-1x
-        .green.square-1x
-      .column
-        .square
-        .square
-        .grey.rectangle-port
-      .column-2x
-        .purple.square-2x
-        .blue.square-1x
-        .purple.square-1x data-command="state"
-          span.typcn-arrow-sync
-        .blue.square-1x
-        .red.square-1x
-          span.typcn-delete-outline
-    .screen#living
-      .column
-        .square
-        .square
-        .grey.rectangle-port
-      .column-2x
-        .purple.square-2x
-        .blue.square-1x
-        .purple.square-1x data-command="state"
-          span.typcn-arrow-sync
-        .blue.square-1x
-        .red.square-1x
-          span.typcn-delete-outline
+    .spacer
+    .container
+      .screen#play
+        .column
+          .blue.square data-command="light/on"
+            span.typcn-eye-outline
+            span.label on
+          .grey.square data-command="light/off"
+            span.typcn-eye
+            span.label off
+          .square
+          .green.square
+        .column-2x
+          .square-1x#corner_1_light data-command="switch"
+            .element
+              span.typcn-th-large
+          .square-1x#corner_2_light data-command="switch"
+            .element
+              span.typcn-th-large
+          .square-1x#corner_3_light data-command="switch"
+            .element
+              span.typcn-th-large
+          .square-1x#corner_4_light data-command="switch"
+            .element
+              span.typcn-th-large
+          .rectangle-land
+          .green.square-1x
+          .green.square-1x
+        .column
+          .square
+          .square
+          .grey.rectangle-port
+        .column-2x
+          .purple.square-2x
+          .blue.square-1x
+          .purple.square-1x data-command="state"
+            span.typcn-arrow-sync
+          .blue.square-1x
+          .red.square-1x
+            span.typcn-delete-outline
+      .screen#living
+        .column
+          .square#center_light data-command="switch"
+            .element
+              span.typcn-power
+        .column
+        .column
+        .column
+        .column
+        .column
+          .square
+          .square
+          .purple.square data-command="state"
+            span.typcn-arrow-sync
+          .red.square-1x
+            span.typcn-delete-outline
     script src="js/zepto.min.js"
     script src="js/script.js"

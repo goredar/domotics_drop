@@ -8,7 +8,7 @@ Domotics::Setup.new do
     # Device
     arduino 'nano', type: :nano do
       # Element
-      light 'light', pin: 13
+      light 'light_1', pin: 13
     end
   end
 end

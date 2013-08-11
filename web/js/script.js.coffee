@@ -10,13 +10,14 @@ DrawBlocks = () ->
   col_count = 6
   #col_count = $('.column').size()+$('.column-2x').size()*2
   # Set global sizes
-  $('html').width(w_width).height(w_height)
-  $('body').width(w_width).height(w_height-gutter*2)
+  $('body').height(w_height-gutter*2)
   $('body').css('font-size', "#{base_dim/2}px")
   # Set coluns
-  $('.column').width(base_dim+gutter).height('100%')
-  $('.column-2x').width((base_dim+gutter)*2).height('100%')
-  $('.spacer').width(w_width-(base_dim+gutter)*col_count-gutter*2).height('100%').css('margin_right', gutter).css('margin_left', gutter)
+  container_width = (base_dim+gutter)*col_count
+  $('.container').width(container_width)
+  $('.spacer').width(w_width-container_width-gutter*2).css('margin_right', gutter).css('margin_left', gutter)
+  $('.column').width(base_dim+gutter)
+  $('.column-2x').width((base_dim+gutter)*2)
   # Column(-1x) elements
   $('.square').width(base_dim).height(base_dim)
   $('.rectangle').width(base_dim).height(base_dim*2+gutter)
@@ -27,23 +28,43 @@ DrawBlocks = () ->
   $('.rectangle-port').height(base_dim*2+gutter).width(base_dim).css('margin_right', gutter)
   # Margins for elements
   $('.column, .column-2x').children().css('margin_bottom', gutter)
-  $('.column, .column-2x').children('*:last-child').css('margin_bottom', 0)
+  #$('.column, .column-2x').children('*:last-child').css('margin_bottom', 0)
+
 # (Re)draw elements state and info
-PutElements = (data, status, xhr)->
-  if status = "success"
+PullElements = (data, status, xhr)->
+  if status == "success"
     $.each data, (room_name, room_data)->
       $.each room_data["elements"], (element_name, element_data)->
         element = $("##{room_name} ##{element_name} div")
         element.removeClass()
         element.addClass("#{element_data["state"]}")
+
 # Get initial state
 $(".screen").each ->
-  $.getJSON "#{$(this).attr("id")}/state", PutElements
+  $.getJSON "#{$(this).attr("id")}/state", PullElements
 
+# Hook click events
 $(document).on "click", "[data-command]", ()->
   request = "/#{$(this).closest('.screen').attr('id')}"
   request += "/#{$(this).attr('id')}" if $(this).attr("id")
   request += "/#{$(this).data('command')}"
-  $.getJSON request, PutElements
+  $.getJSON request, PullElements
+  return false
+
+# Hook spacer's swipe
+$(document).on "click", ".spacer", ()->
+  $(".screen").each ()->
+    if $(this).is(":visible")
+      $(this).hide()
+      next_screen = $(this).next()
+      if next_screen.size() == 1
+        next_screen.show()
+      else
+        $(".screen").first().show()
+      return false
+    return true
+  return false
+# Show only first screen
+$(".screen:not(:first-child)").hide()
 DrawBlocks()
 window.onresize = DrawBlocks
