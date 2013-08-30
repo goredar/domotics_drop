@@ -104,7 +104,7 @@ module Arduino
     # ---4--- SETPWM
     def set_pwm(pin, value)
       check_pin(pin); check_pin_watch(pin); raise ArgumentError, 'Error! Not PWM or DAC pin.' unless @pwm_pins.include? pin
-      raise ArgumentError, 'Error! Invalid PWM value' unless value.is_a(Integer) and value>=0 and value<=255
+      raise ArgumentError, 'Error! Invalid PWM value' unless value.is_a?(Integer) and value>=0 and value<=255
       send_command(SETPWM, pin, value)
     end
     

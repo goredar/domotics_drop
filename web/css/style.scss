@@ -74,9 +74,20 @@ html {
 .purple { background: $purple; }
 .red { background: $red; }
 
-[id*="light"] div {
+[id$="light"] div {
   &.on {
     background: $blue;
+    //& span::before { content: '\e0f9'; }
+  }
+  &.off {
+    background: $grey;
+    //& span::before { content: '\e0fa'; }
+  }
+}
+
+[id$="strip"] div {
+  &.on {
+    background: $green;
     //& span::before { content: '\e0f9'; }
   }
   &.off {

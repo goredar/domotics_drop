@@ -40,9 +40,14 @@
           var element;
           element = $("#" + room_name + " #" + element_name + " div");
           element.removeClass();
-          element.addClass("" + element_data["state"]);
+          element.addClass(element_data["state"]);
           if (element_data["info"]) {
-            return element.html("" + element_data["info"]);
+            element = $("#" + room_name + " #" + element_name + " .info");
+            if (element.size() !== 0) {
+              return element.html(element_data["info"]);
+            } else {
+              return $("#" + room_name + " #" + element_name).append("<span class='info'>" + element_data['info'] + "</span>");
+            }
           }
         });
       });
@@ -54,8 +59,13 @@
   });
 
   $(document).on("click", "[data-command]", function() {
-    var request;
-    request = "/" + ($(this).closest('.screen').attr('id'));
+    var request, screen;
+    screen = $(this).closest('.screen');
+    if (screen.size() === 1) {
+      request = "/" + ($(this).closest('.screen').attr('id'));
+    } else {
+      request = "";
+    }
     if ($(this).attr("id")) {
       request += "/" + ($(this).attr('id'));
     }

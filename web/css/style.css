@@ -76,9 +76,14 @@ html {
 .red {
   background: #ff2030; }
 
-[id*="light"] div.on {
+[id$="light"] div.on {
   background: #66d1ff; }
-[id*="light"] div.off {
+[id$="light"] div.off {
+  background: #a8b1b8; }
+
+[id$="strip"] div.on {
+  background: #37da7e; }
+[id$="strip"] div.off {
   background: #a8b1b8; }
 
 .label {

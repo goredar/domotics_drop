@@ -37,9 +37,10 @@ html
           .green.square-1x
           .green.square-1x
         .column
-          .green.rectangle#rgb_strip data-dialog=''
-            span.typcn-flash
-            span.label led strip
+          .rectangle#rgb_strip data-dialog=''
+            .element
+              span.typcn-flash
+              span.label led strip
           .grey.rectangle
         .column-2x
           .purple.square-2x
@@ -66,12 +67,15 @@ html
           .red.square-1x
             span.typcn-delete-outline
       .dialog#rgb_strip_dialog
-        - 18.times do
-          .square style="background-color: rgb (255,255,255) };"
-        .green.square.quit
+        -[ [255,0,0], [255,128,0], [255,0,128], [255,128,128], [255,255,0], [255,0,255],
+          [0,255,0], [128,255,0], [0,255,128], [128,255,128], [255,255,0], [255,255,255],
+          [0,255,0], [128,255,0], [0,255,128], [128,255,128], [255,255,0], [255,255,255],
+          ].each do |color|
+          .square style="background-color: rgb(#{color[0]},#{color[1]},#{color[2]});" data-command="play/rgb_strip/set_color/#{color[0]}/#{color[1]}/#{color[2]}"
+        .grey.square data-command="play/rgb_strip/set_state/off"
           span.typcn-power
         - 4.times do |count|
-          .square style="background-color: rgb(#{42+20*count},#{149+20*count},#{195+20*count}); font-size: #{10*count+50}%;"
+          .square style="background-color: rgb(#{42+20*count},#{149+20*count},#{195+20*count});font-size: #{10*count+50}%;"
             span.typcn-weather-sunny
         .red.square.quit
           span.typcn-delete-outline

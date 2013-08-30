@@ -32,7 +32,7 @@ module Domotics
       @room.notify self
       value
     end
-    
+
     def self.data=(value)
       @@data = value
     end

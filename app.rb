@@ -6,17 +6,15 @@ require 'bundler/setup'
 require 'rack'
 
 # Debug - Show exception in threads
-if ENV['RACK_ENV'] == 'test'
-  Thread.class_eval do
-    alias_method :initialize_without_exception_show, :initialize
-    def initialize(*args, &block)
-      initialize_without_exception_show(*args) do
-        begin
-          block.call
-        rescue Exception => e
-          $logger.error e.message
-          raise e
-        end
+Thread.class_eval do
+  alias_method :initialize_without_exception_show, :initialize
+  def initialize(*args, &block)
+    initialize_without_exception_show(*args) do
+      begin
+        block.call
+      rescue Exception => e
+        $logger.error e.message
+        raise e
       end
     end
   end
@@ -34,7 +32,7 @@ end
 Domotics::Element.data=Domotics::DataRedis.new
 
 if ENV['RACK_ENV'] == 'test'
-  require "#{File.dirname(__FILE__)}/config.test.rb"
+  require "#{File.dirname(__FILE__)}/test/config.test.rb"
 else
   require "#{File.dirname(__FILE__)}/config.rb"
 end

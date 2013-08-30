@@ -1,4 +1,4 @@
-task :default => [:web]
+task :default => [:test]
 
 desc 'Compile style sheets'
 file 'web/css/style.css' => 'web/css/style.scss' do
@@ -25,5 +25,6 @@ end
 
 desc 'Make some tests'
 task :test do
-  ruby "./test.rb"
+  ruby "./test/core_test.rb"
+  ruby "./test/rack_test.rb"
 end

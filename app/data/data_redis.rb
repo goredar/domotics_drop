@@ -17,7 +17,11 @@ module Domotics
     end
     def [](room, element)
       result = @redis.get("#{room}:#{element}")
-      result && result.to_sym
+      begin
+        result && Integer(result)
+      rescue
+        result.to_sym
+      end
     end
   end
 end

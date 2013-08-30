@@ -41,8 +41,13 @@ PullElements = (data, status, xhr)->
       $.each room_data["elements"], (element_name, element_data)->
         element = $("##{room_name} ##{element_name} div")
         element.removeClass()
-        element.addClass("#{element_data["state"]}")
-        element.html("#{element_data["info"]}") if element_data["info"]
+        element.addClass(element_data["state"])
+        if element_data["info"]
+          element = $("##{room_name} ##{element_name} .info")
+          unless element.size() == 0
+            element.html(element_data["info"])
+          else
+            $("##{room_name} ##{element_name}").append("<span class='info'>#{element_data['info']}</span>")
 
 # Get initial state
 $(".screen").each ->
@@ -50,7 +55,11 @@ $(".screen").each ->
 
 # Hook click events
 $(document).on "click", "[data-command]", ()->
-  request = "/#{$(this).closest('.screen').attr('id')}"
+  screen = $(this).closest('.screen')
+  if screen.size() == 1
+    request = "/#{$(this).closest('.screen').attr('id')}"
+  else
+    request = ""
   request += "/#{$(this).attr('id')}" if $(this).attr("id")
   request += "/#{$(this).data('command')}"
   $.getJSON request, PullElements
