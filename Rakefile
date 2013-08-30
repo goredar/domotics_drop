@@ -14,8 +14,17 @@ file 'web/js/script.js' => 'web/js/script.js.coffee' do
 end
 
 desc 'Compile HTML'
-file 'web/index.html' => 'web/index.html.slim' do
-  %x{ slimrb web/index.html.slim web/index.html }
+task 'web/index.html' do
+  #%x{ slimrb web/index.html.slim web/index.html }
+  require "slim"
+  class Object
+    def render(file)
+      Slim::Template.new("web/views/#{file}.html.slim").render
+    end
+  end
+  File.open("web/index.html", 'w') do |f|
+    f.write Slim::Template.new('web/index.html.slim').render
+  end
 end
 
 desc 'Compile web-based user interface'

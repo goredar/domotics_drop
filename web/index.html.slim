@@ -11,73 +11,11 @@ html
     .spacer
     .container
       .screen#play
-        .column
-          .blue.square data-command="light/on"
-            span.typcn-eye-outline
-            span.label on
-          .grey.square data-command="light/off"
-            span.typcn-eye
-            span.label off
-          .square
-          .green.square
-        .column-2x
-          .square-1x#corner_1_light data-command="switch"
-            .element
-              span.typcn-th-large
-          .square-1x#corner_2_light data-command="switch"
-            .element
-              span.typcn-th-large
-          .square-1x#corner_3_light data-command="switch"
-            .element
-              span.typcn-th-large
-          .square-1x#corner_4_light data-command="switch"
-            .element
-              span.typcn-th-large
-          .rectangle-land
-          .green.square-1x
-          .green.square-1x
-        .column
-          .rectangle#rgb_strip data-dialog=''
-            .element
-              span.typcn-flash
-              span.label led strip
-          .grey.rectangle
-        .column-2x
-          .purple.square-2x
-          .blue.square-1x
-          .blue.square-1x data-command="state"
-            span.typcn-arrow-sync
-          .blue.square-1x
-          .red.square-1x
-            span.typcn-delete-outline
+        == render :play
       .screen#living
-        .column
-          .square#center_light data-command="switch"
-            .element
-              span.typcn-power
-        .column
-        .column
-        .column
-        .column
-        .column
-          .square
-          .square
-          .blue.square data-command="state"
-            span.typcn-arrow-sync
-          .red.square-1x
-            span.typcn-delete-outline
+        == render :living
       .dialog#rgb_strip_dialog
-        -[ [255,0,0], [255,128,0], [255,0,128], [255,128,128], [255,255,0], [255,0,255],
-          [0,255,0], [128,255,0], [0,255,128], [128,255,128], [255,255,0], [255,255,255],
-          [0,255,0], [128,255,0], [0,255,128], [128,255,128], [255,255,0], [255,255,255],
-          ].each do |color|
-          .square style="background-color: rgb(#{color[0]},#{color[1]},#{color[2]});" data-command="play/rgb_strip/set_color/#{color[0]}/#{color[1]}/#{color[2]}"
-        .grey.square data-command="play/rgb_strip/set_state/off"
-          span.typcn-power
-        - 4.times do |count|
-          .square style="background-color: rgb(#{42+20*count},#{149+20*count},#{195+20*count});font-size: #{10*count+50}%;"
-            span.typcn-weather-sunny
-        .red.square.quit
-          span.typcn-delete-outline
+        == render :rgb_strip_dialog
+
     script src="js/zepto.min.js"
     script src="js/script.js"
