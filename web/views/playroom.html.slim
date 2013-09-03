@@ -1,9 +1,9 @@
 .column
   .blue.square data-command="light/on"
-    span.typcn-eye-outline
+    span.icon-eye-open
     span.label on
   .grey.square data-command="light/off"
-    span.typcn-eye
+    span.icon-eye-close
     span.label off
   .square
   .green.square
@@ -24,16 +24,17 @@
   .green.square-1x
   .green.square-1x
 .column
-  .rectangle#rgb_strip data-dialog=''
+  .rectangle#rgb_strip data-screen="dialog_rgb_strip"
     .element
-      span.typcn-flash
+      span.icon-film
       span.label led strip
   .grey.rectangle
 .column-2x
   .purple.square-2x
+    span.name Playroom
   .blue.square-1x
-  .blue.square-1x data-command="state"
-    span.typcn-arrow-sync
+  .darkblue.square-1x data-command="state"
+    span.icon-refresh
   .blue.square-1x
-  .red.square-1x
-    span.typcn-delete-outline
+  .red.square-1x data-screen="home"
+    span.icon-chevron-left

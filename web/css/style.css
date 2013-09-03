@@ -1,3 +1,24 @@
+.green {
+  background: #37da7e; }
+
+.blue {
+  background: #66d1ff; }
+
+.darkblue {
+  background: #00b2ff; }
+
+.grey {
+  background: #a8b1b8; }
+
+.purple {
+  background: #a68dcc; }
+
+.red {
+  background: #ff2030; }
+
+.lemon {
+  background: #fde910; }
+
 * {
   overflow: hidden;
   margin: 0;
@@ -61,21 +82,6 @@ html {
 .square-2x {
   font-size: 200%; }
 
-.green {
-  background: #37da7e; }
-
-.blue {
-  background: #66d1ff; }
-
-.grey {
-  background: #a8b1b8; }
-
-.purple {
-  background: #a68dcc; }
-
-.red {
-  background: #ff2030; }
-
 [id$="light"] div.on {
   background: #66d1ff; }
 [id$="light"] div.off {
@@ -93,5 +99,27 @@ html {
   left: 0.25em;
   font-weight: bold; }
 
+.name {
+  position: absolute;
+  font-size: 30%;
+  top: 0;
+  right: 0.25em;
+  font-weight: bold; }
+
 .dialog {
   display: none; }
+
+.room_switch {
+  display: -moz-box;
+  -moz-box-pack: center;
+  -moz-box-align: center;
+  /* Safari and Chrome */
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  /* W3C */
+  display: box;
+  box-pack: center;
+  box-align: center;
+  width: 100%;
+  height: 50%; }

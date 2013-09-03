@@ -72,7 +72,6 @@ module Domotics
     # Return requested room like variable
     def method_missing(symbol)
       return @@rooms[symbol] if @@rooms[symbol]
-      #return self[symbol] if self[symbol]
       super
     end
   end

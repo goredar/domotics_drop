@@ -17,41 +17,41 @@ class HelloWorldTest < Test::Unit::TestCase
   def test_valid_object
     get '/to_s'
     assert last_response.bad_request?
-    get '/room/to_s'
+    get '/test_room/to_s'
     assert last_response.ok?
-    get '/room/light_1/to_s'
+    get '/test_room/light_1/to_s'
     assert last_response.ok?
     get '/invalid_object/to_s'
     assert last_response.bad_request?
-    get '/room/invalid_object/to_s'
+    get '/test_room/invalid_object/to_s'
     assert last_response.bad_request?
   end
   def test_query_action
-    get '/room/light_1/state'
+    get '/test_room/light_1/state'
     assert last_response.ok?
-    get '/room/light_1/abracadabra'
+    get '/test_room/light_1/abracadabra'
     assert last_response.bad_request?
-    get '/room/light_1/state/abracadabra'
+    get '/test_room/light_1/state/abracadabra'
     assert last_response.bad_request?
   end
   def test_switch_element
-    get '/room/light_1/on'
+    get '/test_room/light_1/on'
     assert last_response.ok?
-    get '/room/light_1/delay_off/1'
+    get '/test_room/light_1/delay_off/1'
     assert last_response.ok?
     sleep 1
-    get '/room/light_1/delay_on/1'
+    get '/test_room/light_1/delay_on/1'
     assert last_response.ok?
     sleep 1
     3.times do
       sleep 1
-      get '/room/light_1/switch'
+      get '/test_room/light_1/switch'
       assert last_response.ok?
     end
-    get '/room/light_1/delay_switch/1'
+    get '/test_room/light_1/delay_switch/1'
     assert last_response.ok?
     sleep 2
-    get '/room/light_1/off'
+    get '/test_room/light_1/off'
     assert last_response.ok?
   end
 end

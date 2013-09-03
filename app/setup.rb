@@ -5,11 +5,14 @@ module Domotics
   class Setup
     CLASS_MAP = {
       # Rooms
-      home: [:room, "Domotics::Home"], # Meta-room. Represents all rooms and executes scenarios.
-      kitchen: [:room, "Domotics::Kitchen"],
-      wc: [:room, "Domotics::WaterCloset"],
-      playroom: [:room, "Domotics::PlayRoom"],
-      livingroom: [:room, "Domotics::LivingRoom"],
+      home: [:room, "Domotics::Home", :home], # Meta-room. Represents all rooms and executes scenarios.
+      kitchen: [:room, "Domotics::Kitchen", :kitchen],
+      bathroom: [:room, "Domotics::Bathroom", :bathroom],
+      wc: [:room, "Domotics::WaterCloset", :wc],
+      hall: [:room, "Domotics::Hall", :hall],
+      playroom: [:room, "Domotics::Playroom", :playroom],
+      living_room: [:room, "Domotics::LivingRoom", :living_room],
+      test_room: [:room, "Domotics::TestRoom", :test_room],
       # Devices
       arduino: [:device, "Domotics::ArduinoBoard"],
       # Elements
@@ -28,25 +31,20 @@ module Domotics
     end
 
     def room(class_name, name, args = {})
-      name = name.to_sym
-      @current_room = name
-      args[:name] = name
+      @current_room = args[:name] = name
       eval %Q{ #{class_name}.new(#{args}) } unless Room[name]
       yield if block_given?
       @current_room = nil
     end
 
     def device(class_name, name, args = {})
-      name = name.to_sym
-      @current_device = name
-      args[:name] = name
+      @current_device = args[:name] = name
       eval %Q{ #{class_name}.new(#{args}) } unless Device[name]
       yield if block_given?
       @current_device = nil
     end
 
     def element(class_name, name, args = {})
-      name = name.to_sym
       raise "Element must have device and room" unless @current_device and @current_room
       args[:name] = name
       args[:room] = @current_room

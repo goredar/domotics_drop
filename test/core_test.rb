@@ -5,7 +5,7 @@ require "./app.rb"
 
 class TrackTestCase < Test::Unit::TestCase
   def test_dimmer
-    dimmer = Domotics::Room[:room].dim
+    dimmer = Domotics::Room[:test_room].dim
     # Should turn on max and convert state to int
     dimmer.set_state :on
     assert_equal 255, dimmer.state
@@ -29,7 +29,7 @@ class TrackTestCase < Test::Unit::TestCase
     end
   end
   def test_rgb_led_strip
-    rgb = Domotics::Room[:room].rgb
+    rgb = Domotics::Room[:test_room].rgb
     # On-Off test
     rgb.set_state :off
     assert_equal :off, rgb.state

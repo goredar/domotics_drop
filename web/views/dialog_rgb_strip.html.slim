@@ -1,0 +1,15 @@
+-[  [255,0,0], [229,43,80], [255,3,62], [254,111,94], [255,99,71], [255,153,0],
+    [0,255,0], [141,182,0], [80,200,120], [48,213,200], [204,255,0], [255,255,0],
+    [0,0,255], [42,82,190], [0,127,255], [100,149,237], [93,138,168], [153,102,204],
+  ].each do |color|
+  .square data-command="playroom/rgb_strip/set_color/#{color[0]}/#{color[1]}/#{color[2]}" style="background-color: rgb(#{color[0]},#{color[1]},#{color[2]});"
+.grey.square data-command="playroom/rgb_strip/set_state/off"
+  span.icon-power-off
+- 3.times do |count|
+  .square data-command="playroom/rgb_strip/set_power/#{(count+1)*33}" style="background-color: rgb(#{188+20*count},#{197+20*count},#{204+20*count});font-size: #{20*count+60}%;"
+    span.icon-sun
+.lemon.square data-command="playroom/rgb_strip/randomize"
+  span.icon-random
+  span.label random
+.red.square data-screen="playroom"
+  span.icon-chevron-left

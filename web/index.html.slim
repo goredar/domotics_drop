@@ -1,21 +1,24 @@
 doctype html
 html
   head
-    title Test Page
+    title Domotics
     meta charset="utf-8"
     meta content="height = device-height, width = device-width,\
       initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"
     link href="css/style.css" rel="stylesheet"
     link href="css/typicons.css" rel="stylesheet"
+    link href="css/font-awesome.min.css" rel="stylesheet"
   body
     .spacer
+      .room_switch
+        span.icon-chevron-up
+      .room_switch
+        span.icon-chevron-down
     .container
-      .screen#play
-        == render :play
-      .screen#living
-        == render :living
-      .dialog#rgb_strip_dialog
-        == render :rgb_strip_dialog
-
+      - %w(home kitchen bathroom wc hall playroom living_room).each do |element|
+        .screen id=element
+          == render element
+      .dialog#dialog_rgb_strip
+        == render :dialog_rgb_strip
     script src="js/zepto.min.js"
     script src="js/script.js"

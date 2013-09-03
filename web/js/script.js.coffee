@@ -23,7 +23,7 @@ DrawBlocks = () ->
   $('.column').width(base_dim+gutter)
   $('.column-2x').width((base_dim+gutter)*2)
   # Column(-1x) elements
-  $('.square').width(base_dim).height(base_dim)
+  $('.square').width(base_dim).height(base_dim).css('margin_bottom', gutter).css('margin_right', gutter)
   $('.rectangle').width(base_dim).height(base_dim*2+gutter)
   # Column-2x elements
   $('.square-1x').width(base_dim).height(base_dim).css('margin_right', gutter)
@@ -32,7 +32,6 @@ DrawBlocks = () ->
   $('.rectangle-port').height(base_dim*2+gutter).width(base_dim).css('margin_right', gutter)
   # Margins for elements
   $('.column, .column-2x').children().css('margin_bottom', gutter)
-  #$('.column, .column-2x').children('*:last-child').css('margin_bottom', 0)
 
 # (Re)draw elements state and info
 PullElements = (data, status, xhr)->
@@ -79,16 +78,9 @@ $(document).on "click", ".spacer", ()->
     return true
   return false
 
-$(document).on "click", "[data-dialog]", ()->
-  $(".screen").hide()
-  dialog = $("##{$(this).attr('id')}_dialog")
-  dialog.show()
-  quit_button = dialog.children(".quit")
-  quit_button.data("return", $(this).closest('.screen'))
-  $(document).on "click", quit_button, ()->
-    $(this).closest('.dialog').hide()
-    $(this).data("return").show()
-  dialog.children(".square").css('margin_bottom', gutter).css('margin_right', gutter)
+$(document).on "click", "[data-screen]", ()->
+  $(this).closest('.screen, .dialog').hide()
+  $("##{$(this).data('screen')}").show()
 
 # Show only first screen
 $(".screen:not(:first-child)").hide()

@@ -24,7 +24,7 @@
     $('.spacer').width(w_width - container_width - gutter * 2).css('margin_right', gutter).css('margin_left', gutter);
     $('.column').width(base_dim + gutter);
     $('.column-2x').width((base_dim + gutter) * 2);
-    $('.square').width(base_dim).height(base_dim);
+    $('.square').width(base_dim).height(base_dim).css('margin_bottom', gutter).css('margin_right', gutter);
     $('.rectangle').width(base_dim).height(base_dim * 2 + gutter);
     $('.square-1x').width(base_dim).height(base_dim).css('margin_right', gutter);
     $('.square-2x').width(base_dim * 2 + gutter).height(base_dim * 2 + gutter);
@@ -92,18 +92,9 @@
     return false;
   });
 
-  $(document).on("click", "[data-dialog]", function() {
-    var dialog, quit_button;
-    $(".screen").hide();
-    dialog = $("#" + ($(this).attr('id')) + "_dialog");
-    dialog.show();
-    quit_button = dialog.children(".quit");
-    quit_button.data("return", $(this).closest('.screen'));
-    $(document).on("click", quit_button, function() {
-      $(this).closest('.dialog').hide();
-      return $(this).data("return").show();
-    });
-    return dialog.children(".square").css('margin_bottom', gutter).css('margin_right', gutter);
+  $(document).on("click", "[data-screen]", function() {
+    $(this).closest('.screen, .dialog').hide();
+    return $("#" + ($(this).data('screen'))).show();
   });
 
   $(".screen:not(:first-child)").hide();

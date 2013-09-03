@@ -1,8 +1,5 @@
 @mixin element_style {
-  //opacity: 0.7;
-  //border: 1px solid black;
-  //box-shadow: 5px 5px 3px #888888;
-  //border-radius:5px;
+
 }
 
 @mixin center_content {
@@ -22,9 +19,19 @@
 // Colors
 $green: #37DA7E;
 $blue: #66D1FF;
+$darkblue: #00b2ff;
 $grey: #A8B1B8;
 $purple: #A68DCC;
 $red: #FF2030;
+$lemon: #FDE910;
+
+.green { background: $green; }
+.blue { background: $blue; }
+.darkblue { background: $darkblue; }
+.grey { background: $grey; }
+.purple { background: $purple; }
+.red { background: $red; }
+.lemon { background: $lemon; }
 
 * {
   overflow: hidden;
@@ -68,12 +75,6 @@ html {
   font-size: 200%;
 }
 
-.green { background: $green; }
-.blue { background: $blue; }
-.grey { background: $grey; }
-.purple { background: $purple; }
-.red { background: $red; }
-
 [id$="light"] div {
   &.on {
     background: $blue;
@@ -104,6 +105,20 @@ html {
   font-weight:bold;
 }
 
+.name {
+  position: absolute;
+  font-size: 30%;
+  top: 0;
+  right: 0.25em;
+  font-weight:bold;
+}
+
 .dialog {
   display: none;
+}
+
+.room_switch {
+  @include center_content;
+  width: 100%;
+  height: 50%;
 }

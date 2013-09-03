@@ -3,6 +3,6 @@
 
 # Water Closet
 module Domotics
-  class Playroom < Room
+  class TestRoom < Room
   end
 end

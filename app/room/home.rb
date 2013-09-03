@@ -3,7 +3,5 @@
 
 module Domotics
   class Home < Room
-    def on_event(element)
-    end
   end
 end
