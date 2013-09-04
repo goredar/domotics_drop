@@ -33,12 +33,28 @@ class TrackTestCase < Test::Unit::TestCase
     # On-Off test
     rgb.set_state :off
     assert_equal :off, rgb.state
+    assert_equal [0,0,0], rgb.color
+
     rgb.set_state :on
     assert_equal :on, rgb.state
+    assert_equal [255,255,255], rgb.color
+
     rgb.set_color 0,0,0
     assert_equal :off, rgb.state
+    assert_equal [0,0,0], rgb.color
+
     rgb.set_color 255,0,0
     assert_equal :on, rgb.state
-    
+    assert_equal [255,0,0], rgb.color
+
+    rgb.set_color [0,127,255]
+    assert_equal :on, rgb.state
+    assert_equal [0,127,255], rgb.color
+
+    rgb.set_color [127,80,0]
+    rgb.set_power 100
+    assert_equal [255,160,0], rgb.color
+    rgb.set_power 50
+    assert_equal [127,80,0], rgb.color
   end
 end

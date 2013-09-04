@@ -6,7 +6,7 @@
 .grey.square data-command="playroom/rgb_strip/set_state/off"
   span.icon-power-off
 - 3.times do |count|
-  .square data-command="playroom/rgb_strip/set_power/#{(count+1)*33}" style="background-color: rgb(#{188+20*count},#{197+20*count},#{204+20*count});font-size: #{20*count+60}%;"
+  .square data-command="playroom/rgb_strip/set_power/#{count == 2 ? 100 : (count+1)*25}" style="background-color: rgb(#{188+20*count},#{197+20*count},#{204+20*count});font-size: #{60+20*count}%;"
     span.icon-sun
 .lemon.square data-command="playroom/rgb_strip/randomize"
   span.icon-random

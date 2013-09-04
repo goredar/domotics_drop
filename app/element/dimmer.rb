@@ -10,25 +10,25 @@ module Domotics
     MAX_LEVEL = 255
     def set_state(value = DEFAULT_LEVEL)
       if value.is_a? Integer
-        value = 0 if (value < 0)
-        value = 255 if value > 255
+        value = MIN_LEVEL if value < MIN_LEVEL
+        value = MAX_LEVEL if value > MAX_LEVEL
       end
       super value
     end
     # Decrease brightness level (value 0-100%)
     def dim(value = nil)
       if value
-        set_state value*256/100
+        set_state value*MAX_LEVEL/100
       else
-        set_state state-256/GRADATION_NUMBER
+        set_state state-MAX_LEVEL/GRADATION_NUMBER
       end
     end
     # Increase brightness level (value 0-100%)
     def bright(value = nil)
       if value
-        set_state value*256/100
+        set_state value*MAX_LEVEL/100
       else
-        set_state  state+256/GRADATION_NUMBER
+        set_state  state+MAX_LEVEL/GRADATION_NUMBER
       end
     end
     def fade_in(sec = 4)

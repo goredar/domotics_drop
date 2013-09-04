@@ -10,12 +10,11 @@ DrawBlocks = () ->
   # Get window dimentions
   w_width = $(window).width()
   w_height = $(window).height()
-  base_dim = Math.round(w_height/row_count/(1+gutter_part))
+  base_dim = Math.round(w_height/(row_count*(1+gutter_part)+gutter_part))
   gutter = Math.round(base_dim*gutter_part)
   #col_count = $('.column').size()+$('.column-2x').size()*2
   # Set global sizes
-  $('body').height(w_height-gutter*2)
-  $('body').css('font-size', "#{base_dim/2}px")
+  $('body').height(w_height-gutter*2).css('font-size', "#{base_dim/2}px")
   # Set coluns
   container_width = (base_dim+gutter)*col_count
   $('.container').width(container_width)
