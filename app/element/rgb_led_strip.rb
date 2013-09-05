@@ -59,7 +59,11 @@ module Domotics
       return unless value.is_a? Integer
       value=100 if value>100
       value=0 if value<0
-      set_color color.map { |c| c*Dimmer::MAX_LEVEL*value/color.max/100 }
+      if state == :on
+        set_color color.map { |c| c*Dimmer::MAX_LEVEL*value/color.max/100 }
+      else
+        set_color 3.times.map { Dimmer::MAX_LEVEL*value/100 }
+      end
     end
   end
 end
