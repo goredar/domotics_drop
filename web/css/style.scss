@@ -112,7 +112,13 @@ html {
   right: 0.25em;
   font-weight:bold;
 }
-
+.big_name {
+  position: absolute;
+  font-size: 60%;
+  top: 0;
+  right: 0.25em;
+  font-weight:bold;
+}
 .dialog {
   display: none;
 }
