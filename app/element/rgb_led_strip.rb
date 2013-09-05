@@ -61,6 +61,5 @@ module Domotics
       value=0 if value<0
       set_color color.map { |c| c*Dimmer::MAX_LEVEL*value/color.max/100 }
     end
-    
   end
 end
