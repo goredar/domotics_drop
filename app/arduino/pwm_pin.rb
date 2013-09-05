@@ -13,7 +13,7 @@ module Arduino
       when 0..7, :off
         @board.set_low @pin
         0
-      when 8..247
+      when 8..249
         @board.set_pwm @pin, value
         value
       when 248..255, :on

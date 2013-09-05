@@ -53,7 +53,7 @@ module Domotics
     end
     # Default - simple prints event
     def on_event(element)
-      puts element
+      $logger.info { "#{@name} event message from #{element.name} with state [#{element.state}]" }
     end
     def destroy
       @queue_thread.exit

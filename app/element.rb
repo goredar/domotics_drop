@@ -7,7 +7,7 @@ module Domotics
     def initialize(args_hash = {})
       @room = Room[args_hash[:room]]
       @room.register_element self, @name = args_hash[:name]
-      set_state state || :off
+      set_state self.state || :off
     end
     def state
       @@data[@room.name, @name]
@@ -25,11 +25,13 @@ module Domotics
     end
     def set_state(value)
       @@data[@room.name, @name] = value
+      $logger.info { "#{@room.name}::#{@name} set state to #{value}" }
       value
     end
     def on_state_changed(value)
       @@data[@room.name, @name] = value
       @room.notify self
+      $logger.info { "#{@room.name}::#{@name} state changed to #{value}" }
       value
     end
 
