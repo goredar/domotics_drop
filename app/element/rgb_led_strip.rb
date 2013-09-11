@@ -22,6 +22,10 @@ module Domotics
       @strips[:b]
     end
 
+    def off
+      set_color 3.times.map { Dimmer::MIN_LEVEL }
+    end
+
     def color
       @strips.values.map { |strip| strip.state }
     end
@@ -34,6 +38,17 @@ module Domotics
         @strips[:g].fade_to args[1]
         @strips[:b].fade_to args[2]
         set_state args.reduce(:+) == 0 ? :off : :on
+      end
+    end
+
+    def set_power(value=50)
+      return unless value.is_a? Integer
+      value=100 if value>100
+      value=0 if value<0
+      if state == :on
+        set_color color.map { |c| c * Dimmer::MAX_LEVEL * value / color.max / 100 }
+      else
+        set_color 3.times.map { Dimmer::MAX_LEVEL * value / 100 }
       end
     end
 
@@ -50,6 +65,7 @@ module Domotics
         end
       end
     end
+
     def kill_crazy
       if @crazy_thread
         @crazy_thread.exit
@@ -57,15 +73,6 @@ module Domotics
         @rgb_threads.each { |thread| thread.exit }
       end
     end
-    def set_power(value=50)
-      return unless value.is_a? Integer
-      value=100 if value>100
-      value=0 if value<0
-      if state == :on
-        set_color color.map { |c| c * Dimmer::MAX_LEVEL * value / color.max / 100 }
-      else
-        set_color 3.times.map { Dimmer::MAX_LEVEL * value / 100 }
-      end
-    end
+
   end
 end

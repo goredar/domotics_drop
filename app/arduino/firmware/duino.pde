@@ -43,7 +43,7 @@ void setup() {
   default_state();
   // Begin serial
   Serial.begin(115200);
-  // Set TIMER 4 (pin 6, 7, 8) frequency to ?31.374 KHz
+  // Set TIMER 4 (pin 6, 7, 8) frequency to 3906.25 Hz
   TCCR4B = (TCCR4B & 0xF8) | 0x02;
 }
 // Main stream

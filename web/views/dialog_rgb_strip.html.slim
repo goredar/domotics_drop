@@ -6,7 +6,7 @@
 .darkblue.square data-command="playroom/rgb_strip/crazy"
   span.icon-magic
   span.label crazy
-.grey.square data-command="playroom/rgb_strip/set_color/0/0/0"
+.grey.square data-command="playroom/rgb_strip/off"
   span.icon-power-off
 - 3.times do |count|
   .square data-command="playroom/rgb_strip/set_power/#{count == 2 ? 100 : (count+1)*25}" style="background-color: rgb(#{188+20*count},#{197+20*count},#{204+20*count});font-size: #{60+20*count}%;"
