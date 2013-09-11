@@ -6,6 +6,7 @@ module Arduino
     def initialize(args_hash = {})
       @board = Domotics::Device[args_hash[:device]]
       @pin = args_hash[:pin]
+      @board.set_pwm_frequency @pin, 1
       super
     end
     def set_state(value = 0)

@@ -32,21 +32,27 @@ module Arduino
     SETWATCH = 6
     ECHOREPLY = 7
     DEFAULTS = 8
+    SETPWMFREQ = 9
     # Watch states
     WATCHOFF = 0
     WATCHON = 1
     W_STATES = [WATCHOFF, WATCHON]
-
+    # Timers
+    TIMER_0 = 0
+    TIMER_1 = 1
+    TIMER_2 = 2
+    TIMER_3 = 3
+    TIMER_4 = 4
+    TIMER_5 = 5
     def initialize(args_hash = {})
       # grab args from hash
-      b_type = args_hash[:type] || :mega
-      case b_type
+      case @type = args_hash[:type] || :mega
       when :nano
         @port_str = args_hash[:port] || "/dev/ttyUSB0"
         @number_of_pins = 22
         # todo: address of last 2 pins on nano???
         @adc_pins = Array.new(8) { |index| 14+index }
-        @pwm_pins = [2,5,6,9,10,11]
+        @pwm_pins = [3,5,6,9,10,11]
       when :mega
         @port_str = args_hash[:port] || "/dev/ttyACM0"
         @number_of_pins = 70
@@ -64,7 +70,7 @@ module Arduino
       connect
       super
     end
-    
+
     # ---0--- SETPINMODE 
     def set_mode(pin, mode)
       check_pin(pin); check_pin_watch(pin); raise ArgumentError, 'Error! Invalid mode.' unless MODES.include? mode
@@ -75,13 +81,13 @@ module Arduino
     def set_input_pullup(pin)
       set_mode(pin, INPUTPULLUP)
     end
-    
+
     # ---1--- GETDIGITAL
     def get_digital(pin)
       check_pin(pin)
       send_command(GETDIGITAL, pin)
     end
-    
+
     # ---2--- SETDIGITAL
     def set_digital(pin, state)
       check_pin(pin); check_pin_watch(pin); raise ArgumentError, 'Error! Invalid state.' unless STATES.include? state
@@ -97,15 +103,52 @@ module Arduino
 
     # ---3--- GETADC
     def get_adc(pin)
-      check_pin(pin); raise ArgumentError, 'Error! Not ADC pin.' unless @adc_pins.include? pin
+      check_pin(pin); raise ArgumentError, 'Not ADC pin.' unless @adc_pins.include? pin
       send_command(GETADC, pin)
     end
-    
+
     # ---4--- SETPWM
     def set_pwm(pin, value)
-      check_pin(pin); check_pin_watch(pin); raise ArgumentError, 'Error! Not PWM or DAC pin.' unless @pwm_pins.include? pin
-      raise ArgumentError, 'Error! Invalid PWM value' unless value.is_a?(Integer) and value>=0 and value<=255
+      check_pin(pin); check_pin_watch(pin); raise ArgumentError, 'Not PWM or DAC pin.' unless @pwm_pins.include? pin
+      raise ArgumentError, 'Invalid PWM value' unless value.is_a?(Integer) and value>=0 and value<=255
       send_command(SETPWM, pin, value)
+    end
+
+    # ---9--- SETPWMFREQ
+    def set_pwm_frequency(pin, divisor)
+      case @type
+      when :nano
+        case pin
+        when 9,10
+          timer = TIMER_1
+        when 3,11
+          timer = TIMER_2
+        else
+          timer = nil
+        end
+      when :mega
+        case pin
+        when 2,3,5
+          timer = TIMER_3
+        when 6,7,8
+          timer = TIMER_4
+        when 9,10
+          timer = TIMER_2
+        when 11,12
+          timer = TIMER_1
+        when 44,45,46
+          timer = TIMER_5
+        else
+          timer = nil
+        end
+      end
+      raise ArgumentError, 'Invalid PWM pin for change frequency.' unless timer
+      if timer == TIMER_2
+        raise ArgumentError, 'Invalid timer divisor.' unless (1..7).include? divisor
+      else
+        raise ArgumentError, 'Invalid timer divisor.' unless (1..5).include? divisor
+      end
+      send_command(SETPWMFREQ, timer, divisor)
     end
     
     # ---5--- GETWATCH
@@ -113,10 +156,10 @@ module Arduino
       check_pin(pin)
       send_command(GETWATCH, pin)
     end
-    
+
     # ---6--- SETWATCH
     def set_watch(pin, watch)
-      check_pin(pin); raise ArgumentError, 'Error! Invalid watch mode.' unless W_STATES.include? watch
+      check_pin(pin); raise ArgumentError, 'Invalid watch mode.' unless W_STATES.include? watch
       $logger.warn { "Warning! already set watch mode for pin: #{pin}." } if @watch_list[pin] == watch
       set_mode(pin, INPUT) if @pin_mode[pin] == OUTPUT
       @watch_list[pin] = watch
@@ -242,10 +285,10 @@ module Arduino
     end
     # Checks
     def check_pin(pin)
-      raise ArgumentError, 'Error! Invalid pin number.' unless pin.is_a?(Integer) and pin>=0 and pin<@number_of_pins
+      raise ArgumentError, 'Invalid pin number.' unless pin.is_a?(Integer) and pin>=0 and pin<@number_of_pins
     end
     def check_pin_watch(pin)
-      raise ArgumentError, 'Error! Cant access watched pin.' if @watch_list[pin] == WATCHON
+      raise ArgumentError, 'Cant access watched pin.' if @watch_list[pin] == WATCHON
     end
     
   rescue ArgumentError => e

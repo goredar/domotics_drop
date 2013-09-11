@@ -1,14 +1,17 @@
 /*
  * Serial communication for gHome.
  * 
- Input(space separeted):
- 1. command
- 2. pin
- 3. option
- 
- created 03 Sep 2012
- by goredar
+ * Input(space separeted):
+ * 1. command
+ * 2. pin
+ * 3. option
+ * 
+ * created 03 Sep 2012
+ * by goredar
  */
+
+
+
 // Cons
 // Replys definitions
 const int SuccessReprly = 2;
@@ -23,6 +26,7 @@ const int GetWatch = 5;
 const int SetWatch = 6;
 const int EchoReply = 7;
 const int Defaults = 8;
+const int SetPWMFreq = 9;
 // Output message definitions
 const int WatchAlarm = 0;
 // Number of pins for board:
@@ -43,8 +47,6 @@ void setup() {
   default_state();
   // Begin serial
   Serial.begin(115200);
-  // Set TIMER 4 (pin 6, 7, 8) frequency to 3906.25 Hz
-  TCCR4B = (TCCR4B & 0xF8) | 0x02;
 }
 // Main stream
 void loop() {
@@ -71,6 +73,18 @@ void loop() {
           break;
         case SetPWM:
           analogWrite(pin, option);
+          Serial.println(SuccessReprly, DEC);
+          break;
+        case SetPWMFreq:
+          switch (pin) {
+            case 1: TCCR1B = (TCCR1B & 0xF8) | option; break;
+            case 2: TCCR2B = (TCCR2B & 0xF8) | option; break;
+            #ifdef __AVR_ATmega2650__
+            case 3: TCCR3B = (TCCR3B & 0xF8) | option; break;
+            case 4: TCCR4B = (TCCR4B & 0xF8) | option; break;
+            case 5: TCCR5B = (TCCR5B & 0xF8) | option; break;
+            #endif
+          }
           Serial.println(SuccessReprly, DEC);
           break;
         case GetWatch:
