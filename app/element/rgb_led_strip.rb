@@ -12,23 +12,6 @@ module Domotics
       end
     end
 
-    def state
-      return :init unless @strips[:r] || @strips[:g] || @strips[:b]
-      return :off if @strips[:r].state == Dimmer::MIN_LEVEL and @strips[:g].state == Dimmer::MIN_LEVEL and @strips[:b].state == Dimmer::MIN_LEVEL
-      return :on
-    end
-
-    def set_state(value=nil)
-      case value
-      when :off, nil
-        set_color 3.times.map { Dimmer::MIN_LEVEL }
-      when :on
-        set_color 3.times.map { Dimmer::MAX_LEVEL }
-      when :init
-        nil
-      end
-    end
-
     def red
       @strips[:r]
     end
@@ -47,11 +30,11 @@ module Domotics
       kill_crazy
       args=args[0] if args.size == 1 and args[0].is_a? Array
       if args.size == 3
-        @strips[:r].fade_to args[0], 1
-        @strips[:g].fade_to args[1], 1
-        @strips[:b].fade_to args[2], 1
+        @strips[:r].fade_to args[0]
+        @strips[:g].fade_to args[1]
+        @strips[:b].fade_to args[2]
+        set_state args.reduce(:+) == 0 ? :off : :on
       end
-      $logger.info { "#{@room.name}::#{@name} set color to #{args}" }
     end
 
     def randomize
@@ -62,7 +45,7 @@ module Domotics
       kill_crazy
       @crazy_thread = Thread.new do
         loop do
-          @rgb_threads = @strips.values.map { |strip| strip.fade_to(rand(Dimmer::MAX_LEVEL), 1) }
+          @rgb_threads = @strips.values.map { |strip| strip.fade_to(rand(Dimmer::MAX_LEVEL)) }
           @rgb_threads.each { |thread| thread.join }
         end
       end

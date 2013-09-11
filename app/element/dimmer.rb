@@ -4,16 +4,19 @@
 module Domotics
   class Dimmer < Element
     include Arduino::PWMPin
-    GRADATION_NUMBER = 16
+
     DEFAULT_LEVEL = 0
     MIN_LEVEL = 0
     MAX_LEVEL = 255
+    MAX_STEPS = 64
+    STEP_DELAY = 0.8 / MAX_STEPS
+    STEP_SIZE = ((MAX_LEVEL + 1) / MAX_STEPS.to_f).round
+
     def set_state(value = DEFAULT_LEVEL)
       if value.is_a? Integer
         value = MIN_LEVEL if value < MIN_LEVEL
         value = MAX_LEVEL if value > MAX_LEVEL
       end
-      #puts '1' if state == value
       super value
     end
     # Decrease brightness level (value 0-100%)
@@ -21,7 +24,7 @@ module Domotics
       if value
         set_state value * MAX_LEVEL / 100
       else
-        set_state state - MAX_LEVEL / GRADATION_NUMBER
+        set_state state - STEP_SIZE
       end
     end
     # Increase brightness level (value 0-100%)
@@ -29,36 +32,27 @@ module Domotics
       if value
         set_state value * MAX_LEVEL / 100
       else
-        set_state state + MAX_LEVEL / GRADATION_NUMBER
+        set_state state + STEP_SIZE
       end
     end
-    def fade_in(sec = 4)
+
+    def fade_to(value = DEFAULT_LEVEL)
       Thread.new do
-        set_state MIN_LEVEL
-        GRADATION_NUMBER.times do
-          bright
-          sleep(sec.to_f / GRADATION_NUMBER)
+        st = self.state
+        length = value - st
+        if length >= 0
+          op = :+
+        else
+          op = :-
+          length = -length
         end
-      end
-    end
-    def fade_out(sec = 4)
-      Thread.new do
-        set_state MAX_LEVEL
-        GRADATION_NUMBER.times do
-          dim
-          sleep(sec.to_f / GRADATION_NUMBER)
-        end
-      end
-    end
-    def fade_to(value = MAX_LEVEL / 2, sec = 2, steps = GRADATION_NUMBER)
-      Thread.new do
-        p step_size = ((value - state) / steps.to_f).round
-        delay = sec / steps.to_f
+        steps = (length / STEP_SIZE.to_f).round
         steps.times do
-          set_state state + step_size
-          sleep delay
+          set_state(self.state.public_send(op, STEP_SIZE))
+          sleep STEP_DELAY
         end
       end
     end
+
   end
 end

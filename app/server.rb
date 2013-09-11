@@ -29,11 +29,11 @@ module Domotics
         action = object_action
       end
       return invalid 'action' unless action and object.respond_to? action
-      begin
+      #begin
         object.public_send(action, *request.map { |param| param.to_isym })
-      rescue
-        return invalid 'request'
-      end
+      #rescue
+        #return invalid 'request'
+      #end
       ok object.verbose_state.to_json
     end
     def invalid(param='argument')

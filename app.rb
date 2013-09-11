@@ -13,7 +13,7 @@ Thread.class_eval do
       begin
         block.call
       rescue Exception => e
-        $logger.error e.message
+        $logger.error e.to_s
         raise e
       end
     end

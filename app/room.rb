@@ -46,19 +46,25 @@ module Domotics
         element.public_send action
       end
     end
-    
+
     # Method for pushing into queue
-    def notify(*args)
-      @room_queue.push(*args)
+    def notify(msg)
+      @room_queue.push(msg)
     end
     # Default - simple prints event
-    def on_event(element)
-      $logger.info { "#{@name} event message from #{element.name} with state [#{element.state}]" }
+    def on_event(msg)
+      event, element = msg
+      case element
+      when Domotics::Dimmer
+        return if element.name.to_s.include? "rgb"
+      end
+      $logger.info { "[#{@name}]: event message [#{event}] from [#{element.name}] with state [#{element.state}]" }
     end
+
     def destroy
       @queue_thread.exit
     end
-    
+
     # Return element object
     def [](symbol = nil)
       return @elements[symbol] if symbol
