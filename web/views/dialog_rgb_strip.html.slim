@@ -3,8 +3,9 @@
     [0,0,255], [42,82,190], [0,127,255], [100,149,237], [153,102,204],
   ].each do |color|
   .square data-command="playroom/rgb_strip/set_color/#{color[0]}/#{color[1]}/#{color[2]}" style="background-color: rgb(#{color[0]},#{color[1]},#{color[2]});"
-.purple.square data-command="playroom/rgb_strip/crazy"
+.darkblue.square data-command="playroom/rgb_strip/crazy"
   span.icon-magic
+  span.label crazy
 .grey.square data-command="playroom/rgb_strip/set_state/off"
   span.icon-power-off
 - 3.times do |count|
