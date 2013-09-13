@@ -79,7 +79,7 @@ void loop() {
           switch (pin) {
             case 1: TCCR1B = (TCCR1B & 0xF8) | option; break;
             case 2: TCCR2B = (TCCR2B & 0xF8) | option; break;
-            #ifdef __AVR_ATmega2650__
+            #ifdef __AVR_ATmega2560__
             case 3: TCCR3B = (TCCR3B & 0xF8) | option; break;
             case 4: TCCR4B = (TCCR4B & 0xF8) | option; break;
             case 5: TCCR5B = (TCCR5B & 0xF8) | option; break;
