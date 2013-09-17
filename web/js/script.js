@@ -100,7 +100,6 @@
     update: function(data, status, xhr) {
       var element, element_data, element_info, element_name, room_data, room_name, _results;
       if (status === "success") {
-        console.log(data);
         _results = [];
         for (room_name in data) {
           room_data = data[room_name];
