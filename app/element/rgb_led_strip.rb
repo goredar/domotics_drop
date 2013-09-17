@@ -52,7 +52,7 @@ module Domotics
       end
     end
 
-    def randomize
+    def random
       set_color 3.times.map { rand Dimmer::MAX_LEVEL }
     end
 

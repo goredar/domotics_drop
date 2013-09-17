@@ -98,6 +98,6 @@ rooms =
               element_info.html(element_data.info)
             else
               element.append("<span class='info'>#{element_data.info}</span>")
-
-rooms.init()
-view.init()
+$ ->
+  rooms.init()
+  view.init()

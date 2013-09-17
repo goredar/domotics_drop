@@ -14,7 +14,7 @@ Thread.class_eval do
         block.call
       rescue Exception => e
         $logger.error e
-        $logger.debug e.backtrace.join
+        $logger.debug { e.backtrace.join }
         raise e
       end
     end

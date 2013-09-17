@@ -15,10 +15,11 @@ html
       .room_switch
         span.icon-chevron-down
     .container
-      - %w(home kitchen bathroom wc hall playroom living_room).each do |element|
-        .screen id=element
-          == render element
-      .dialog#dialog_rgb_strip
-        == render :dialog_rgb_strip
+      - %w(home kitchen bathroom wc hall playroom living_room).each do |room|
+        .screen id=room
+          == render room
+      - %w(dialog_rgb_strip).each do |dialog|
+        .dialog id=dialog
+          == render dialog
     script src="js/zepto.min.js"
     script src="js/script.js"

@@ -1,9 +1,9 @@
 -[  [255,0,0], [255,0,127], [255,127,0], [255,0,255], [127,0,255], [0,0,255],
-    [0,255,0], [0,255,127], [127,255,0], [255,255,0], [0,255,255], [0,127,255],
-    [255,127,127], [127,255,127], [127,127,255], [127,127,127],
+    [0,255,0], [0,255,127], [127,255,0], [127,255,127], [0,255,255], [0,127,255],
+    [255,127,127], [255,255,0], [127,127,255], [127,127,127],
   ].each do |color|
   .square data-command="playroom/rgb_strip/set_color/#{color[0]}/#{color[1]}/#{color[2]}" style="background-color: rgb(#{color[0]},#{color[1]},#{color[2]});"
-.green.square data-command="playroom/rgb_strip/randomize"
+.green.square data-command="playroom/rgb_strip/random"
   span.icon-random
   span.label random
 .green.square data-command="playroom/rgb_strip/crazy"

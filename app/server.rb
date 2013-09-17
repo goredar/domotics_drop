@@ -31,7 +31,9 @@ module Domotics
       return invalid 'action' unless action and object.respond_to? action
       begin
         object.public_send(action, *request.map { |param| param.to_isym })
-      rescue
+      rescue Exception => e
+        $logger.error e
+        $logger.debug { e.backtrace.join("\n") }
         return invalid 'request'
       end
       return ok object.verbose_state.to_json

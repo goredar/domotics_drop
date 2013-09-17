@@ -1,11 +1,11 @@
 task :default => [:test]
 
-desc 'Compile style sheets'
+#desc 'Compile style sheets'
 file 'web/css/style.css' => 'web/css/style.scss' do
   %x{ sass web/css/style.scss web/css/style.css }
 end
 
-desc 'Compile javascript'
+#desc 'Compile javascript'
 file 'web/js/script.js' => 'web/js/script.js.coffee' do
   require 'coffee-script'
   File.open("web/js/script.js", 'w') do |f|
@@ -13,7 +13,7 @@ file 'web/js/script.js' => 'web/js/script.js.coffee' do
   end
 end
 
-desc 'Compile HTML'
+#desc 'Compile HTML'
 task 'web/index.html' do
   #%x{ slimrb web/index.html.slim web/index.html }
   require "slim"
@@ -36,4 +36,9 @@ desc 'Make some tests'
 task :test do
   ruby "./test/core_test.rb"
   ruby "./test/rack_test.rb"
+end
+
+desc 'Run app'
+task :run do
+  ruby "./app.rb"
 end

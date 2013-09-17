@@ -131,8 +131,9 @@
     }
   };
 
-  rooms.init();
-
-  view.init();
+  $(function() {
+    rooms.init();
+    return view.init();
+  });
 
 }).call(this);
