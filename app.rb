@@ -13,7 +13,8 @@ Thread.class_eval do
       begin
         block.call
       rescue Exception => e
-        $logger.error e.to_s
+        $logger.error e
+        $logger.debug e.backtrace.join
         raise e
       end
     end
@@ -38,10 +39,10 @@ else
 end
 
 builder = Rack::Builder.new do
+    use Rack::CommonLogger
+    use Rack::ContentLength
   if ENV['RACK_ENV'] == 'test'
     use Rack::Reloader, 0
-    use Rack::ContentLength
-    use Rack::CommonLogger
     use Rack::ShowExceptions
     use Rack::Lint
   end

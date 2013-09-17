@@ -84,6 +84,7 @@ rooms =
   # Update elements state and info
   update: (data, status, xhr) ->
     if status == "success"
+      console.log data
       for room_name, room_data of data
         for element_name, element_data of room_data.elements
           # Add element state class

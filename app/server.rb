@@ -34,12 +34,12 @@ module Domotics
       rescue
         return invalid 'request'
       end
-      ok object.verbose_state.to_json
+      return ok object.verbose_state.to_json
     end
-    def invalid(param='argument')
+    def invalid(param)
       [400, {"Content-Type" => "text/html"}, ["Processing error: invalid #{param}."]]
     end
-    def ok(param='OK')
+    def ok(param)
       [200, {"Content-Type" => "text/html"}, [param]]
     end
   end

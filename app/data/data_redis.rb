@@ -5,23 +5,31 @@ require 'redis'
 
 module Domotics
   class DataRedis
+
     def initialize(host = nil, port = nil)
-      if host and port
-        @redis = Redis.new :host => host, :port => port
-      else
-        @redis = Redis.new
-      end
+      @args = Hash.new
+      @args[:host] = host
+      @args[:port] = port
+      @redis = Redis.new @args
     end
+
     def []=(room, element, state)
-      @redis.set "#{room}:#{element}", state.to_s
+      @redis.set "#{room}:#{element}", state
     end
+
     def [](room, element)
       result = @redis.get("#{room}:#{element}")
       begin
-        result && Integer(result)
+        return result && Integer(result)
       rescue
-        result.to_sym
+        return result.to_sym
       end
     end
+
+    def reconect
+      @redis.quit if @redis
+      @redis = Redis.new @args
+    end
+
   end
 end
