@@ -90,7 +90,7 @@ html {
 
 [id$="strip"] div {
   &.on {
-    background: $green;
+    background: $blue;
     //& span::before { content: '\e0f9'; }
   }
   &.off {
