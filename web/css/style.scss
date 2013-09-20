@@ -56,7 +56,9 @@ html {
 .right {
   float: right;
 }
-
+.expand {
+  width: 100%;
+}
 [class*="square"], [class*="rectangle"] {
   @include center_content;
   vertical-align: baseline;

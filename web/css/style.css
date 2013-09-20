@@ -49,6 +49,9 @@ html {
 .right {
   float: right; }
 
+.expand {
+  width: 100%; }
+
 [class*="square"], [class*="rectangle"] {
   display: -moz-box;
   -moz-box-pack: center;
