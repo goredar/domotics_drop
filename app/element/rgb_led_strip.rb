@@ -61,7 +61,7 @@ module Domotics
       set_state :on
       @crazy_thread = Thread.new do
         loop do
-          @rgb_threads = @strips.values.map { |strip| strip.fade_to(rand(Dimmer::MAX_LEVEL)) }
+          @rgb_threads = @strips.values.map { |strip| strip.fade_to(rand(Dimmer::MAX_LEVEL), 8) }
           @rgb_threads.each { |thread| thread.join }
         end
       end

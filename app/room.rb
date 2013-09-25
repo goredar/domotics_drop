@@ -56,7 +56,7 @@ module Domotics
       event, element = msg
       case element
       when Domotics::Dimmer
-        return if element.name.to_s.include? "rgb"
+        #return if element.name.to_s.include? "rgb"
       end
       $logger.info { "[#{@name}]: event message [#{event}] from [#{element.name}] with state [#{element.state}]" }
     end

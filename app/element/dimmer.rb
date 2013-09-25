@@ -36,25 +36,18 @@ module Domotics
       end
     end
 
-    def fade_to(value = DEFAULT_LEVEL)
+    def fade_to(value = DEFAULT_LEVEL, speed_divisor = 1)
       Thread.new do
-        begin
-          st = state
-          length = value - st
-          if length >= 0
-            op = :+
-          else
-            op = :-
-            length = -length
-          end
-          steps = (length / STEP_SIZE.to_f).round
-          steps.times do
+        op = (value - state) >= 0 ? :+ : :-
+        steps = ((value - state).abs / STEP_SIZE.to_f).round
+        steps.times do
+          begin
             set_state(state.public_send(op, STEP_SIZE))
-            sleep STEP_DELAY
+          rescue
+            @@data.reconect
+            retry
           end
-        rescue
-          @@data.reconect
-          retry
+          sleep speed_divisor * STEP_DELAY
         end
       end
     end
