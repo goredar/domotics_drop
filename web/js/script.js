@@ -59,7 +59,7 @@
     },
     hook: function() {
       var spacer;
-      $(document).on("click", "[data-command]", function() {
+      $(document).on("tap", "[data-command]", function() {
         var request, screen;
         screen = $(this).closest('.screen');
         if (screen.size() === 1) {
@@ -75,15 +75,15 @@
         return false;
       });
       spacer = $(".spacer .room_switch");
-      $(document).on("click", spacer.first(), function() {
+      $(document).on("tap", spacer.first(), function() {
         view.rotate(true);
         return false;
       });
-      $(document).on("click", spacer.last(), function() {
+      $(document).on("tap", spacer.last(), function() {
         view.rotate(false);
         return false;
       });
-      return $(document).on("click", "[data-screen]", function() {
+      return $(document).on("tap", "[data-screen]", function() {
         $(this).closest('.screen, .dialog').hide();
         $("#" + ($(this).data('screen'))).show();
         return false;
