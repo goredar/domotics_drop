@@ -44,6 +44,7 @@ module Domotics
           begin
             set_state(state.public_send(op, STEP_SIZE))
           rescue
+            # redis bug?
             @@data.reconect
             retry
           end

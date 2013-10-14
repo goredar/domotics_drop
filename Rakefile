@@ -42,3 +42,9 @@ desc 'Run app'
 task :run do
   ruby "./app.rb"
 end
+
+desk 'Update'
+task: :up do
+  %x{ git pull }
+  %x{ sudo systemctl restart domotics.service }
+end
