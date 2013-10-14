@@ -54,7 +54,7 @@ view =
     if !!$.os.phone or !!$.os.tablet
       hook_action = "touch"
     else
-    hook_action = "click"
+      hook_action = "click"
     # Hook element's commands
     $(document).on hook_action, "[data-command]", () ->
       screen = $(this).closest('.screen')
