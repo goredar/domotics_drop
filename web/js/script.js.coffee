@@ -52,7 +52,7 @@ view =
       return true
   hook: () ->
     if !!$.os.phone or !!$.os.tablet
-      hook_action = "touch"
+      hook_action = "tap"
     else
       hook_action = "click"
     # Hook element's commands
