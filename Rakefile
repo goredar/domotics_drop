@@ -45,6 +45,6 @@ end
 
 desk 'Update'
 task: :up do
-  %x{ git pull }
+  %x{ sudo git pull }
   %x{ sudo systemctl restart domotics.service }
 end
