@@ -23,11 +23,15 @@ module Domotics
     end
 
     def off
-      set_color 3.times.map { Dimmer::MIN_LEVEL }
+      set_color 3.times.map { Dimmer::MIN_LEVEL } unless on?
     end
 
     def color
       @strips.values.map { |strip| strip.state }
+    end
+
+    def on?
+      color.reduce(:+) == 0
     end
 
     def set_color(*args)
@@ -61,7 +65,7 @@ module Domotics
       set_state :on
       @crazy_thread = Thread.new do
         loop do
-          @rgb_threads = @strips.values.map { |strip| strip.fade_to(rand(Dimmer::MAX_LEVEL), 8) }
+          @rgb_threads = @strips.values.map { |strip| strip.fade_to(rand(Dimmer::MAX_LEVEL), 4) }
           @rgb_threads.each { |thread| thread.join }
         end
       end

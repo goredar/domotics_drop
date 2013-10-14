@@ -77,9 +77,7 @@ module Domotics
     end
     # Return requested room like variable
     def method_missing(symbol)
-      $logger.info @@rooms[symbol]
-      return @@rooms[symbol] if @@rooms[symbol]
-      super
+      return @@rooms[symbol] || super
     end
   end
 end

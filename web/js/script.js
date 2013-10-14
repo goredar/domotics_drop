@@ -58,8 +58,14 @@
       });
     },
     hook: function() {
-      var spacer;
-      $(document).on("tap", "[data-command]", function() {
+      var hook_action, spacer;
+      if (!!$.os.phone || !!$.os.tablet) {
+        hook_action = "touch";
+      } else {
+
+      }
+      hook_action = "click";
+      $(document).on(hook_action, "[data-command]", function() {
         var request, screen;
         screen = $(this).closest('.screen');
         if (screen.size() === 1) {
@@ -75,15 +81,15 @@
         return false;
       });
       spacer = $(".spacer .room_switch");
-      $(document).on("tap", spacer.first(), function() {
+      $(document).on(hook_action, spacer.first(), function() {
         view.rotate(true);
         return false;
       });
-      $(document).on("tap", spacer.last(), function() {
+      $(document).on(hook_action, spacer.last(), function() {
         view.rotate(false);
         return false;
       });
-      return $(document).on("tap", "[data-screen]", function() {
+      return $(document).on(hook_action, "[data-screen]", function() {
         $(this).closest('.screen, .dialog').hide();
         $("#" + ($(this).data('screen'))).show();
         return false;

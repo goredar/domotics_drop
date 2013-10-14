@@ -51,8 +51,12 @@ view =
         return false
       return true
   hook: () ->
+    if !!$.os.phone or !!$.os.tablet
+      hook_action = "touch"
+    else
+    hook_action = "click"
     # Hook element's commands
-    $(document).on "click", "[data-command]", () ->
+    $(document).on hook_action, "[data-command]", () ->
       screen = $(this).closest('.screen')
       if screen.size() == 1
         request = "/#{$(this).closest('.screen').attr('id')}"
@@ -64,14 +68,14 @@ view =
       return false
     # Hook spacer
     spacer = $(".spacer .room_switch")
-    $(document).on "click", spacer.first(), () ->
+    $(document).on hook_action, spacer.first(), () ->
       view.rotate(true)
       return false
-    $(document).on "click", spacer.last(), () ->
+    $(document).on hook_action, spacer.last(), () ->
       view.rotate(false)
       return false
     # Hook screen's and dialog's links
-    $(document).on "click", "[data-screen]", () ->
+    $(document).on hook_action, "[data-screen]", () ->
       $(this).closest('.screen, .dialog').hide()
       $("##{$(this).data('screen')}").show()
       return false
