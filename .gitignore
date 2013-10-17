@@ -1,5 +1,6 @@
 .sass-cache
 config.rb
+passwd
 
 *.gem
 *.rbc
