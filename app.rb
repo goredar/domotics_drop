@@ -33,15 +33,15 @@ end
 Domotics::Element.data=Domotics::DataRedis.new
 
 if ENV['RACK_ENV'] == 'test'
-  require "#{File.dirname(__FILE__)}/test/config.test.rb"
+  require "#{File.dirname(__FILE__)}/conf/config.test.rb"
 else
-  require "#{File.dirname(__FILE__)}/config.rb"
+  require "#{File.dirname(__FILE__)}/conf/config.rb"
 end
 
 builder = Rack::Builder.new do
     use Rack::CommonLogger
     use Rack::ContentLength
-    passwd = IO.read("#{File.dirname(__FILE__)}/passwd").each_line.reduce(Hash.new) do |pw, line| 
+    passwd = IO.read("#{File.dirname(__FILE__)}/conf/passwd").each_line.reduce(Hash.new) do |pw, line|
       user, pass = line.chomp.split(" : ")
       pw[user] = pass
       pw
