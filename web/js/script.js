@@ -60,11 +60,10 @@
     hook: function() {
       var hook_action, spacer;
       if (!!$.os.phone || !!$.os.tablet) {
-        hook_action = "touch";
+        hook_action = "tap";
       } else {
-
+        hook_action = "click";
       }
-      hook_action = "click";
       $(document).on(hook_action, "[data-command]", function() {
         var request, screen;
         screen = $(this).closest('.screen');

@@ -79,21 +79,8 @@ html {
     box-pack: center;
     box-align: center; }
 
-.spacer {
-  background-color: #555; }
-
 .square-2x {
   font-size: 200%; }
-
-[id$="light"] div.on {
-  background: #66d1ff; }
-[id$="light"] div.off {
-  background: #a8b1b8; }
-
-[id$="strip"] div.on {
-  background: #66d1ff; }
-[id$="strip"] div.off {
-  background: #a8b1b8; }
 
 .label {
   position: absolute;
@@ -116,8 +103,8 @@ html {
   right: 0.25em;
   font-weight: bold; }
 
-.dialog {
-  display: none; }
+.spacer {
+  background-color: #555; }
 
 .room_switch {
   display: -moz-box;
@@ -133,3 +120,16 @@ html {
   box-align: center;
   width: 100%;
   height: 50%; }
+
+.dialog {
+  display: none; }
+
+[id$="light"] div.on {
+  background: #66d1ff; }
+[id$="light"] div.off {
+  background: #a8b1b8; }
+
+[id$="strip"] div.on {
+  background: #66d1ff; }
+[id$="strip"] div.off {
+  background: #a8b1b8; }
