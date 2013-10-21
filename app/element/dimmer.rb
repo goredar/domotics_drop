@@ -8,8 +8,8 @@ module Domotics
     DEFAULT_LEVEL = 0
     MIN_LEVEL = 0
     MAX_LEVEL = 255
-    MAX_STEPS = 64
-    STEP_DELAY = 0.8 / MAX_STEPS
+    MAX_STEPS = 256
+    STEP_DELAY = 1 / MAX_STEPS
     STEP_SIZE = ((MAX_LEVEL + 1) / MAX_STEPS.to_f).round
 
     def set_state(value = DEFAULT_LEVEL)
