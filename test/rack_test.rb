@@ -26,6 +26,7 @@ class HelloWorldTest < Test::Unit::TestCase
     get '/test_room/invalid_object/to_s'
     assert last_response.bad_request?
   end
+
   def test_query_action
     get '/test_room/light_1/state'
     assert last_response.ok?
@@ -34,6 +35,7 @@ class HelloWorldTest < Test::Unit::TestCase
     get '/test_room/light_1/state/abracadabra'
     assert last_response.bad_request?
   end
+
   def test_switch_element
     get '/test_room/light_1/on'
     assert last_response.ok?
@@ -54,4 +56,5 @@ class HelloWorldTest < Test::Unit::TestCase
     get '/test_room/light_1/off'
     assert last_response.ok?
   end
+
 end

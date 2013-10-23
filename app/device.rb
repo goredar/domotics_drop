@@ -10,11 +10,8 @@ module Domotics
     end
 
     def self.[](symbol = nil)
-      if symbol
-        @@devices[symbol]
-      else
-        @@devices
-      end
+      return @@devices[symbol] if symbol
+      @@devices
     end
 
     def destroy

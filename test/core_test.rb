@@ -5,10 +5,12 @@ require "./app.rb"
 
 class DomoticsTestCase < Test::Unit::TestCase
   def test_core
+
     ### Arduino board
     ard = Domotics::Device[:nano]
     assert ard.set_pwm_frequency 11, 1
     assert ard.set_pwm_frequency 11, 3
+
     ### Dimmer
     dimmer = Domotics::Room[:test_room].dim
     # Should turn on max and convert state to int
@@ -37,5 +39,16 @@ class DomoticsTestCase < Test::Unit::TestCase
     ### RGBLedStrip
     rgb = Domotics::Room[:test_room].rgb
     rgb.off
+  end
+
+  def test_room
+    tr = Domotics::Room.new name: :tr
+    assert_raise NoMethodError do
+      tr.instance_eval "no_method :args"
+    end
+    assert_nothing_raised do
+      tr.instance_eval "nothing.off"
+      tr.instance_eval "nothing.light :off"
+    end
   end
 end

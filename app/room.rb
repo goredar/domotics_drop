@@ -76,8 +76,9 @@ module Domotics
       @@rooms
     end
     # Return requested room like variable
-    def method_missing(symbol)
-      return @@rooms[symbol] || super
+    def method_missing(symbol, *args)
+      super unless args.size == 0
+      @@rooms[symbol] || BlackHole.new
     end
   end
 end
