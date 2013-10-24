@@ -26,7 +26,7 @@ module Domotics
       end
     end
 
-    def reconect
+    def reconnect
       @redis.quit if @redis
       @redis = Redis.new @args
     end

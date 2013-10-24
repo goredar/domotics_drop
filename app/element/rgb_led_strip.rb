@@ -5,6 +5,8 @@ module Domotics
   class RGBLedStrip < Element
     def initialize(args_hash = {})
       @strips = Hash.new
+      @crazy_lock = Mutex.new
+      @crazy_thread = nil
       super
       %w(r g b).each do |x|
         instance_eval %Q{ @strips[:#{x}] = Dimmer.new({ device: args_hash[:device], room: args_hash[:room],
@@ -23,7 +25,9 @@ module Domotics
     end
 
     def off
-      set_color 3.times.map { Dimmer::MIN_LEVEL } unless on?
+      kill_crazy
+      @strips.values.each { |strip| strip.off } unless on?
+      set_state :off
     end
 
     def color
@@ -61,21 +65,24 @@ module Domotics
     end
 
     def crazy
-      kill_crazy
-      set_state :on
-      @crazy_thread = Thread.new do
-        loop do
-          @rgb_threads = @strips.values.map { |strip| strip.fade_to(rand(Dimmer::MAX_LEVEL), 3) }
-          @rgb_threads.each { |thread| thread.join }
+      @crazy_lock.synchronize do
+        @crazy_thread.kill if @crazy_thread
+        @crazy_thread = Thread.new do
+          loop do
+            @fade_threads = @strips.values.map { |strip| strip.fade_to(rand(Dimmer::MAX_LEVEL), 3) }
+            @fade_threads.each { |thread| thread.join }
+          end
         end
       end
+      set_state :on
     end
 
     def kill_crazy
-      if @crazy_thread
-        @crazy_thread.exit
-        @crazy_thread = nil
-        @rgb_threads.each { |thread| thread.exit }
+      @crazy_lock.synchronize do
+        if @crazy_thread
+          @crazy_thread.kill
+          @crazy_thread = nil
+        end
       end
     end
 

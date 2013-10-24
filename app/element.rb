@@ -4,6 +4,7 @@
 module Domotics
   class Element
 
+    @@data = nil
     attr_reader :name
 
     def initialize(args_hash = {})

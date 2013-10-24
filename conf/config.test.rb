@@ -9,7 +9,7 @@ Domotics::Setup.new do
     arduino :nano, type: :nano do
       # Element
       light :light_1, pin: 13
-      dimmer :dim, pin: 3
+      dimmer :dimmer, pin: 3
       rgb_strip :rgb, r: 9, g: 10, b: 11
     end
   end
