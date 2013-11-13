@@ -57,18 +57,6 @@ html {
   vertical-align: middle;
   vertical-align: baseline;
   font-size: 100%; }
-  [class*="square"] div, [class*="rectangle"] div {
-    display: -moz-box;
-    -moz-box-pack: center;
-    -moz-box-align: center;
-    /* Safari and Chrome */
-    display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
-    /* W3C */
-    display: box;
-    box-pack: center;
-    box-align: center; }
 
 .square i, .square-1x i {
   margin-top: 25%; }

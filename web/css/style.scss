@@ -65,9 +65,6 @@ html {
   //@include center_content;
   vertical-align: baseline;
   font-size: 100%;
-  & div {
-    @include center_content;
-  }
 }
 .square i, .square-1x i {
   margin-top: 25%;
