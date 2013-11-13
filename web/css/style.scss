@@ -60,15 +60,31 @@ html {
 
 // Structure styles
 [class*="square"], [class*="rectangle"] {
-  @include center_content;
+  text-align: center;
+  vertical-align: middle;
+  //@include center_content;
   vertical-align: baseline;
   font-size: 100%;
   & div {
     @include center_content;
   }
 }
+.square i, .square-1x i {
+  margin-top: 25%;
+}
+.rectangle-land i {
+  margin-top: 12.5%;
+}
+.rectangle-land span i {
+  display: inline;
+  margin-right: 0.125em;
+}
 .square-2x {
   font-size: 200%;
+  & span i {
+    display: inline;
+    margin-right: 0.125em;
+  }
 }
 .label {
   position: absolute;

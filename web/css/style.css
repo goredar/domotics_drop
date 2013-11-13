@@ -53,17 +53,8 @@ html {
   width: 100%; }
 
 [class*="square"], [class*="rectangle"] {
-  display: -moz-box;
-  -moz-box-pack: center;
-  -moz-box-align: center;
-  /* Safari and Chrome */
-  display: -webkit-box;
-  -webkit-box-pack: center;
-  -webkit-box-align: center;
-  /* W3C */
-  display: box;
-  box-pack: center;
-  box-align: center;
+  text-align: center;
+  vertical-align: middle;
   vertical-align: baseline;
   font-size: 100%; }
   [class*="square"] div, [class*="rectangle"] div {
@@ -79,8 +70,21 @@ html {
     box-pack: center;
     box-align: center; }
 
+.square i, .square-1x i {
+  margin-top: 25%; }
+
+.rectangle-land i {
+  margin-top: 12.5%; }
+
+.rectangle-land span i {
+  display: inline;
+  margin-right: 0.125em; }
+
 .square-2x {
   font-size: 200%; }
+  .square-2x span i {
+    display: inline;
+    margin-right: 0.125em; }
 
 .label {
   position: absolute;
