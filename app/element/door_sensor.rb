@@ -3,7 +3,9 @@
 
 module Domotics
   class DoorSensor < Element
-    include Domotics::Arduino::NCSensor
+    def initialize(args = {})
+      self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::NCSensor}
+    end
     def to_hls(state)
       super == :on ? :open : :close
     end

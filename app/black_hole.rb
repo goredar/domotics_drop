@@ -6,6 +6,5 @@ module Domotics
     def method_missing(*args)
       self
     end
-  rescue
   end
 end

@@ -10,11 +10,11 @@ html
   body
     .spacer
       .room_switch
-        span.icon-chevron-up
+        span.fa.fa-2x.fa-angle-up
       .room_switch
-        span.icon-chevron-down
+        span.fa.fa-2x.fa-angle-down
     .container
-      - %w(home kitchen bathroom wc hall playroom living_room).each do |room|
+      - %w(home kt bath wc hall play live).each do |room|
         .screen id=room
           == render room
       - %w(dialog_rgb_strip).each do |dialog|

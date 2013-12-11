@@ -3,7 +3,9 @@
 
 module Domotics
   class MoveSensor < Element
-    include Domotics::Arduino::NOSensor
+    def initialize(args = {})
+      self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::NOSensor}
+    end
     def to_hls(state)
       super == :on ? :move : :no_move
     end

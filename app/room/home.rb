@@ -12,7 +12,7 @@ module Domotics
     end
 
     def verbose_state
-      [playroom, living_room].reduce(Hash.new) { |st, room| st.merge! room.verbose_state }
+      [play, live].reduce(Hash.new) { |st, room| st.merge! room.verbose_state }
     end
   end
 end

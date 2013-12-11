@@ -2,18 +2,18 @@
     [0,255,0], [0,255,127], [127,255,0], [127,255,127], [0,255,255], [0,127,255],
     [255,127,127], [255,255,0], [127,127,255], [127,127,127],
   ].each do |color|
-  .square data-command="playroom/rgb_strip/set_color/#{color[0]}/#{color[1]}/#{color[2]}" style="background-color: rgb(#{color[0]},#{color[1]},#{color[2]});"
-.green.square data-command="playroom/rgb_strip/random"
+  .square data-command="play/rgb_strip/set_color/#{color[0]}/#{color[1]}/#{color[2]}" style="background-color: rgb(#{color[0]},#{color[1]},#{color[2]});"
+.green.square data-command="play/rgb_strip/random"
   i.fa.fa-random
   span.label random
-.green.square data-command="playroom/rgb_strip/crazy"
+.green.square data-command="play/rgb_strip/crazy"
   i.fa.fa-magic
   span.label crazy
-.grey.square data-command="playroom/rgb_strip/off"
+.grey.square data-command="play/rgb_strip/off"
   i.fa.fa-power-off
 - 3.times do |count|
-  .square data-command="playroom/rgb_strip/set_power/#{count == 2 ? 100 : (count+1)*25}" style="background-color: rgb(#{188+20*count},#{197+20*count},#{204+20*count});font-size: #{60+20*count}%;"
+  .square data-command="play/rgb_strip/set_power/#{count == 2 ? 100 : (count+1)*25}" style="background-color: rgb(#{188+20*count},#{197+20*count},#{204+20*count});font-size: #{60+20*count}%;"
     span.icon-sun
 .green.square
-.red.square data-screen="playroom"
+.red.square data-screen="play"
   i.fa.fa-chevron-left

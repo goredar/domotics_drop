@@ -3,14 +3,18 @@
 
 module Domotics
   class RGBLedStrip < Element
-    def initialize(args_hash = {})
+    def initialize(args = {})
       @strips = Hash.new
       @crazy_lock = Mutex.new
       @crazy_thread = nil
       super
+      sub_args = args.dup
       %w(r g b).each do |x|
-        instance_eval %Q{ @strips[:#{x}] = Dimmer.new({ device: args_hash[:device], room: args_hash[:room],
-        name: (args_hash[:name].to_s+'_#{x}_strip').to_sym, pin: args_hash[:#{x}] }) }
+        instance_eval %Q{
+          sub_args[:name] = (args[:name].to_s+'_#{x}_strip').to_sym
+          sub_args[:pin] = args[:#{x}]
+          @strips[:#{x}] = Dimmer.new(sub_args) 
+        }
       end
     end
 

@@ -3,8 +3,8 @@
 
 module Domotics
   class ButtonSensor < Element
-    include Domotics::Arduino::NOSensor
     def initialize(*args)
+      self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::NOSensor}
       super
       @tap = nil
       @tap_lock = Mutex.new

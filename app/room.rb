@@ -4,7 +4,7 @@
 module Domotics
   class Room
     # All rooms
-    @@rooms = {}
+    @@rooms = Hash.new
     attr_reader :name
     def initialize(args_hash = {})
       # Save self

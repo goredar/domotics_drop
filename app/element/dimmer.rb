@@ -3,7 +3,6 @@
 
 module Domotics
   class Dimmer < Element
-    include Domotics::Arduino::PWMPin
 
     DEFAULT_LEVEL = 0
     MIN_LEVEL = 0
@@ -12,7 +11,8 @@ module Domotics
     STEP_DELAY = 1.0 / MAX_STEPS
     STEP_SIZE = ((MAX_LEVEL + 1) / MAX_STEPS.to_f).round
 
-    def initialize(args_hash = {})
+    def initialize(args = {})
+      self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::PWMPin}
       @fade_lock = Mutex.new
       @fade_thread = nil
       super
