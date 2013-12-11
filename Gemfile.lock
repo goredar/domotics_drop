@@ -6,7 +6,8 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     daemons (1.1.9)
-    domotics-arduino (0.0.2)
+    domotics-arduino (0.0.4)
+      serialport
     eventmachine (1.0.3)
     execjs (2.0.2)
     hiredis (0.4.5)

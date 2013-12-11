@@ -3,7 +3,7 @@
 
 module Domotics
   class ArduinoBoard < Device
-    include Domotics::Arduino::ArduinoSerial
+    include Domotics::Arduino::ArduinoBase
 
     def initialize(args_hash = {})
       @pins = Hash.new
