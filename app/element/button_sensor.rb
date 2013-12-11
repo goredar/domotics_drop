@@ -3,7 +3,7 @@
 
 module Domotics
   class ButtonSensor < Element
-    include Arduino::NOSensor
+    include Domotics::Arduino::NOSensor
     def initialize(*args)
       super
       @tap = nil

@@ -3,7 +3,7 @@
 
 module Domotics
   class DoorSensor < Element
-    include Arduino::NCSensor
+    include Domotics::Arduino::NCSensor
     def to_hls(state)
       super == :on ? :open : :close
     end

@@ -3,7 +3,7 @@
 
 module Domotics
   class Dimmer < Element
-    include Arduino::PWMPin
+    include Domotics::Arduino::PWMPin
 
     DEFAULT_LEVEL = 0
     MIN_LEVEL = 0

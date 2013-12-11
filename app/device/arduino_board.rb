@@ -3,18 +3,18 @@
 
 module Domotics
   class ArduinoBoard < Device
-    include Arduino::ArduinoSerial
+    include Domotics::Arduino::ArduinoSerial
 
     def initialize(args_hash = {})
       @pins = Hash.new
       super
     end
-    
+
     # Register pin for watch events
     def register_pin(pin_object, number)
       @pins[number] = pin_object
     end
-    
+
     # Return pin object
     def [](number = nil)
       return @pins[number] if number
@@ -22,7 +22,7 @@ module Domotics
     end
 
     private
-    
+
     # Override default handler
     def event_handler(hash)
       case hash[:event]

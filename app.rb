@@ -5,6 +5,8 @@ require 'rubygems'
 require 'bundler/setup'
 require 'rack'
 
+require 'domotics/arduino'
+
 # Debug - Show exception in threads
 Thread.class_eval do
   alias_method :initialize_without_exception_show, :initialize

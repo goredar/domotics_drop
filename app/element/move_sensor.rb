@@ -3,7 +3,7 @@
 
 module Domotics
   class MoveSensor < Element
-    include Arduino::NOSensor
+    include Domotics::Arduino::NOSensor
     def to_hls(state)
       super == :on ? :move : :no_move
     end

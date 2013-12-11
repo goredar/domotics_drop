@@ -4,7 +4,7 @@
 # Simple switch
 module Domotics
   class PowerSwitch < Element
-    include Arduino::DigitalPin
+    include Domotics::Arduino::DigitalPin
     MINIMUM_LAG = 1
     def initialize(args_hash = {})
       super
