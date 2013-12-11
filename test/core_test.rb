@@ -12,7 +12,7 @@ class DomoticsTestCase < Test::Unit::TestCase
     assert ard.set_pwm_frequency 11, 3
 
     ### Dimmer
-    dimmer = Domotics::Room[:test_room].dimmer
+    dimmer = Domotics::Room[:test].dimmer
     # Should turn on max and convert state to int
     dimmer.set_state :on
     assert_equal 255, dimmer.state
@@ -39,7 +39,7 @@ class DomoticsTestCase < Test::Unit::TestCase
     assert_equal 0, dimmer.state
 
     ### RGBLedStrip
-    rgb = Domotics::Room[:test_room].rgb
+    rgb = Domotics::Room[:test].rgb
     rgb.off
   end
 

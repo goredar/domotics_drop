@@ -4,9 +4,9 @@
 # Simple switch
 module Domotics
   class PowerSwitch < Element
-    include Domotics::Arduino::DigitalPin
     MINIMUM_LAG = 1
-    def initialize(args_hash = {})
+    def initialize(args = {})
+      self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::DigitalPin}
       super
       # Identifier of lag thread
       @lag = nil

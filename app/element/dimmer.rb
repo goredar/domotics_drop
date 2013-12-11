@@ -20,7 +20,7 @@ module Domotics
 
     def state
       loop do
-        result = super
+        result = super || 0
         return result if result.is_a? Integer
         @@data.reconnect
       end

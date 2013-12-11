@@ -32,8 +32,10 @@ module Domotics
       begin
         object.public_send(action, *request.map { |param| param.to_isym })
       rescue Exception => e
-        $logger.error e
-        $logger.debug { e.backtrace.join("\n") }
+        if ENV['RACK_ENV'] == 'test'
+          $logger.error e
+          $logger.debug { e.backtrace.join("\n") }
+        end
         return invalid 'request'
       end
       return ok object.verbose_state.to_json
