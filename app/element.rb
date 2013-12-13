@@ -14,7 +14,7 @@ module Domotics
     end
 
     def state
-      @@data[@room.name, @name]
+      @@data[@room.name, @name] if @@data
     end
 
     def verbose_state
@@ -30,13 +30,13 @@ module Domotics
     end
 
     def set_state(value)
-      @@data[@room.name, @name] = value
+      @@data[@room.name, @name] = value if @@data
       @room.notify [:state_set, self]
       value
     end
 
     def on_state_changed(value)
-      @@data[@room.name, @name] = value
+      @@data[@room.name, @name] = value if @@data
       @room.notify [:state_changed, self]
       value
     end

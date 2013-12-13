@@ -7,10 +7,10 @@ require 'hiredis'
 module Domotics
   class DataRedis
 
-    def initialize(host = nil, port = nil)
+    def initialize(args = {})
       @args = Hash.new
-      @args[:host] = host
-      @args[:port] = port
+      @args[:host] = args[:host]
+      @args[:port] = args[:port]
       @args[:driver] = :hiredis
       @redis = Redis.new @args
     end
@@ -27,11 +27,5 @@ module Domotics
         return result.to_sym
       end
     end
-
-    def reconnect
-      @redis.quit if @redis
-      @redis = Redis.new @args
-    end
-
   end
 end

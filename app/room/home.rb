@@ -7,7 +7,7 @@ module Domotics
     def light(action = :off)
       case action
       when :off
-        [playroom, living_room].each { |room| room.light :off }
+        [play, live].each { |room| room.light :off }
       end
     end
 

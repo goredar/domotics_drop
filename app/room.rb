@@ -55,10 +55,10 @@ module Domotics
     def on_event(msg)
       event, element = msg
       case element
-      when Domotics::Dimmer
-        #return if element.name.to_s.include? "rgb"
+      when Dimmer
+      else
+        $logger.info { "[#{@name}]: event message [#{event}] from [#{element.name}] with state [#{element.state}]" }
       end
-      $logger.info { "[#{@name}]: event message [#{event}] from [#{element.name}] with state [#{element.state}]" }
     end
 
     def destroy
