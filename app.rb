@@ -1,10 +1,8 @@
 #!/usr/local/rvm/rubies/ruby-1.9.3-p448/bin/ruby
 # coding: utf-8
 
-require 'rubygems'
 require 'bundler/setup'
 require 'rack'
-
 require 'domotics/arduino'
 
 #require '../domotics-arduino/lib/domotics/arduino'

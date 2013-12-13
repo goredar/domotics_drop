@@ -18,14 +18,6 @@ module Domotics
       super
     end
 
-    def state
-      loop do
-        result = super || 0
-        return result if result.is_a? Integer
-        @@data.reconnect
-      end
-    end
-
     def set_state(value = DEFAULT_LEVEL, kill_flag = true)
       if kill_flag
         @fade_lock.synchronize do

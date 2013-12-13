@@ -2,6 +2,7 @@
 # coding: utf-8
 
 require 'redis'
+require 'hiredis'
 
 module Domotics
   class DataRedis
@@ -10,6 +11,7 @@ module Domotics
       @args = Hash.new
       @args[:host] = host
       @args[:port] = port
+      @args[:driver] = :hiredis
       @redis = Redis.new @args
     end
 

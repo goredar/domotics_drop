@@ -3,12 +3,11 @@ source "https://rubygems.org"
 
 # Arduino
 gem "serialport"
-
 # Domotics
 gem "domotics-arduino"
 # App
-gem "hiredis"
-gem "redis", :require => ["redis/connection/hiredis", "redis"]
+gem "redis", "~> 3.0.1"
+gem "hiredis", "~> 0.4.5"
 # Server
 gem "rack"
 gem "thin"
