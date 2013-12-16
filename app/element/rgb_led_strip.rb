@@ -73,7 +73,7 @@ module Domotics
         @crazy_thread.kill if @crazy_thread
         @crazy_thread = Thread.new do
           loop do
-            @fade_threads = @strips.values.map { |strip| strip.fade_to(rand(Dimmer::MAX_LEVEL), 3) }
+            @fade_threads = @strips.values.map { |strip| strip.fade_to(rand(Dimmer::MAX_LEVEL), 1) }
             @fade_threads.each { |thread| thread.join }
           end
         end
