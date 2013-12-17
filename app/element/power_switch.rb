@@ -48,7 +48,7 @@ module Domotics
     def lag(action = nil, timer = nil)
       # Kill previous action -> out of date
       @lag_lock.synchronize do
-        if @lag
+        if @lag and @lag.alive?
           @lag.kill
           @lag = nil
         end

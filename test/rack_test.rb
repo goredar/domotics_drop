@@ -41,10 +41,10 @@ class DomoticsTest < Test::Unit::TestCase
     assert last_response.ok?
     get '/test/light_1/delay_off/1'
     assert last_response.ok?
-    sleep 1
+    sleep 1.2
     get '/test/light_1/delay_on/1'
     assert last_response.ok?
-    sleep 1
+    sleep 1.2
     3.times do
       sleep 1
       get '/test/light_1/switch'

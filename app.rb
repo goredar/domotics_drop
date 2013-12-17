@@ -31,8 +31,9 @@ $logger.level = Logger::DEBUG if ENV['RACK_ENV'] == 'test'
 $logger.formatter = proc do |severity, datetime, progname, msg|
   "#{severity} #{msg}\n"
 end
+
 # Set data store
-Domotics::Element.data=Domotics::DataRedis.new
+Domotics::Element.data = Domotics::DataMongo.new
 
 if ENV['RACK_ENV'] == 'test'
   require "#{File.dirname(__FILE__)}/conf/config.test.rb"
