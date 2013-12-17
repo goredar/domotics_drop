@@ -2,7 +2,7 @@
 # coding: utf-8
 
 module Domotics
-  class RGBLedStrip < Element
+  class RgbStrip < Element
     def initialize(args = {})
       @strips = Hash.new
       @crazy_lock = Mutex.new

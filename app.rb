@@ -1,36 +1,31 @@
-#!/usr/local/rvm/rubies/ruby-1.9.3-p448/bin/ruby
+#!/usr/bin/env ruby
 # coding: utf-8
 
 require 'bundler/setup'
 require 'rack'
 require 'domotics/arduino'
-
 #require '../domotics-arduino/lib/domotics/arduino'
+require './app/exception'
+Dir['./app/**/*.rb'].sort.each {|file| require file}
 
-# Debug - Show exception in threads
-Thread.class_eval do
-  alias_method :initialize_without_exception_show, :initialize
-  def initialize(*args, &block)
-    initialize_without_exception_show(*args) do
-      begin
-        block.call
-      rescue Exception => e
-        $logger.error e
-        $logger.debug { e.backtrace.join }
-        raise e
-      end
-    end
+[:device, :room, :element].each do |x|
+  Dir["./app/#{x}/*.rb"].each do |file|
+    #require file
+    file =~ /\/(\w*)\.rb\Z/
+    cn = $1.split(/_/)
+    ind = (x == :device and cn[-1] == "board") ? cn[0].to_sym : cn.join('_').to_sym
+    Domotics::CLASS_MAP[ind] = [x, eval("Domotics::#{cn.map{ |cn_p| cn_p.capitalize }.join}")]
   end
 end
-# Require subtree
-Dir[File.dirname(__FILE__) + '/app/**/*.rb'].sort.each {|file| require file}
+
+
 # Create logger
 require 'logger'
 $logger = Logger.new(STDERR)
 $logger.level = Logger::DEBUG if ENV['RACK_ENV'] == 'test'
-$logger.formatter = proc do |severity, datetime, progname, msg|
-  "#{severity} #{msg}\n"
-end
+#$logger.formatter = proc do |severity, datetime, progname, msg|
+#  "#{severity} #{msg}#{$/}"
+#end
 
 # Set data store
 Domotics::Element.data = Domotics::DataMongo.new

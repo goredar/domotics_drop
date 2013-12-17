@@ -13,16 +13,16 @@ Domotics::Setup.new do
     # Device
     arduino :nano_0, board: :nano do
       # Element
-      light :corner_1_light, pin: 13
-      light :corner_2_light, pin: 14
-      light :corner_3_light, pin: 15
-      light :corner_4_light, pin: 16
+      switch :corner_1_light, pin: 13
+      switch :corner_2_light, pin: 14
+      switch :corner_3_light, pin: 15
+      switch :corner_4_light, pin: 16
       rgb_strip :rgb_strip, r: 9, g: 10, b: 11
     end
   end
   living_room :live do
     arduino :nano_0 do
-      light :center_light, pin: 13
+      switch :center_light, pin: 13
     end
   end
 end

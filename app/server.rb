@@ -32,14 +32,14 @@ module Domotics
       begin
         object.public_send(action, *request.map { |param| param.to_isym })
       rescue Exception => e
-        if ENV['RACK_ENV'] == 'test'
-          $logger.error e
-          $logger.debug { e.backtrace.join("\n") }
-        end
+        $logger.error e.message
         return invalid 'request'
       end
       return ok object.verbose_state.to_json
     end
+
+    private
+
     def invalid(param)
       [400, {"Content-Type" => "text/html"}, ["Processing error: invalid #{param}."]]
     end

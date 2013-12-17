@@ -2,7 +2,7 @@
 # coding: utf-8
 
 module Domotics
-  class ButtonSensor < Element
+  class Button < Element
     def initialize(*args)
       self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::NOSensor}
       super

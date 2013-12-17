@@ -2,28 +2,8 @@
 # coding: utf-8
 
 module Domotics
+  CLASS_MAP = {}
   class Setup
-    CLASS_MAP = {
-      # Rooms
-      home: [:room, "Domotics::Home"], # Meta-room. Represents all rooms and executes scenarios.
-      kitchen: [:room, "Domotics::Kitchen"],
-      bathroom: [:room, "Domotics::Bathroom"],
-      wc: [:room, "Domotics::WaterCloset"],
-      hall: [:room, "Domotics::Hall"],
-      playroom: [:room, "Domotics::Playroom"],
-      living_room: [:room, "Domotics::LivingRoom"],
-      test_room: [:room, "Domotics::TestRoom"],
-      # Devices
-      arduino: [:device, "Domotics::ArduinoBoard"],
-      # Elements
-      light: [:element, "Domotics::PowerSwitch"],
-      button: [:element, "Domotics::ButtonSensor"],
-      door: [:element, "Domotics::DoorSensor"],
-      move: [:element, "Domotics::MoveSensor"],
-      dimmer: [:element, "Domotics::Dimmer"],
-      rgb_strip: [:element, "Domotics::RGBLedStrip"],
-      }
-
     def initialize(&block)
       @current_room = Hash.new
       @current_device = Hash.new

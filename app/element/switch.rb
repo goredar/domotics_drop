@@ -3,7 +3,7 @@
 
 # Simple switch
 module Domotics
-  class PowerSwitch < Element
+  class Switch < Element
     MINIMUM_LAG = 1
     def initialize(args = {})
       self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::DigitalPin}

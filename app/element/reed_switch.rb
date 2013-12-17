@@ -2,12 +2,12 @@
 # coding: utf-8
 
 module Domotics
-  class MoveSensor < Element
+  class ReedSwitch < Element
     def initialize(args = {})
-      self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::NOSensor}
+      self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::NCSensor}
     end
     def to_hls(state)
-      super == :on ? :move : :no_move
+      super == :on ? :open : :close
     end
     def set_state(*args)
       nil

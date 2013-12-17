@@ -2,7 +2,7 @@
 # coding: utf-8
 
 module Domotics
-  class WaterCloset < Room
+  class Wc < Room
     def on_event(element)
       case element.state
       when :move

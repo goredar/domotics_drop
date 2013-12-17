@@ -21,10 +21,10 @@ module Domotics
     def set_state(value = DEFAULT_LEVEL, kill_flag = true)
       if kill_flag
         @fade_lock.synchronize do
-          if @fade_thread
+          if @fade_thread and @fade_thread.alive?
             @fade_thread.kill
-            @fade_thread = nil
           end
+          @fade_thread = nil
         end
       end
       if value.is_a? Integer
@@ -56,7 +56,7 @@ module Domotics
 
     def fade_to(value = DEFAULT_LEVEL, speed_divisor = 1)
       @fade_lock.synchronize do
-        @fade_thread.kill if @fade_thread
+        @fade_thread.kill if @fade_thread and @fade_thread.alive?
         @fade_thread = Thread.new do
           op = (value - state) >= 0 ? :+ : :-
           steps = ((value - state).abs / STEP_SIZE.to_f).round
@@ -69,6 +69,5 @@ module Domotics
       end
       @fade_thread
     end
-
   end
 end
