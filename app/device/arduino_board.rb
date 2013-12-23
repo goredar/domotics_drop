@@ -24,7 +24,7 @@ module Domotics
     def event_handler(hash)
       case hash[:event]
         # Tell element to change state
-      when :pin_state_change
+      when :pin_state_changed
         element = @pins[hash[:pin]]
         element.on_state_changed element.to_hls(hash[:state])
       when :malfunction
