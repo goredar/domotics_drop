@@ -1,12 +1,8 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
-Domotics::Setup.new do
-  home :home_name
-  kitchen :kitchen_name
-  bathroom :bathroom_name
-  wc :wc_name
-  hall :hall_name
+home :home do
+  kitchen :kt
+  bathroom :bath
+  wc :wc
+  hall :hall
 
   # Room
   playroom :play do

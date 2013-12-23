@@ -1,8 +1,4 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
-Domotics::Setup.new do
-  home :test_home
+home :test_home do
   # Room
   test_room :test do
     # Device

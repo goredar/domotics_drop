@@ -1,8 +1,5 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
 module Domotics
-  class ArduinoBoard < Device
+  class ArduinoBoard < Device #__as__ :arduino
     include Domotics::Arduino::ArduinoBase
 
     def initialize(args_hash = {})

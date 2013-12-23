@@ -10,11 +10,9 @@ module Domotics
       super
       sub_args = args.dup
       %w(r g b).each do |x|
-        instance_eval %Q{
-          sub_args[:name] = (args[:name].to_s+'_#{x}_strip').to_sym
-          sub_args[:pin] = args[:#{x}]
-          @strips[:#{x}] = Dimmer.new(sub_args) 
-        }
+        sub_args[:name] = (args[:name].to_s+"_#{x}_strip").to_sym
+        sub_args[:pin] = args[x.to_sym]
+        @strips[x.to_sym] = Dimmer.new(sub_args)
       end
     end
 

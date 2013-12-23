@@ -1,14 +1,12 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
 module Domotics
   class Room
     # All rooms
     @@rooms = Hash.new
-    attr_reader :name
-    def initialize(args_hash = {})
+    attr_reader :name, :type
+    def initialize(args = {})
       # Save self
-      @@rooms[@name = args_hash[:name]] = self
+      @@rooms[@name = args[:name]] = self
+      @type = args[:type]
       # Hash of elements
       @elements = {}
       # New queue thread
@@ -38,7 +36,7 @@ module Domotics
     def light(action = :switch)
       return unless [:on, :off, :switch].include? action
       @elements.each do |name, element|
-        next unless element.kind_of? PowerSwitch
+        next if element.type != :switch
         next unless name =~ /light/
         if element.respond_to? ask_action = (action.to_s+'?').to_sym
           next if element.public_send ask_action

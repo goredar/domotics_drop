@@ -1,12 +1,10 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
 module Domotics
   class Device
     @@devices = {}
-    attr_reader :name
-    def initialize(args_hash)
-      @@devices[@name = args_hash[:name]] = self
+    attr_reader :name, :type
+    def initialize(args = {})
+      @@devices[@name = args[:name]] = self
+      @type = args[:type]
     end
 
     def self.[](symbol = nil)

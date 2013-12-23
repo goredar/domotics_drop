@@ -13,3 +13,22 @@ Thread.class_eval do
     end
   end
 end
+
+class String
+  def to_isym
+    begin
+      Integer(self)
+    rescue ArgumentError
+      self.to_sym
+    end
+  end
+end
+
+
+module Domotics
+  class BlackHole
+    def method_missing(*args)
+      self
+    end
+  end
+end

@@ -1,17 +1,4 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
 require 'json'
-
-class String
-  def to_isym
-    begin
-      Integer(self)
-    rescue ArgumentError
-      self.to_sym
-    end
-  end
-end
 
 module Domotics
   class Server

@@ -1,15 +1,13 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
 module Domotics
   class Element
 
     @@data = nil
-    attr_reader :name, :room
+    attr_reader :name, :type, :room
 
     def initialize(args = {})
       @room = Room[args[:room]]
       @room.register_element self, @name = args[:name]
+      @type = args[:type]
       set_state(self.state || :off)
     end
 
