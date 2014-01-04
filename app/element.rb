@@ -1,7 +1,6 @@
 module Domotics
   class Element
-
-    @@data = nil
+    @@data = DataHash.new
     attr_reader :name, :type, :room
 
     def initialize(args = {})
@@ -12,7 +11,7 @@ module Domotics
     end
 
     def state
-      @@data[self].state if @@data
+      @@data[self].state
     end
 
     def verbose_state
@@ -28,13 +27,13 @@ module Domotics
     end
 
     def set_state(value)
-      @@data[self].state = value if @@data
+      @@data[self].state = value
       @room.notify [:state_set, self]
       value
     end
 
-    def on_state_changed(value)
-      @@data[self].state = value if @@data
+    def state_changed(value)
+      @@data[self].state = to_hls value
       @room.notify [:state_changed, self]
       value
     end
@@ -43,5 +42,8 @@ module Domotics
       @@data = value
     end
 
+    def to_s
+      "#{room.name}:#{name}"
+    end
   end
 end

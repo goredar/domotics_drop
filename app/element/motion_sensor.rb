@@ -1,10 +1,7 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
 module Domotics
   class MotionSensor < Element
     def initialize(args = {})
-      self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::NOSensor}
+      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::NOSensor}
     end
     def to_hls(state)
       super == :on ? :move : :no_move

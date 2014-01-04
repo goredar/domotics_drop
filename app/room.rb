@@ -2,13 +2,18 @@ module Domotics
   class Room
     # All rooms
     @@rooms = Hash.new
-    attr_reader :name, :type
+    attr_reader :name, :type, :elements
     def initialize(args = {})
       # Save self
       @@rooms[@name = args[:name]] = self
       @type = args[:type]
       # Hash of elements
       @elements = {}
+      class << @elements
+        def light
+          select { |name, element| (element.is_a? Element) and (element.type == :switch) and (name =~ /light/) }
+        end
+      end
       # New queue thread
       @room_queue = Queue.new
       @queue_thread = Thread.new { loop { on_event @room_queue.pop } }
@@ -33,18 +38,15 @@ module Domotics
       nil
     end
     # Perform action with light
-    def light(action = :switch)
-      return unless [:on, :off, :switch].include? action
-      @elements.each do |name, element|
-        next if element.type != :switch
-        next unless name =~ /light/
-        if element.respond_to? ask_action = (action.to_s+'?').to_sym
-          next if element.public_send ask_action
-        end
-        element.public_send action
+    def light(action = :toggle)
+      case action
+      when :on, :off, :toggle
+        @elements.light.values.each { |element| element.public_send action }
       end
     end
-
+    def light_off?
+      @elements.light.values.reduce(true) { |res, el| res && el.off? }
+    end
     # Method for pushing into queue
     def notify(msg)
       @room_queue.push(msg)

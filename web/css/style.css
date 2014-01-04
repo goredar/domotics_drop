@@ -60,13 +60,16 @@ html {
 
 .square i, .square-1x i {
   margin-top: 25%; }
+.square i.large-text, .square-1x i.large-text {
+  margin-top: 12.5%;
+  font-size: 150%; }
 
 .rectangle-land i {
   margin-top: 12.5%; }
-
-.rectangle-land span i {
-  display: inline;
-  margin-right: 0.125em; }
+.rectangle-land i.large-text {
+  margin-top: 8%;
+  margin-right: 0.125em;
+  font-size: 150%; }
 
 .square-2x {
   font-size: 200%; }

@@ -1,10 +1,23 @@
 module Domotics
-  CLASS_MAP = {}
+  CLASS_MAP = {group: :element_group}
   class Setup < BasicObject
     def initialize(conf)
       @current_room = {}
       @current_device = {}
+      @groups = []
       instance_eval(conf)
+    end
+
+    def element_group(args = {})
+      raise "Element group must have room" unless @current_room.any?
+      args[:room] = @current_room[:name]
+      unless gr = Room[@current_room[:name]][args[:name]]
+        gr = ElementGroup.new args
+        @groups[-1].add_element gr if @groups[-1]
+      end
+      @groups.push(gr)
+      yield if ::Kernel.block_given?
+      @groups.pop
     end
 
     def room(klass, args = {})
@@ -29,7 +42,8 @@ module Domotics
       args[:room_type] = @current_room[:type]
       args[:device] = @current_device[:name]
       args[:device_type] = @current_device[:type]
-      klass.new(args) unless Room[@current_room[:name]][args[:name]]
+      el = klass.new(args) unless Room[@current_room[:name]][args[:name]]
+      @groups[-1].add_element el if @groups[-1]
     end
 
     def method_missing(symbol, *args, &block)

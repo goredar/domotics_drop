@@ -19,7 +19,7 @@ module Domotics
     end
   end
 
-  class DataRedisOperator
+  class DataRedisOperator < BasicObject
     def initialize(redis, key)
       @redis = redis
       @key = key

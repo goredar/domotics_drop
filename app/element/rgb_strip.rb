@@ -1,6 +1,3 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
 module Domotics
   class RgbStrip < Element
     def initialize(args = {})
@@ -28,7 +25,7 @@ module Domotics
 
     def off
       kill_crazy
-      @strips.values.each { |strip| strip.off } unless on?
+      @strips.values.each { |strip| strip.off } if on?
       set_state :off
     end
 
@@ -37,7 +34,7 @@ module Domotics
     end
 
     def on?
-      color.reduce(:+) == 0
+      color.reduce(:+) != 0
     end
 
     def set_color(*args)

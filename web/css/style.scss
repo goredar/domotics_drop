@@ -66,16 +66,29 @@ html {
   vertical-align: baseline;
   font-size: 100%;
 }
-.square i, .square-1x i {
-  margin-top: 25%;
+.square, .square-1x {
+  & i {
+    margin-top: 25%;
+  }
+  & i.large-text {
+    margin-top: 12.5%;
+    font-size: 150%;
+  }
 }
-.rectangle-land i {
-  margin-top: 12.5%;
+.rectangle-land {
+  & i {
+    margin-top: 12.5%;
+  }
+  & i.large-text {
+    margin-top: 8%;
+    margin-right: 0.125em;
+    font-size: 150%;
+  }
 }
-.rectangle-land span i {
-  display: inline;
-  margin-right: 0.125em;
-}
+//.rectangle-land span i {
+//  display: inline;
+//  margin-right: 0.125em;
+//}
 .square-2x {
   font-size: 200%;
   & span i {

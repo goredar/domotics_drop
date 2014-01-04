@@ -2,15 +2,41 @@
   .grey.square data-command="light/off"
     i.fa.fa-power-off
     span.label off
-.column
-  .square#center_light data-command="switch"
+  .square#board_1_light data-command="toggle"
+    .element
+      i.large-text.fa.fa-ellipsis-v
+  .lemon.square data-command="light/up"
+    i.fa.fa-arrow-circle-o-up
+    span.label up
+  .grey.square
+.column-2x
+  .rectangle-land#board_2_light data-command="toggle"
+    .element
+      i.large-text.fa.fa-ellipsis-h
+      i.large-text.fa.fa-ellipsis-h
+  .square-1x#door_side_light data-command="toggle"
     .element
       i.fa.fa-circle-o
-      span.label light
+  .square-1x#window_side_light data-command="toggle"
+    .element
+      i.fa.fa-circle-o
+  .rectangle-land#board_4_light data-command="toggle"
+    .element
+      i.large-text.fa.fa-ellipsis-h
+      i.large-text.fa.fa-ellipsis-h
+  .grey.square-1x
+  .grey.square-1x
 .column
-  .green.square
-.column
-  .green.square
+  .green.square data-command="light/on"
+    i.fa.fa-asterisk
+    span.label all
+  .square#board_3_light data-command="toggle"
+    .element
+      i.large-text.fa.fa-ellipsis-v
+  .purple.square data-command="light/down"
+    i.fa.fa-arrow-circle-o-down
+    span.label down
+  .grey.square
 .column-2x
   .purple.square-2x
     span.name

@@ -1,21 +1,19 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
-# Simple switch
 module Domotics
   class Switch < Element
     MINIMUM_LAG = 1
     def initialize(args = {})
-      self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::DigitalPin}
+      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::DigitalPin}
       super
       # Identifier of lag thread
       @lag = nil
       @lag_lock = Mutex.new
     end
+    def set_state(value)
+      super unless state == value
+    end
     def on(timer = nil)
       set_state :on
       lag(:off, timer)
-      state
     end
     def on?
       state == :on
@@ -26,7 +24,6 @@ module Domotics
     def off(timer = nil)
       set_state :off
       lag(:on, timer)
-      state
     end
     def off?
       state == :off
@@ -34,13 +31,12 @@ module Domotics
     def delay_off(timer)
       lag(:off, timer)
     end
-    def switch(timer = nil)
+    def toggle(timer = nil)
       set_state state == :off ? :on : :off
-      lag(:switch, timer)
-      state
+      lag(:toggle, timer)
     end
-    def delay_switch(timer)
-      lag(:switch, timer)
+    def delay_toggle(timer)
+      lag(:toggle, timer)
     end
 
     private

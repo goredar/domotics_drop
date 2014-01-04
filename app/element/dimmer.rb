@@ -1,6 +1,3 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
 module Domotics
   class Dimmer < Element
 
@@ -12,7 +9,7 @@ module Domotics
     STEP_SIZE = ((MAX_LEVEL + 1) / MAX_STEPS.to_f).round
 
     def initialize(args = {})
-      self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::PWMPin}
+      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::PWMPin}
       @fade_lock = Mutex.new
       @fade_thread = nil
       super

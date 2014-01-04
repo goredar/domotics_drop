@@ -1,10 +1,7 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
 module Domotics
   class Button < Element
     def initialize(*args)
-      self.class.instance_eval %Q{include Domotics::#{args[:device_type].capitalize}::NOSensor}
+      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::NOSensor}
       super
       @tap = nil
       @tap_lock = Mutex.new
@@ -23,7 +20,7 @@ module Domotics
         when 0..0.5
           # Tap
           @tap_lock.synchronize do
-            if @tap
+            if @tap and @tap.alive?
               @tap.kill
               @tap = nil
               super :double_tap

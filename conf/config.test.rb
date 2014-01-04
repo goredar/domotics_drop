@@ -2,7 +2,7 @@ home :test_home do
   # Room
   test_room :test do
     # Device
-    arduino :nano, board: :nano do
+    arduino :nano, board: :nano, port: $emul.port do
       # Element
       switch :light_1, pin: 13
       switch :light_2, pin: 13

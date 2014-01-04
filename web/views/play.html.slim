@@ -2,34 +2,43 @@
   .grey.square data-command="light/off"
     i.fa.fa-power-off
     span.label off
-  .green.square data-command="light/on"
-    i.fa.fa-th-large
-    span.label all
-  .blue.square
-  .green.square
-.column-2x
-  .square-1x#corner_1_light data-command="switch"
-    .element
-      i.fa.fa-circle-o
-  .square-1x#corner_2_light data-command="switch"
-    .element
-      i.fa.fa-circle-o
-  .square-1x#corner_3_light data-command="switch"
-    .element
-      i.fa.fa-circle-o
-  .square-1x#corner_4_light data-command="switch"
-    .element
-      i.fa.fa-circle-o
-  .blue.rectangle-land
-  .green.square-1x
-  .green.square-1x
+  .grey.square
+  .grey.square
+  .grey.square
 .column
+  .square#corner_1_light data-command="toggle"
+    .element
+      i.fa.fa-square-o
+  .lemon.square data-command="light/up"
+    i.fa.fa-arrow-circle-o-up
+    span.label up
+  .square#corner_3_light data-command="toggle"
+    .element
+      i.fa.fa-square-o
+  .grey.square
+.column
+  .green.square data-command="light/on"
+    i.fa.fa-asterisk
+    span.label all
+  .square#center_light data-command="toggle"
+    .element
+      i.fa.fa-circle-o
   .square#rgb_strip data-screen="dialog_rgb_strip"
     .element
-      i.fa.fa-spinner.fa-spin
+      i.fa.fa-spinner
       span.label led strip
-  .green.square
-  .grey.rectangle
+  .grey.square
+.column
+  .square#corner_2_light data-command="toggle"
+    .element
+      i.fa.fa-square-o
+  .purple.square data-command="light/down"
+    i.fa.fa-arrow-circle-o-down
+    span.label down
+  .square#corner_4_light data-command="toggle"
+    .element
+      i.fa.fa-square-o
+  .grey.square
 .column-2x
   .purple.square-2x
     span.name

@@ -7,8 +7,8 @@ require 'domotics/arduino'
 require 'logger'
 
 #require '../domotics-arduino/lib/domotics/arduino'
-Dir['./app/*.rb'].each {|file| require file}
 Dir['./app/data/*.rb'].each {|file| require file}
+Dir['./app/*.rb'].each {|file| require file}
 
 [:device, :room, :element].each do |x|
   Dir["./app/#{x}/*.rb"].each do |file|
@@ -35,9 +35,13 @@ $logger.level = Logger::DEBUG if ENV['RACK_ENV'] == 'test'
 #end
 
 # Set data store
-Domotics::Element.data = Domotics::DataMongo.new
-
-conf = ENV['RACK_ENV'] == 'test' ? './conf/config.test.rb' : './conf/config.rb'
+#Domotics::Element.data = Domotics::DataRedis.new
+if ENV['RACK_ENV'] == 'test'
+  $emul = Domotics::Arduino::BoardEmulator.new
+  conf = './conf/config.test.rb'
+else
+  conf = './conf/config.rb'
+end
 Domotics::Setup.new IO.read(conf)
 
 builder = Rack::Builder.new do
@@ -51,11 +55,9 @@ builder = Rack::Builder.new do
   use Rack::Auth::Basic, "Domotics access" do |username, password|
     passwd[username] == password
   end
-  if ENV['RACK_ENV'] == 'test'
-    use Rack::Reloader, 0
-    use Rack::ShowExceptions
-    use Rack::Lint
-  end
+  use Rack::Reloader, 0
+  use Rack::ShowExceptions
+  use Rack::Lint
   run Domotics::Server.new
 end
 Rack::Handler::Thin.run builder, :Host => 'localhost', :Port => 9292 unless ENV['RACK_ENV'] == 'test'

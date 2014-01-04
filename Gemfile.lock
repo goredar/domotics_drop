@@ -9,7 +9,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     daemons (1.1.9)
-    domotics-arduino (0.2.5)
+    domotics-arduino (0.3.2)
       serialport
     eventmachine (1.0.3)
     execjs (2.0.2)
@@ -20,7 +20,7 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     redis (3.0.6)
-    sass (3.2.12)
+    sass (3.2.13)
     serialport (1.3.0)
     slim (2.0.2)
       temple (~> 0.6.6)

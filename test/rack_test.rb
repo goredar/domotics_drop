@@ -1,6 +1,3 @@
-#!/usr/bin/ruby -w
-# coding: utf-8
-
 ENV['RACK_ENV'] = 'test'
 
 require './app.rb'
@@ -47,10 +44,10 @@ class DomoticsTest < Test::Unit::TestCase
     sleep 1.2
     3.times do
       sleep 1
-      get '/test/light_1/switch'
+      get '/test/light_1/toggle'
       assert last_response.ok?
     end
-    get '/test/light_1/delay_switch/1'
+    get '/test/light_1/delay_toggle/1'
     assert last_response.ok?
     sleep 2
     get '/test/light_1/off'

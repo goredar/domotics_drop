@@ -14,7 +14,7 @@ module Domotics
     end
   end
 
-  class DataMongoOperator
+  class DataMongoOperator < BasicObject
     def initialize(coll, element)
       @coll = coll
       @element = element
