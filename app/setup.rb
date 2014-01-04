@@ -1,3 +1,4 @@
+# coding: utf-8
 module Domotics
   CLASS_MAP = {group: :element_group}
   class Setup < BasicObject
