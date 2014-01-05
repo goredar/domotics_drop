@@ -2,43 +2,47 @@
   .grey.square data-command="light/off"
     i.fa.fa-power-off
     span.label off
-  .grey.square
-  .grey.square
-  .grey.square
+  .green.square data-command="light/on"
+    i.fa.fa-asterisk
+    span.label all
+  .lemon.square data-command="light/up"
+    i.fa.fa-arrow-circle-o-up
+    span.label up
+  .purple.square data-command="light/down"
+    i.fa.fa-arrow-circle-o-down
+    span.label down
 .column
   .square#corner_1_light data-command="toggle"
     .element
       i.fa.fa-square-o
-  .lemon.square data-command="light/up"
-    i.fa.fa-arrow-circle-o-up
-    span.label up
+      span.label door-light
   .square#corner_3_light data-command="toggle"
     .element
       i.fa.fa-square-o
-  .grey.square
+      span.label door-light
+  .green.square
+  .green.square
 .column
-  .green.square data-command="light/on"
-    i.fa.fa-asterisk
-    span.label all
-  .square#center_light data-command="toggle"
+  .rectangle#center_light data-command="toggle"
     .element
       i.fa.fa-circle-o
+      span.label center-light
   .square#rgb_strip data-screen="dialog_rgb_strip"
     .element
       i.fa.fa-spinner
       span.label led strip
-  .grey.square
+  .green.square
 .column
   .square#corner_2_light data-command="toggle"
     .element
       i.fa.fa-square-o
-  .purple.square data-command="light/down"
-    i.fa.fa-arrow-circle-o-down
-    span.label down
+      span.label window-light
   .square#corner_4_light data-command="toggle"
     .element
       i.fa.fa-square-o
-  .grey.square
+      span.label window-light
+  .green.square
+  .green.square
 .column-2x
   .purple.square-2x
     span.name

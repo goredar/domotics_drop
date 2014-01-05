@@ -42,7 +42,9 @@ if ENV['RACK_ENV'] == 'test'
 else
   conf = './conf/config.rb'
 end
-Domotics::Setup.new IO.read(conf)
+
+require './app/setup'
+::Domotics::Setup.new IO.read(conf)
 
 builder = Rack::Builder.new do
   use Rack::CommonLogger
