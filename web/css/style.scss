@@ -21,6 +21,7 @@ $grey: #A8B1B8;
 $purple: #A68DCC;
 $red: #FF2030;
 $lemon: #FDE910;
+$mango: #FF8040;
 
 // Color styles
 .green { background: $green; }
@@ -30,6 +31,7 @@ $lemon: #FDE910;
 .purple { background: $purple; }
 .red { background: $red; }
 .lemon { background: $lemon; }
+.mango { background: $mango; }
 
 // Global styles
 * {
@@ -106,13 +108,6 @@ html {
 .name {
   position: absolute;
   font-size: 30%;
-  top: 0;
-  right: 0.25em;
-  font-weight:bold;
-}
-.big_name {
-  position: absolute;
-  font-size: 60%;
   top: 0;
   right: 0.25em;
   font-weight:bold;

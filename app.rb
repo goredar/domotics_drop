@@ -6,12 +6,14 @@ require 'rack'
 require 'domotics/arduino'
 require 'logger'
 
+app_path = File.dirname(__FILE__)
+
 #require '../domotics-arduino/lib/domotics/arduino'
-Dir["#{File.dirname(__FILE__)}/app/data/*.rb"].each {|file| require file}
-Dir["#{File.dirname(__FILE__)}/app/*.rb"].each {|file| require file}
+Dir["#{app_path}/app/data/*.rb"].each {|file| require file}
+Dir["#{app_path}/app/*.rb"].each {|file| require file}
 
 [:device, :room, :element].each do |x|
-  Dir["#{File.dirname(__FILE__)}/app/#{x}/*.rb"].each do |file|
+  Dir["#{app_path}/app/#{x}/*.rb"].each do |file|
     cn = nil
     index = nil
     require file
@@ -38,17 +40,17 @@ $logger.level = Logger::DEBUG if ENV['RACK_ENV'] == 'test'
 #Domotics::Element.data = Domotics::DataRedis.new
 if ENV['RACK_ENV'] == 'test'
   $emul = Domotics::Arduino::BoardEmulator.new
-  conf = "#{File.dirname(__FILE__)}/conf/config.test.rb"
+  conf = "#{app_path}/conf/config.test.rb"
 else
-  conf = "#{File.dirname(__FILE__)}/conf/config.rb"
+  conf = "#{app_path}/conf/config.rb"
 end
 
-Domotics::Setup.new(IO.read(conf))
+Domotics::Setup.new IO.read(conf)
 
 builder = Rack::Builder.new do
   use Rack::CommonLogger
   use Rack::ContentLength
-  passwd = IO.read("#{File.dirname(__FILE__)}/conf/passwd").each_line.reduce(Hash.new) do |pw, line|
+  passwd = IO.read("#{app_path}/conf/passwd").each_line.reduce(Hash.new) do |pw, line|
     user, pass = line.chomp.split(" : ")
     pw[user] = pass
     pw

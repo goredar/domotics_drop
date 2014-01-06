@@ -19,6 +19,9 @@
 .lemon {
   background: #fde910; }
 
+.mango {
+  background: #ff8040; }
+
 * {
   overflow: hidden;
   margin: 0;
@@ -87,13 +90,6 @@ html {
 .name {
   position: absolute;
   font-size: 30%;
-  top: 0;
-  right: 0.25em;
-  font-weight: bold; }
-
-.big_name {
-  position: absolute;
-  font-size: 60%;
   top: 0;
   right: 0.25em;
   font-weight: bold; }
