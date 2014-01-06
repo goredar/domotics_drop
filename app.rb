@@ -43,8 +43,7 @@ else
   conf = './conf/config.rb'
 end
 
-require './app/config'
-::Domotics::Config.new IO.read(conf)
+Domotics::Setup.new(IO.read(conf))
 
 builder = Rack::Builder.new do
   use Rack::CommonLogger
