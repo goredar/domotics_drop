@@ -1,7 +1,7 @@
 # coding: utf-8
 module Domotics
   CLASS_MAP = {group: :element_group}
-  class Config < BasicObject
+  class Setup < BasicObject
     def initialize(conf)
       @current_room = {}
       @current_device = {}
