@@ -7,11 +7,11 @@ require 'domotics/arduino'
 require 'logger'
 
 #require '../domotics-arduino/lib/domotics/arduino'
-Dir['./app/data/*.rb'].each {|file| require file}
-Dir['./app/*.rb'].each {|file| require file}
+Dir["#{File.dirname(__FILE__)}/app/data/*.rb"].each {|file| require file}
+Dir["#{File.dirname(__FILE__)}/app/*.rb"].each {|file| require file}
 
 [:device, :room, :element].each do |x|
-  Dir["./app/#{x}/*.rb"].each do |file|
+  Dir["#{File.dirname(__FILE__)}/app/#{x}/*.rb"].each do |file|
     cn = nil
     index = nil
     require file
@@ -38,9 +38,9 @@ $logger.level = Logger::DEBUG if ENV['RACK_ENV'] == 'test'
 #Domotics::Element.data = Domotics::DataRedis.new
 if ENV['RACK_ENV'] == 'test'
   $emul = Domotics::Arduino::BoardEmulator.new
-  conf = './conf/config.test.rb'
+  conf = "#{File.dirname(__FILE__)}/conf/config.test.rb"
 else
-  conf = './conf/config.rb'
+  conf = "#{File.dirname(__FILE__)}/conf/config.rb"
 end
 
 Domotics::Setup.new(IO.read(conf))
