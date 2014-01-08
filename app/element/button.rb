@@ -12,9 +12,9 @@ module Domotics
 
     def state_changed(value)
       case value
-      when :on
-        @last_on = Time.now
       when :off
+        @last_on = Time.now
+      when :on
         off_time = Time.now
         case off_time - @last_on
         when 0..0.5
