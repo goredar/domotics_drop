@@ -20,6 +20,7 @@ module Domotics
       when :tap then light :up
       when :long_tap then light :off
       end
+      super
     end
   end
 end
