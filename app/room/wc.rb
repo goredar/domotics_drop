@@ -1,6 +1,7 @@
 module Domotics
   class Wc < Room
-    def on_event(element)
+    def event_handler(msg)
+      event, element = *msg
       case element.state
       when :move
         light.on if door.close?

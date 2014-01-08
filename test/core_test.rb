@@ -40,6 +40,26 @@ class DomoticsTestCase < Test::Unit::TestCase
     rgb.off
   end
 
+  def test_button
+    btn = Domotics::Room[:test].btn
+    $emul.toggle_pin 7
+    sleep 0.1
+    $emul.toggle_pin 7
+    #assert_equal :state_changed, Domotics::Room[:test].last_event[0]
+    $emul.toggle_pin 7
+    sleep 0.6
+    $emul.toggle_pin 7
+    #assert_equal :state_changed, Domotics::Room[:test].last_event
+    $emul.toggle_pin 7
+    sleep 0.1
+    $emul.toggle_pin 7
+    sleep 0.1
+    $emul.toggle_pin 7
+    sleep 0.1
+    $emul.toggle_pin 7
+    #assert_equal :state_changed, Domotics::Room[:test].last_event
+  end
+  
   def test_room
     tr = Domotics::Room.new name: :tr
     assert_raise NoMethodError do

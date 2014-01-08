@@ -2,7 +2,7 @@ module Domotics
   class Switch < Element
     MINIMUM_LAG = 1
     def initialize(args = {})
-      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::DigitalPin}
+      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::DigitalPin} # if args[:device_type]
       super
       # Identifier of lag thread
       @lag = nil

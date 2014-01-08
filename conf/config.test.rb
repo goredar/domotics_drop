@@ -8,6 +8,7 @@ home :test_home do
       switch :light_2, pin: 13
       dimmer :dimmer, pin: 3
       rgb_strip :rgb, r: 9, g: 10, b: 11
+      button :btn, pin: 7
     end
   end
 end

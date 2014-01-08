@@ -37,7 +37,8 @@ $logger.level = Logger::DEBUG if ENV['RACK_ENV'] == 'test'
 #end
 
 # Set data store
-#Domotics::Element.data = Domotics::DataRedis.new
+Domotics::Element.data = Domotics::DataRedis.new
+
 if ENV['RACK_ENV'] == 'test'
   $emul = Domotics::Arduino::BoardEmulator.new
   conf = "#{app_path}/conf/config.test.rb"

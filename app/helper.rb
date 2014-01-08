@@ -32,3 +32,11 @@ module Domotics
     end
   end
 end
+
+class Object 
+  def eigenclass 
+    class << self
+      self
+    end 
+  end 
+end

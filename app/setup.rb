@@ -38,11 +38,12 @@ module Domotics
     end
 
     def element(klass, args = {})
-      raise "Element must have device and room" unless @current_device.any? and @current_room.any?
+      raise "Element must have room" unless @current_room.any?
       args[:room] = @current_room[:name]
       args[:room_type] = @current_room[:type]
       args[:device] = @current_device[:name]
       args[:device_type] = @current_device[:type]
+      #klass = ::Class.new(klass) if args[:device_type]
       el = klass.new(args) unless Room[@current_room[:name]][args[:name]]
       @groups[-1].add_element el if @groups[-1]
     end

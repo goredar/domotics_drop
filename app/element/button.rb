@@ -1,7 +1,7 @@
 module Domotics
   class Button < Element
-    def initialize(*args)
-      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::NOSensor}
+    def initialize(args = {})
+      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::NOSensor} if args[:device_type]
       super
       @tap = nil
       @tap_lock = Mutex.new
@@ -10,7 +10,7 @@ module Domotics
       nil
     end
 
-    def on_state_changed(value)
+    def state_changed(value)
       case value
       when :on
         @last_on = Time.now

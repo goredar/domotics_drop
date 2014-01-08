@@ -28,14 +28,12 @@ module Domotics
 
     def set_state(value)
       @@data[self].state = value
-      @room.notify [:state_set, self]
-      value
+      @room.notify [:state_set, self] unless @type == :dimmer
     end
 
     def state_changed(value)
-      @@data[self].state = to_hls value
+      @@data[self].state = value
       @room.notify [:state_changed, self]
-      value
     end
 
     def self.data=(value)

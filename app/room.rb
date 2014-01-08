@@ -16,7 +16,7 @@ module Domotics
       end
       # New queue thread
       @room_queue = Queue.new
-      @queue_thread = Thread.new { loop { on_event @room_queue.pop } }
+      @queue_thread = Thread.new { loop { event_handler @room_queue.pop } }
     end
     # Register element
     def register_element(element, name)
@@ -52,13 +52,9 @@ module Domotics
       @room_queue.push(msg)
     end
     # Default - simple prints event
-    def on_event(msg)
-      event, element = msg
-      case element
-      when Dimmer
-      else
-        $logger.info { "[#{@name}]: event message [#{event}] from [#{element.name}] with state [#{element.state}]" }
-      end
+    def event_handler(msg)
+      event, element = *msg
+      $logger.info { "[#{@name}]: event message [#{event}] from [#{element.name}] with state [#{element.state}]" }
     end
 
     def destroy

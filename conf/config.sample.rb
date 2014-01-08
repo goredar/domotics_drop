@@ -3,7 +3,7 @@ home :home do
   bathroom :bath
   wc :wc
   hall :hall
-
+  
   # Room
   playroom :play do
     # Device
@@ -25,18 +25,19 @@ home :home do
   end
   living_room :live do
     arduino :nano_0 do
+      button :light_switch, pin: 5
       group :center_light do
         switch :door_side_light, pin: 13
         switch :window_side_light, pin: 14
       end
       group :board_light do
         group :long_side_light do
-          switch :board_2_light, pin: 16
-          switch :board_4_light, pin: 18
+          switch :board_tv_light, pin: 16
+          switch :board_sofa_light, pin: 18
         end
         group :short_side_light do
-          switch :board_1_light, pin: 15
-          switch :board_3_light, pin: 17
+          switch :board_window_light, pin: 15
+          switch :board_wardrobe_light, pin: 17
         end
       end
     end
