@@ -25,7 +25,7 @@ home :home do
   end
   living_room :live do
     arduino :nano_0 do
-      button :light_switch, pin: 5
+      button :light_switch, pin: 5, touch: true
       group :center_light do
         switch :door_side_light, pin: 13
         switch :window_side_light, pin: 14

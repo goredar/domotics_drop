@@ -2,14 +2,16 @@ module Domotics
   class Switch < Element
     MINIMUM_LAG = 1
     def initialize(args = {})
-      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::DigitalPin} # if args[:device_type]
+      self.class.class_eval %{include Domotics::#{args[:device_type].capitalize}::DigitalPin} if args[:device_type]
+      @initialized = false
       super
+      @initialized = true
       # Identifier of lag thread
       @lag = nil
       @lag_lock = Mutex.new
     end
     def set_state(value)
-      super unless state == value
+      @initialized ? (super unless state == value) : super
     end
     def on(timer = nil)
       set_state :on

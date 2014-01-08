@@ -6,9 +6,8 @@ Thread.class_eval do
       begin
         block.call
       rescue Exception => e
-        $logger.error e
-        #$logger.debug { e.backtrace.join }
-        raise e
+        $logger.error { e.message }
+        $logger.debug { e }
       end
     end
   end

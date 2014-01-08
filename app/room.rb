@@ -52,9 +52,9 @@ module Domotics
       @room_queue.push(msg)
     end
     # Default - simple prints event
-    def event_handler(msg)
-      event, element = *msg
-      $logger.info { "[#{@name}]: event message [#{event}] from [#{element.name}] with state [#{element.state}]" }
+    def event_handler(msg = {})
+      event, element = msg[:event], msg[:element]
+      $logger.info { "Event message :#{event} from #{element} with state [#{element.state}]" }
     end
 
     def destroy
@@ -75,6 +75,9 @@ module Domotics
     def method_missing(symbol, *args)
       super unless args.size == 0
       @@rooms[symbol] || BlackHole.new
+    end
+    def to_s
+      "\033[37mRoom[\033[34m:#{@name}\033[37m](id:#{__id__})\033[0m"
     end
   end
 end

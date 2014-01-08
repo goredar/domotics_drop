@@ -5,10 +5,18 @@ require 'bundler/setup'
 require 'rack'
 require 'domotics/arduino'
 require 'logger'
+require 'optparse'
+#require '../domotics-arduino/lib/domotics/arduino'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: app [options]"
+  opts.on("-d", "--debug", "Run with debug message") do |v|
+    options[:debug] = v
+  end
+end.parse!
 
 app_path = File.dirname(__FILE__)
-
-#require '../domotics-arduino/lib/domotics/arduino'
 Dir["#{app_path}/app/data/*.rb"].each {|file| require file}
 Dir["#{app_path}/app/*.rb"].each {|file| require file}
 
@@ -31,7 +39,7 @@ end
 
 # Create logger
 $logger = Logger.new(STDERR)
-$logger.level = Logger::DEBUG if ENV['RACK_ENV'] == 'test'
+$logger.level = Logger::DEBUG if ENV['RACK_ENV'] == 'test' or options[:debug]
 #$logger.formatter = proc do |severity, datetime, progname, msg|
 #  "#{severity} #{msg}#{$/}"
 #end

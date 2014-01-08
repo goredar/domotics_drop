@@ -42,26 +42,22 @@ class DomoticsTestCase < Test::Unit::TestCase
 
   def test_button
     btn = Domotics::Room[:test].btn
+    $emul.set_internal_state 7, 1
     $emul.toggle_pin 7
     sleep 0.1
     $emul.toggle_pin 7
-    #assert_equal :state_changed, Domotics::Room[:test].last_event[0]
+    sleep 0.01
+    assert_equal Domotics::Room[:test].last_event(btn.name), :state_changed => :tap
     $emul.toggle_pin 7
     sleep 0.6
     $emul.toggle_pin 7
-    #assert_equal :state_changed, Domotics::Room[:test].last_event
-    $emul.toggle_pin 7
-    sleep 0.1
-    $emul.toggle_pin 7
-    sleep 0.1
-    $emul.toggle_pin 7
-    sleep 0.1
-    $emul.toggle_pin 7
-    #assert_equal :state_changed, Domotics::Room[:test].last_event
+    sleep 0.01
+    assert_equal Domotics::Room[:test].last_event(btn.name), :state_changed => :long_tap
   end
-  
+
   def test_room
     tr = Domotics::Room.new name: :tr
+    $logger.debug tr
     assert_raise NoMethodError do
       tr.instance_eval "no_method :args"
     end

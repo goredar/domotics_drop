@@ -1,9 +1,19 @@
 module Domotics
   class TestRoom < Room
-    attr_reader :last_event
-    def event_handler(msg)
-      @last_event = msg
+    def initialize(args = {})
       super
+      @events = {}
+    end
+    def event_handler(msg = {})
+      event, element = msg[:event], msg[:element]
+      if element
+        @events[element.name] = @events[element.name] || Array.new
+        @events[element.name].push event => element.state
+      end
+      super
+    end
+    def last_event(element_name)
+      @events[element_name].pop if @events[element_name].respond_to? :pop
     end
   end
 end

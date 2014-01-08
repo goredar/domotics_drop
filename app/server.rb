@@ -19,7 +19,8 @@ module Domotics
       begin
         object.public_send(action, *request.map { |param| param.to_isym })
       rescue Exception => e
-        $logger.error e.message
+        $logger.error { e.message }
+        $logger.debug { e }
         return invalid 'request'
       end
       return ok object.verbose_state.to_json

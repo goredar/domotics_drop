@@ -14,8 +14,8 @@ module Domotics
       end
       super
     end
-    def event_handler(msg)
-      event, element = *msg
+    def event_handler(msg = {})
+      event, element = msg[:event], msg[:element]
       case element.state
       when :tap then light :up
       when :long_tap then light :off

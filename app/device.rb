@@ -15,5 +15,8 @@ module Domotics
     def destroy
       @@devices[@name] = nil
     end
+    def to_s
+      "\033[37mRoom[\033[36m:#{@name}\033[37m](id:#{__id__})\033[0m"
+    end
   end
 end

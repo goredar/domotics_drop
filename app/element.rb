@@ -28,12 +28,12 @@ module Domotics
 
     def set_state(value)
       @@data[self].state = value
-      @room.notify [:state_set, self] unless @type == :dimmer
+      @room.notify({ event: :state_set, element: self }) unless @type == :dimmer
     end
 
     def state_changed(value)
       @@data[self].state = value
-      @room.notify [:state_changed, self]
+      @room.notify event: :state_changed, element: self
     end
 
     def self.data=(value)
@@ -41,7 +41,7 @@ module Domotics
     end
 
     def to_s
-      "#{room.name}:#{name}"
+      "\033[37mElement[\033[34m:#{@room.name}\033[37m@\033[32m:#{@name}\033[37m](id:#{__id__})\033[0m"
     end
   end
 end
