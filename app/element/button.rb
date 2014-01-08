@@ -1,7 +1,7 @@
 module Domotics
   class Button < Element
     def initialize(args = {})
-      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::NOSensor} if args[:device_type]
+      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::NCSensor} if args[:device_type]
       super
       @tap = nil
       @tap_lock = Mutex.new
