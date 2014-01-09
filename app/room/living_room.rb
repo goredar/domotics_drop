@@ -5,11 +5,11 @@ module Domotics
       when :up
         #return light :on if long_side_light.on?
         return board_light.on if long_side_light.on?
-        return long_side_light.on if board_tv_light.on?
-        return board_tv_light.on if board_wardrobe_light.on?
+        return long_side_light.on if board_wardrobe_light.on?
+        #return board_tv_light.on if board_wardrobe_light.on?
         board_wardrobe_light.on
       when :down
-        [:board_window_light, :board_sofa_light, :board_tv_light, :board_wardrobe_light].each do |light|
+        [:board_window_light, :long_side_light, :board_wardrobe_light].each do |light|
           eval %{ return #{light}.off unless #{light}.off? }
         end
       end
