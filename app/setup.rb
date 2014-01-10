@@ -6,7 +6,7 @@ module Domotics
       @current_room = {}
       @current_device = {}
       @groups = []
-      instance_eval(conf)
+      instance_eval conf, __FILE__, __LINE__
     end
 
     def element_group(args = {})
@@ -43,7 +43,7 @@ module Domotics
       args[:room_type] = @current_room[:type]
       args[:device] = @current_device[:name]
       args[:device_type] = @current_device[:type]
-      #klass = ::Class.new(klass) if args[:device_type]
+      klass = klass.dup if args[:device_type]
       el = klass.new(args) unless Room[@current_room[:name]][args[:name]]
       @groups[-1].add_element el if @groups[-1]
     end

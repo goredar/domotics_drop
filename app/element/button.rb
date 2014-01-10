@@ -2,11 +2,13 @@ module Domotics
   class Button < Element
     def initialize(args = {})
       @touch = args[:touch]
-      eval_str = %(include Domotics::#{args[:device_type].capitalize}::#{@touch ? 'DigitalSensor' : 'NOSensor'})
-      self.class.class_eval eval_str if args[:device_type]
-      super
       @taped = true
       #@tap_lock = Mutex.new
+      if args[:device_type]
+        eval_str = %(include Domotics::#{args[:device_type].capitalize}::#{@touch ? 'DigitalSensor' : 'NOSensor'})
+        self.class.class_eval(eval_str, __FILE__, __LINE__)
+      end
+      super
     end
     def set_state(*args)
       nil

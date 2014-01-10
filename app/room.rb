@@ -21,8 +21,8 @@ module Domotics
     # Register element
     def register_element(element, name)
       @elements[name] = element
-      # Add method with the same name as elements symbol
-      instance_eval %Q{def #{name}; @elements[:#{name}]; end;}
+      # define accessor method (singleton)
+      instance_eval(%(def #{name}; @elements[:#{name}]; end;), __FILE__, __LINE__) unless respond_to? name
     end
     # Return state of all elements
     def verbose_state
@@ -41,7 +41,7 @@ module Domotics
     def light(action = :toggle)
       case action
       when :on, :off, :toggle
-        @elements.light.values.each { |element| element.public_send action }
+        @elements.light.values.each { |element| element.public_send(action) if element.respond_to? action }
       end
     end
     def light_off?

@@ -3,13 +3,8 @@ ENV['RACK_ENV'] = 'test'
 require "test/unit"
 require "./app.rb"
 
-class DomoticsTestCase < Test::Unit::TestCase
-  def test_core
-    ### Arduino board
-    ard = Domotics::Device[:nano]
-    assert ard.set_pwm_frequency 11, 1
-    assert ard.set_pwm_frequency 11, 3
-    ### Dimmer
+class DomoticsElementsTestCase < Test::Unit::TestCase
+  def test_dimmer
     dimmer = Domotics::Room[:test].dimmer
     # Should turn on max and convert state to int
     dimmer.set_state :on
@@ -35,35 +30,25 @@ class DomoticsTestCase < Test::Unit::TestCase
     dimmer.fade_to 0
     sleep 0.8
     assert_equal 0, dimmer.state
-    ### RGBLedStrip
+  end
+
+  def test_rgb_strip
     rgb = Domotics::Room[:test].rgb
     rgb.off
   end
 
   def test_button
-    btn = Domotics::Room[:test].btn
-    $emul.set_internal_state 7, 1
-    $emul.toggle_pin 7
+    btn = Domotics::Room[:test].button
+    $emul.set_internal_state 6, 1
+    $emul.toggle_pin 6
     sleep 0.1
-    $emul.toggle_pin 7
+    $emul.toggle_pin 6
     sleep 0.01
     assert_equal Domotics::Room[:test].last_event(btn.name), :state_changed => :tap
-    $emul.toggle_pin 7
+    $emul.toggle_pin 6
     sleep 0.6
-    $emul.toggle_pin 7
+    $emul.toggle_pin 6
     sleep 0.01
     assert_equal Domotics::Room[:test].last_event(btn.name), :state_changed => :long_tap
-  end
-
-  def test_room
-    tr = Domotics::Room.new name: :tr
-    $logger.debug tr
-    assert_raise NoMethodError do
-      tr.instance_eval "no_method :args"
-    end
-    assert_nothing_raised do
-      tr.instance_eval "nothing.off"
-      tr.instance_eval "nothing.light :off"
-    end
   end
 end

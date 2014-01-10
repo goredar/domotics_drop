@@ -3,15 +3,14 @@ module Domotics
     def light(action = :toggle)
       case action
       when :up
-        #return light :on if long_side_light.on?
         return board_light.on if long_side_light.on?
         return long_side_light.on if board_wardrobe_light.on?
-        #return board_tv_light.on if board_wardrobe_light.on?
+
         board_wardrobe_light.on
       when :down
-        [:board_window_light, :long_side_light, :board_wardrobe_light].each do |light|
-          eval %{ return #{light}.off unless #{light}.off? }
-        end
+        return board_window_light.off unless board_window_light.off
+        return long_side_light.off unless long_side_light.off?
+        board_wardrobe_light.off
       end
       super
     end
@@ -19,7 +18,7 @@ module Domotics
       event, element = msg[:event], msg[:element]
       case element.state
       when :tap then light :up
-      when :long_tap then light :off
+      when :long_tap then light_off? ? light(:on) : light(:off)
       end
       super
     end

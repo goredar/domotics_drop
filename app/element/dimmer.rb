@@ -9,9 +9,12 @@ module Domotics
     STEP_SIZE = ((MAX_LEVEL + 1) / MAX_STEPS.to_f).round
 
     def initialize(args = {})
-      self.class.class_eval %Q{include Domotics::#{args[:device_type].capitalize}::PWMPin} if args[:device_type]
       @fade_lock = Mutex.new
       @fade_thread = nil
+      if args[:device_type]
+        eval_str = %(include Domotics::#{args[:device_type].capitalize}::PWMPin)
+        self.class.class_eval(eval_str, __FILE__, __LINE__)
+      end
       super
     end
 

@@ -1,4 +1,13 @@
+require 'rake/testtask'
+
 task :default => [:test]
+
+Rake::TestTask.new do |t|
+  t.libs << 'test'
+end
+
+desc "Run tests"
+task :default => :test
 
 #desc 'Compile style sheets'
 file 'web/css/style.css' => 'web/css/style.scss' do
@@ -30,12 +39,6 @@ end
 desc 'Compile web-based user interface'
 task :web => ['web/css/style.css', 'web/js/script.js', 'web/index.html'] do
   $stdout.puts 'compiling... done!'
-end
-
-desc 'Make some tests'
-task :test do
-  ruby "./test/core_test.rb"
-  ruby "./test/rack_test.rb"
 end
 
 desc 'Run app'

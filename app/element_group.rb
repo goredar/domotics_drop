@@ -1,5 +1,5 @@
 module Domotics
-  class ElementGroup #< BasicObject
+  class ElementGroup < BasicObject
     attr_reader :name, :type, :room, :elements
     def initialize(args = {})
       #::Object.instance_method(:is_a?).bind(self)
