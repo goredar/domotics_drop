@@ -7,7 +7,7 @@ module Domotics
     def event_handler(msg = {})
       event, element = msg[:event], msg[:element]
       if element
-        @events[element.name] = @events[element.name] || Array.new
+        @events[element.name] ||= []
         @events[element.name].push event => element.state
       end
       super

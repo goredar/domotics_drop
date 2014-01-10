@@ -19,8 +19,8 @@ module Domotics
         (@last_on = Time.now; @taped = false) if @taped
       when :off
         case Time.now - (@last_on || Time.now)
-        when 0...0.05 then return
-        when 0.05...0.5 then super :tap; @taped = true
+        when 0...0.01 then return # debounce
+        when 0.01...0.5 then super :tap; @taped = true
           #@tap_lock.synchronize do
           #  if @tap and @tap.alive?
           #    @tap.kill
