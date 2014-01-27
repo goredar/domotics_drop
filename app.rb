@@ -11,8 +11,11 @@ require 'optparse'
 options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: app [options]"
-  opts.on("-d", "--debug", "Run with debug message") do |v|
+  opts.on("-d", "--debug", "Run in debug mode") do |v|
     options[:debug] = v
+  end
+  opts.on("-c", "--config FILE", "Set config file location") do |file|
+    options[:config] = file
   end
 end.parse!
 
@@ -47,11 +50,11 @@ $logger.level = Logger::DEBUG if ENV['RACK_ENV'] == 'test' or options[:debug]
 # Set data store
 Domotics::Element.data = Domotics::DataRedis.new
 
+conf = options[:config] || "#{app_path}/conf/config.rb"
+# For tests
 if ENV['RACK_ENV'] == 'test'
   $emul = Domotics::Arduino::BoardEmulator.new
   conf = "#{app_path}/conf/config.test.rb"
-else
-  conf = "#{app_path}/conf/config.rb"
 end
 
 Domotics::Setup.new IO.read(conf)

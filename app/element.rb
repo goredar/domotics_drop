@@ -41,7 +41,7 @@ module Domotics
     end
 
     def to_s
-      "\033[37mElement[\033[34m:#{@room.name}\033[37m@\033[32m:#{@name}\033[37m](id:#{__id__})\033[0m"
+      "Element[#{@room.name}@#{@name}](id:#{__id__})"
     end
   end
 end

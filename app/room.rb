@@ -77,7 +77,7 @@ module Domotics
       @@rooms[symbol] || BlackHole.new
     end
     def to_s
-      "\033[37mRoom[\033[34m:#{@name}\033[37m](id:#{__id__})\033[0m"
+      "Room[#{@name}](id:#{__id__})"
     end
   end
 end
