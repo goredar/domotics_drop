@@ -8,14 +8,27 @@ module Domotics
       @args[:host] = args[:host] || "127.0.0.1"
       @args[:port] = args[:port] || 6379
       @args[:driver] = :hiredis
-      @redis = Redis.new @args
+      connect
     end
 
     def [](obj)
       case obj
       when Element
-        DataRedisOperator.new @redis, "#{obj.room.name}:#{obj.name}"
+        DataRedisOperator.new self, "#{obj.room.name}:#{obj.name}"
       end
+    end
+
+    def connect(args = {})
+      $logger.debug "Broken connection to redis host [#{@args[:host]}:#{@args[:port]}] detected. Reconnect." if args[:broken]
+      @redis.quit if @redis
+      @redis = Redis.new @args
+    end
+
+    def get(*args)
+      @redis.get *args
+    end
+    def set(*args)
+      @redis.set *args
     end
   end
 
@@ -32,12 +45,10 @@ module Domotics
       # Getter method (no arguments allowed)
       elsif args.size == 0
         result = @redis.get "#{@key}:#{symbol}"
-        # !!!
-        #while result =~ /\AOK!\Z/
-        #  @redis.quit
-        #  @redis = Redis.new @args
-        #  result = @redis.get "#{@key}:#{symbol}"
-        #end
+        while result =~ /\AOK\Z/
+          @redis.connect broken: true
+          result = @redis.get "#{@key}:#{symbol}"
+        end
         result && result.to_isym
       else
         nil

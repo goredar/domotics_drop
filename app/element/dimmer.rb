@@ -18,13 +18,11 @@ module Domotics
       super
     end
 
-    def set_state(value = DEFAULT_LEVEL, kill_flag = true)
-      if kill_flag
+    def set_state(value = DEFAULT_LEVEL, opt = {})
+      kill_fader = opt[:kill_fader] == :no ? false : true
+      if kill_fader
         @fade_lock.synchronize do
-          if @fade_thread and @fade_thread.alive?
-            @fade_thread.kill
-          end
-          @fade_thread = nil
+          @fade_thread.kill if @fade_thread and @fade_thread.alive?
         end
       end
       if value.is_a? Integer
@@ -61,7 +59,7 @@ module Domotics
           op = (value - state) >= 0 ? :+ : :-
           steps = ((value - state).abs / STEP_SIZE.to_f).round
           steps.times do
-            set_state(state.public_send(op, STEP_SIZE), false)
+            set_state(state.public_send(op, STEP_SIZE), kill_fader: :no)
             sleep speed_divisor * STEP_DELAY
           end
           @fade_lock.synchronize { @fade_thread = nil }
