@@ -40,8 +40,10 @@ module Domotics
     # Perform action with light
     def light(action = :toggle)
       case action
-      when :on, :off, :toggle
+      when :on, :off
         @elements.light.values.each { |element| element.public_send(action) if element.respond_to? action }
+      when :toggle
+        light_off? ? light(:on) : light(:off)
       end
     end
     def light_off?
