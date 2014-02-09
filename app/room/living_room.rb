@@ -19,7 +19,7 @@ module Domotics
       case element.state
       when :tap then light :up
       when :long_tap then light :toggle
-      when :long_tap_2x then light :toggle; play.light :toggle
+      when :long_tap_x2 then light :toggle; play.light :toggle
       end
       super
     end
