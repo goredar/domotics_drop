@@ -23,7 +23,7 @@ module Domotics
         case Time.now - (@last_on || Time.now)
         when 0...0.01 then return # debounce
         when 0.01...0.3 then super :tap; @taped = true
-        when 0.3...2 then super :long_tap; @taped = true
+        when 0.3...1 then super :long_tap; @taped = true
           #@tap_lock.synchronize do
           #  if @tap and @tap.alive?
           #    @tap.kill
