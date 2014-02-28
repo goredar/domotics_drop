@@ -1,6 +1,7 @@
 module Domotics
   class RgbStrip < Element
     def initialize(args = {})
+      @type = args[:type] || :rgb_strip
       @strips = Hash.new
       @crazy_lock = Mutex.new
       @crazy_thread = nil
@@ -35,6 +36,10 @@ module Domotics
 
     def on?
       color.reduce(:+) != 0
+    end
+
+    def on
+      set_color 255, 255, 255
     end
 
     def set_color(*args)

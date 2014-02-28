@@ -1,6 +1,7 @@
 module Domotics
   class ReedSwitch < Element
     def initialize(args = {})
+      @type = args[:type] || :reed_switch
       if args[:device_type]
         eval_str = %(include Domotics::#{args[:device_type].capitalize}::NCSensor)
         self.class.class_eval(eval_str, __FILE__, __LINE__)

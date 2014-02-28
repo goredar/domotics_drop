@@ -1,6 +1,7 @@
 module Domotics
   class Button < Element
     def initialize(args = {})
+      @type = args[:type] || :button
       @touch = args[:touch]
       @taped = true
       #@tap_lock = Mutex.new
@@ -15,7 +16,7 @@ module Domotics
     end
 
     def state_changed(value)
-      $logger.debug { "#{self}: state[:#{value}]" }
+      #$logger.debug { "#{self}: state[:#{value}]" }
       case value
       when :on
         (@last_on = Time.now; @taped = false) if @taped

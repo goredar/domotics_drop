@@ -52,7 +52,7 @@ module Domotics
       if CLASS_MAP[symbol] and name = args.shift
         args_hash = args.shift || {}
         args_hash[:name] = name
-        args_hash[:type] = symbol
+        args_hash[:type] = symbol if CLASS_MAP[symbol][0] != :element
         args_hash[:logger] = $logger
         __send__(*CLASS_MAP[symbol], args_hash, &block)
       else

@@ -1,6 +1,7 @@
 module Domotics
   class MotionSensor < Element
     def initialize(args = {})
+      @type = args[:type] || :motion_sensor
       if args[:device_type]
         eval_str = %(include Domotics::#{args[:device_type].capitalize}::DigitalSensor)
         self.class.class_eval(eval_str, __FILE__, __LINE__)

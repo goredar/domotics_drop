@@ -9,6 +9,7 @@ module Domotics
     STEP_SIZE = ((MAX_LEVEL + 1) / MAX_STEPS.to_f).round
 
     def initialize(args = {})
+      @type = args[:type] || :dimmer
       @fade_lock = Mutex.new
       @fade_thread = nil
       if args[:device_type]
@@ -19,8 +20,7 @@ module Domotics
     end
 
     def set_state(value = DEFAULT_LEVEL, opt = {})
-      kill_fader = opt[:kill_fader] == :no ? false : true
-      if kill_fader
+      unless opt[:kill_fader] == :no
         @fade_lock.synchronize do
           @fade_thread.kill if @fade_thread and @fade_thread.alive?
         end

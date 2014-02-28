@@ -34,7 +34,14 @@ class DomoticsElementsTestCase < Test::Unit::TestCase
 
   def test_rgb_strip
     rgb = Domotics::Room[:test].rgb
+    rgb.on
+    sleep 1.6
+    assert_equal 255, rgb.red.state
     rgb.off
+    assert_equal 0, rgb.red.state
+    assert_equal :dimmer, rgb.red.type
+    assert_equal :dimmer, rgb.green.type
+    assert_equal :dimmer, rgb.blue.type
   end
 
   def test_button
@@ -43,7 +50,7 @@ class DomoticsElementsTestCase < Test::Unit::TestCase
     $emul.toggle_pin 6
     sleep 0.1
     $emul.toggle_pin 6
-    sleep 0.01
+    sleep 0.05
     assert_equal Domotics::Room[:test].last_event(btn.name), :state_changed => :tap
     $emul.toggle_pin 6
     sleep 0.6

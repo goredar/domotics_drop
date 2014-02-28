@@ -2,6 +2,7 @@ module Domotics
   class Switch < Element
     MINIMUM_LAG = 1
     def initialize(args = {})
+      @type = args[:type] || :switch
       @lag = nil
       @lag_lock = Mutex.new
       if args[:device_type]
