@@ -9,16 +9,21 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     daemons (1.1.9)
-    domotics-arduino (0.3.5)
+    domotics-arduino (0.3.7)
       serialport
+    domotics-core (0.1.2)
+      bson_ext
+      domotics-arduino
+      hiredis
+      mongo
+      rack
+      redis
     eventmachine (1.0.3)
     execjs (2.0.2)
     hiredis (0.4.5)
     mongo (1.9.2)
       bson (~> 1.9.2)
     rack (1.5.2)
-    rack-test (0.6.2)
-      rack (>= 1.0)
     redis (3.0.7)
     sass (3.2.14)
     serialport (1.3.0)
@@ -26,7 +31,6 @@ GEM
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
     temple (0.6.7)
-    test-unit (2.5.5)
     thin (1.6.1)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -37,15 +41,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson_ext
   coffee-script
-  domotics-arduino
-  hiredis
-  mongo
-  rack
-  rack-test
-  redis
+  domotics-core
   sass
   slim
-  test-unit
   thin

@@ -2,11 +2,9 @@
 # coding: utf-8
 
 require 'bundler/setup'
-require 'rack'
-require 'domotics/arduino'
-require 'logger'
 require 'optparse'
-#require '../domotics-arduino/lib/domotics/arduino'
+require 'domotics/core'
+require 'rack'
 
 options = {}
 OptionParser.new do |opts|
@@ -20,44 +18,15 @@ OptionParser.new do |opts|
 end.parse!
 
 app_path = File.dirname(__FILE__)
-Dir["#{app_path}/app/data/*.rb"].each {|file| require file}
-Dir["#{app_path}/app/*.rb"].each {|file| require file}
 
-[:device, :room, :element].each do |x|
-  Dir["#{app_path}/app/#{x}/*.rb"].each do |file|
-    cn = nil
-    index = nil
-    require file
-    IO.read(file).each_line do |line|
-      if line =~ /class\s*([A-Z]\w*)[\s\w<]*(#__as__ :(\w*))?/
-        cn, index = $1, $3 && $3.to_sym
-        break
-      end
-    end
-    next unless cn
-    index ||= cn.split(/(?=[A-Z])/).map{ |cnp| cnp.downcase }.join('_').to_sym
-    Domotics::CLASS_MAP[index] = [x, Domotics.const_get(cn)]
-  end
+Dir["#{app_path}/rooms/*.rb"].each do |file|
+  Domotics::Core.add_map type: :room, file: file, realm: Object
 end
 
-# Create logger
-$logger = Logger.new(STDERR)
-$logger.level = Logger::DEBUG if ENV['RACK_ENV'] == 'test' or options[:debug]
-#$logger.formatter = proc do |severity, datetime, progname, msg|
-#  "#{severity} #{msg}#{$/}"
-#end
-
-# Set data store
-Domotics::Element.data = Domotics::DataRedis.new
+require "#{app_path}/conf/app.conf.rb"
 
 conf = options[:config] || "#{app_path}/conf/config.rb"
-# For tests
-if ENV['RACK_ENV'] == 'test'
-  $emul = Domotics::Arduino::BoardEmulator.new
-  conf = "#{app_path}/conf/config.test.rb"
-end
-
-Domotics::Setup.new IO.read(conf)
+Domotics::Core::Setup.new IO.read(conf)
 
 builder = Rack::Builder.new do
   use Rack::CommonLogger
@@ -73,6 +42,6 @@ builder = Rack::Builder.new do
   use Rack::Reloader, 0
   use Rack::ShowExceptions
   use Rack::Lint
-  run Domotics::Server.new
+  run Domotics::Core::Server.new
 end
-Rack::Handler::Thin.run builder, :Host => 'localhost', :Port => 9292 unless ENV['RACK_ENV'] == 'test'
+Rack::Handler::Thin.run builder, :Host => 'localhost', :Port => 9292
