@@ -109,6 +109,14 @@ rooms =
               element_img.attr('src', element_data.img)
             else
               element.append("<img width=100% src=#{element_data.img}></img>")
+wsclient =
+  init: () ->
+    Socket = if "MozWebSocket" in window then MozWebSocket else WebSocket
+    ws = new Socket("wss://localhost/websocket/connect")
+    ws.onmessage = (msg) ->
+      $.getJSON "#{msg.data}/state.json", rooms.update
 $ ->
   rooms.init()
   view.init()
+  wsclient.init()
+  console.log window.location.href

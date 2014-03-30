@@ -1,5 +1,6 @@
 (function() {
-  var rooms, view;
+  var rooms, view, wsclient,
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   view = {
     row_count: 4,
@@ -145,9 +146,22 @@
     }
   };
 
+  wsclient = {
+    init: function() {
+      var Socket, ws;
+      Socket = __indexOf.call(window, "MozWebSocket") >= 0 ? MozWebSocket : WebSocket;
+      ws = new Socket("wss://localhost/websocket/connect");
+      return ws.onmessage = function(msg) {
+        return $.getJSON("" + msg.data + "/state.json", rooms.update);
+      };
+    }
+  };
+
   $(function() {
     rooms.init();
-    return view.init();
+    view.init();
+    wsclient.init();
+    return console.log(window.location.href);
   });
 
 }).call(this);
