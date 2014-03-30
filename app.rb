@@ -41,8 +41,8 @@ builder = Rack::Builder.new do
     passwd[username] == password
   end
   use Rack::Reloader, 0
-  use Rack::ShowExceptions
-  use Rack::Lint
+  #use Rack::ShowExceptions
+  #use Rack::Lint
   run Domotics::Core::Server.new
 end
 Rack::Handler::Thin.run builder, :Host => 'localhost', :Port => 9292
