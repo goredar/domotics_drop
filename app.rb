@@ -33,4 +33,4 @@ Domotics::Core::Setup.new IO.read(conf)
 Domotics::Core::WsServer.new(:host => 'localhost', :port => 8080, :secure_proxy => true).run
 Domotics::Core::Server.run(:Host => 'localhost', :Port => 9292)
 
-if $stdin then $stdin.gets; else sleep; end
+sleep
