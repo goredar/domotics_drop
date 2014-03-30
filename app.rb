@@ -1,8 +1,11 @@
 #!/usr/bin/env ruby
 # coding: utf-8
 
+app_path = File.dirname(__FILE__)
+
 require 'bundler/setup'
 require 'optparse'
+#require "../domotics-core/lib/domotics/core"
 require 'domotics/core'
 require 'rack'
 
@@ -16,8 +19,6 @@ OptionParser.new do |opts|
     options[:config] = file
   end
 end.parse!
-
-app_path = File.dirname(__FILE__)
 
 Dir["#{app_path}/rooms/*.rb"].each do |file|
   Domotics::Core.add_map type: :room, file: file, realm: Object

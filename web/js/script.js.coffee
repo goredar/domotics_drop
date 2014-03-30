@@ -14,23 +14,24 @@ view =
     w_width = $(window).width()
     w_height = $(window).height()
     # Calculate size
-    base_dim = Math.round(w_height/(@row_count+@gutter_part*(@row_count+1)))
-    gutter = Math.round(base_dim*@gutter_part)
-    container_width = (base_dim+gutter)*@col_count
+    base_dim = Math.round(w_height / (@row_count + @gutter_part * (@row_count + 1)))
+    gutter = Math.round(base_dim * @gutter_part)
+    container_width = (base_dim + gutter)*@col_count
     # Layout
-    $('body').height(w_height-gutter*2).css('font-size', "#{base_dim/2}px")
+    $('body').height(w_height-gutter * 2).css('font-size', "#{base_dim / 2}px")
     $('.container').width(container_width)
-    $('.spacer').width(w_width-container_width-gutter*2).css('margin_right', gutter).css('margin_left', gutter)
+    $('.spacer').width(w_width - container_width - gutter * 2).css('margin_right', gutter).css('margin_left', gutter)
     $('.column').width(base_dim+gutter)
-    $('.column-2x').width((base_dim+gutter)*2)
+    $('.column-2x').width( (base_dim + gutter ) * 2)
     # Column(-1x) elements
     $('.square').width(base_dim).height(base_dim).css('margin_right', gutter)
-    $('.rectangle').width(base_dim).height(base_dim*2+gutter)
+    $('.rectangle').width(base_dim).height(base_dim * 2 + gutter)
     # Column-2x elements
     $('.square-1x').width(base_dim).height(base_dim).css('margin_right', gutter)
-    $('.square-2x').width(base_dim*2+gutter).height(base_dim*2+gutter)
-    $('.rectangle-land').width(base_dim*2+gutter).height(base_dim)
-    $('.rectangle-port').height(base_dim*2+gutter).width(base_dim).css('margin_right', gutter)
+    $('.square-2x').width(base_dim * 2 + gutter).height(base_dim * 2 + gutter)
+    $('.rectangle-land').width(base_dim * 2 + gutter).height(base_dim)
+    $('.rectangle-port').height(base_dim * 2 + gutter).width(base_dim).css('margin_right', gutter)
+    $('.cam_shot').width(base_dim * 5 + gutter * 4)
     # All elements
     $("[class*=square], [class*=rectangle]").css('margin_bottom', gutter)
   rotate: (direction) ->
@@ -63,7 +64,7 @@ view =
       else
         request = ""
       request += "/#{$(this).attr('id')}" if $(this).attr("id")
-      request += "/#{$(this).data('command')}"
+      request += "/#{$(this).data('command')}.json"
       $.getJSON request, rooms.update
       return false
     # Hook spacer
@@ -84,11 +85,11 @@ rooms =
   # Get initial state
   init: () ->
     $(".screen").each ->
-      $.getJSON "#{$(this).attr("id")}/state", rooms.update
+      $.getJSON "#{$(this).attr("id")}/state.json", rooms.update
   # Update elements state and info
   update: (data, status, xhr) ->
     if status == "success"
-      # console.log data
+      #console.log data
       for room_name, room_data of data
         for element_name, element_data of room_data.elements
           # Add element state class
@@ -102,6 +103,12 @@ rooms =
               element_info.html(element_data.info)
             else
               element.append("<span class='info'>#{element_data.info}</span>")
+          if element_data.img
+            element_img = element.children("img")
+            if element_img.size() != 0
+              element_img.attr('src', element_data.img)
+            else
+              element.append("<img width=100% src=#{element_data.img}></img>")
 $ ->
   rooms.init()
   view.init()

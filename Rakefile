@@ -28,7 +28,7 @@ task 'web/index.html' do
   require "slim"
   class Object
     def render(file)
-      Slim::Template.new("web/views/#{file}.html.slim").render
+      Slim::Template.new(file).render
     end
   end
   File.open("web/index.html", 'w') do |f|
@@ -38,7 +38,8 @@ end
 
 desc 'Compile web-based user interface'
 task :web => ['web/css/style.css', 'web/js/script.js', 'web/index.html'] do
-  $stdout.puts 'compiling... done!'
+  $stdout.puts 'compiling done!'
+  %x[sudo cp -R ./web/* /srv/http ]
 end
 
 desc 'Run app'

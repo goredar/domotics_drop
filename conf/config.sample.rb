@@ -3,7 +3,7 @@ home :home do
   bathroom :bath
   wc :wc
   hall :hall
-  
+
   # Room
   playroom :play do
     # Device

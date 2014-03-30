@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem "rb-inotify"
+
 # Domotics
 gem "domotics-core"
 

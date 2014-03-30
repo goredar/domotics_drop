@@ -14,11 +14,38 @@ html
       .room_switch
         span.fa.fa-2x.fa-angle-down
     .container
-      - %w(home kt bath wc hall play live).each do |room|
-        .screen id=room
-          == render room
-      - %w(dialog_rgb_strip).each do |dialog|
-        .dialog id=dialog
-          == render dialog
+      .screen id="home"
+        .column
+          .square.grey data-command="light/off"
+            i.fa.fa-power-off
+            span.label off
+        .column-2x
+          .rectangle-land.blue data-screen="live"
+            span.name Living Room
+            i.fa.fa-male
+            i.fa.fa-female
+          .square.green data-screen="hall"
+            span.name Hall
+            i.fa.fa-group
+          .square.mango data-screen="wc"
+            span.name WC
+            i.fa.fa-mobile
+        .column-2x
+          .rectangle-land.lemon data-screen="play"
+            span.name Playroom
+            i.fa.fa-magic
+          .square.purple data-screen="bath"
+            span.name Bathroom
+            i.fa.fa-umbrella
+          .square.darkblue data-screen="kt"
+            span.name Kitchen
+            i.fa.fa-glass
+        .column
+      - Dir["#{File.dirname(__FILE__)}/views/*.html.slim"].each do |file|
+        .screen id=File.basename(file).split(".").first
+          == render file
+      - Dir["#{File.dirname(__FILE__)}/views/dialogs/*.html.slim"].each do |file|
+        .dialog id=File.basename(file).split(".").first
+          == render file
     script src="js/zepto.min.js"
     script src="js/script.js"

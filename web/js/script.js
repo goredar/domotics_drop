@@ -31,6 +31,7 @@
       $('.square-2x').width(base_dim * 2 + gutter).height(base_dim * 2 + gutter);
       $('.rectangle-land').width(base_dim * 2 + gutter).height(base_dim);
       $('.rectangle-port').height(base_dim * 2 + gutter).width(base_dim).css('margin_right', gutter);
+      $('.cam_shot').width(base_dim * 5 + gutter * 4);
       return $("[class*=square], [class*=rectangle]").css('margin_bottom', gutter);
     },
     rotate: function(direction) {
@@ -75,7 +76,7 @@
         if ($(this).attr("id")) {
           request += "/" + ($(this).attr('id'));
         }
-        request += "/" + ($(this).data('command'));
+        request += "/" + ($(this).data('command')) + ".json";
         $.getJSON(request, rooms.update);
         return false;
       });
@@ -99,11 +100,11 @@
   rooms = {
     init: function() {
       return $(".screen").each(function() {
-        return $.getJSON("" + ($(this).attr("id")) + "/state", rooms.update);
+        return $.getJSON("" + ($(this).attr("id")) + "/state.json", rooms.update);
       });
     },
     update: function(data, status, xhr) {
-      var element, element_data, element_info, element_name, room_data, room_name, _results;
+      var element, element_data, element_img, element_info, element_name, room_data, room_name, _results;
       if (status === "success") {
         _results = [];
         for (room_name in data) {
@@ -120,9 +121,17 @@
               if (element_data.info) {
                 element_info = element.children(".info");
                 if (element_info.size() !== 0) {
-                  _results1.push(element_info.html(element_data.info));
+                  element_info.html(element_data.info);
                 } else {
-                  _results1.push(element.append("<span class='info'>" + element_data.info + "</span>"));
+                  element.append("<span class='info'>" + element_data.info + "</span>");
+                }
+              }
+              if (element_data.img) {
+                element_img = element.children("img");
+                if (element_img.size() !== 0) {
+                  _results1.push(element_img.attr('src', element_data.img));
+                } else {
+                  _results1.push(element.append("<img width=100% src=" + element_data.img + "></img>"));
                 }
               } else {
                 _results1.push(void 0);
