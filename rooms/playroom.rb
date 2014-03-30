@@ -16,4 +16,13 @@ class Playroom < Domotics::Core::Room
     end
     super
   end
+  def event_handler(msg = {})
+    event, element = msg[:event], msg[:element]
+    case element.state
+    when :tap then light :up
+    when :long_tap then light :toggle
+    when :long_tap_x2 then light :off; live.light :off
+    end
+    super
+  end
 end

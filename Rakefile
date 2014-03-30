@@ -47,8 +47,20 @@ task :run do
   ruby "./app.rb"
 end
 
-desc 'Update'
-task :up do
+desc 'Pull'
+task :pull do
   puts %x{ sudo git pull }
+  puts %x{ sudo bundle update }
   puts %x{ sudo systemctl restart domotics.service }
+end
+
+desc 'Push'
+task :push, :commit_message do |t, args|
+  %x(git add --all .)
+  if args[:commit_message]
+    %x(git commit -a -m "#{args[:commit_message]}")
+  else 
+    %x(git commit -a --reuse-message=HEAD)
+  end
+  %x(git push)
 end

@@ -2,10 +2,10 @@ class LivingRoom < Domotics::Core::Room
   def light(action = :toggle)
     case action
     when :up
-      return board_light.on if long_side_light.on?
-      return long_side_light.on if board_wardrobe_light.on?
+      return board_light.on if short_side_light.on?
+      return short_side_light.on if board_sofa_light.on?
 
-      board_wardrobe_light.on
+      board_sofa_light.on
     when :down
       return board_window_light.off unless board_window_light.off?
       return long_side_light.off unless long_side_light.off?
@@ -18,7 +18,7 @@ class LivingRoom < Domotics::Core::Room
     case element.state
     when :tap then light :up
     when :long_tap then light :toggle
-    when :long_tap_x2 then light :toggle; play.light :toggle
+    when :long_tap_x2 then light :off; play.light :off
     end
     super
   end
