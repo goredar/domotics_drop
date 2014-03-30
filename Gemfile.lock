@@ -11,7 +11,7 @@ GEM
     daemons (1.1.9)
     domotics-arduino (0.3.8)
       serialport
-    domotics-core (0.2.1)
+    domotics-core (0.2.2)
       bson_ext
       domotics-arduino
       em-websocket

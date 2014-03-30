@@ -5,8 +5,8 @@ app_path = File.dirname(__FILE__)
 
 require 'bundler/setup'
 require 'optparse'
-require "../domotics-core/lib/domotics/core"
-#require 'domotics/core'
+#require "../domotics-core/lib/domotics/core"
+require 'domotics/core'
 require 'rack'
 
 options = {}
