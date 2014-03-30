@@ -5,8 +5,8 @@ app_path = File.dirname(__FILE__)
 
 require 'bundler/setup'
 require 'optparse'
-#require "../domotics-core/lib/domotics/core"
-require 'domotics/core'
+require "../domotics-core/lib/domotics/core"
+#require 'domotics/core'
 require 'rack'
 
 options = {}
@@ -28,9 +28,6 @@ require "#{app_path}/conf/app.conf.rb"
 
 conf = options[:config] || "#{app_path}/conf/config.rb"
 
-
-Domotics::Core::Setup.new IO.read(conf)
 Domotics::Core::WsServer.new(:host => 'localhost', :port => 8080, :secure_proxy => true).run
+Domotics::Core::Setup.new IO.read(conf)
 Domotics::Core::Server.run(:Host => 'localhost', :Port => 9292)
-
-Queue.new.pop

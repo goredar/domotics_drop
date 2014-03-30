@@ -112,11 +112,10 @@ rooms =
 wsclient =
   init: () ->
     Socket = if "MozWebSocket" in window then MozWebSocket else WebSocket
-    ws = new Socket("wss://domotics.goredar.it/websocket/connect")
+    ws = new Socket("wss://#{window.location.host}/websocket/connect")
     ws.onmessage = (msg) ->
       $.getJSON "#{msg.data}/state.json", rooms.update
 $ ->
   rooms.init()
   view.init()
   wsclient.init()
-  console.log window.location.href

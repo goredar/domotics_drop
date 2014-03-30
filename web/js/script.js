@@ -150,7 +150,7 @@
     init: function() {
       var Socket, ws;
       Socket = __indexOf.call(window, "MozWebSocket") >= 0 ? MozWebSocket : WebSocket;
-      ws = new Socket("wss://domotics.goredar.it/websocket/connect");
+      ws = new Socket("wss://" + window.location.host + "/websocket/connect");
       return ws.onmessage = function(msg) {
         return $.getJSON("" + msg.data + "/state.json", rooms.update);
       };
@@ -160,8 +160,7 @@
   $(function() {
     rooms.init();
     view.init();
-    wsclient.init();
-    return console.log(window.location.href);
+    return wsclient.init();
   });
 
 }).call(this);
