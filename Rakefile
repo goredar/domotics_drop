@@ -49,6 +49,7 @@ end
 
 desc 'Pull'
 task :pull do
+  puts %x{ sudo git stash }
   puts %x{ sudo git pull }
   puts %x{ sudo bundle update }
   puts %x{ sudo systemctl restart domotics.service }
