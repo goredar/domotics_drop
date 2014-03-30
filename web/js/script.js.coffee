@@ -112,7 +112,7 @@ rooms =
 wsclient =
   init: () ->
     Socket = if "MozWebSocket" in window then MozWebSocket else WebSocket
-    ws = new Socket("wss://localhost/websocket/connect")
+    ws = new Socket("wss://goredar.it/websocket/connect")
     ws.onmessage = (msg) ->
       $.getJSON "#{msg.data}/state.json", rooms.update
 $ ->
