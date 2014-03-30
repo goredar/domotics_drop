@@ -150,7 +150,7 @@
     init: function() {
       var Socket, ws;
       Socket = __indexOf.call(window, "MozWebSocket") >= 0 ? MozWebSocket : WebSocket;
-      ws = new Socket("wss://goredar.it/websocket/connect");
+      ws = new Socket("wss://domotics.goredar.it/websocket/connect");
       return ws.onmessage = function(msg) {
         return $.getJSON("" + msg.data + "/state.json", rooms.update);
       };
