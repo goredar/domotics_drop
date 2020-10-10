@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  domotics:
+    image: dom
+    volumes:
+      - ./conf/:/app/conf/
+    devices:
+      - /dev/ttyNano
+    links:
+      - redis
+  redis:
+    image: redis
