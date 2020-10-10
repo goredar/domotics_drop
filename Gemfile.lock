@@ -30,7 +30,7 @@ GEM
     http_parser.rb (0.5.3)
     mongo (1.10.0)
       bson (~> 1.10.0)
-    rack (1.5.2)
+    rack (2.2.3)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
     redis (3.0.7)
