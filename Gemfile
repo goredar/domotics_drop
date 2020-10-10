@@ -6,8 +6,8 @@ gem "rb-inotify"
 gem "domotics-core"
 
 # Database
-#gem "redis"
-#gem "hiredis"
+gem "redis"
+gem "hiredis"
 #gem "mongo"
 #gem "bson_ext"
 

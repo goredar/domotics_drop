@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  domotics:
+    image: goredar/domotics
+    volumes:
+      - ./conf/:/app/conf/
+      - ./rooms/:/app/rooms/
+    devices:
+      - /dev/ttyNano
+    links:
+      - redis
+  redis:
+    image: redis
